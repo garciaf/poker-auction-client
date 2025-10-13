@@ -1,5 +1,10 @@
 <script>
   import '../app.css';
-</script>
+  import  LiveNavigation  from '$lib/liveNavigation';
 
-<slot />
+</script>
+<main class="bg-poker-green h-dvh text-white overflow-auto">
+  <div class= "h-full">
+    <slot />
+  </div>
+</main>
