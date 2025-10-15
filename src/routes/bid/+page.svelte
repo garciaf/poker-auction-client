@@ -1,10 +1,9 @@
 <script>
-  import { onMount } from 'svelte';
+  import { base } from '$app/paths';
   import socket from '$lib/socket';
   import Card from '$lib/components/Card.svelte';
   import { financeState, auctionState, playerStore } from '$lib/stores/player';
   import  LiveNavigation  from '$lib/liveNavigation';
-
   // @ts-ignore
   /**
      * @type {number | undefined}
@@ -82,7 +81,7 @@
           class="w-12 h-12 flex items-center justify-center rounded-full bg-gradient-to-br from-poker-darker-green to-poker-green shadow-inner"
           aria-label="Submit Bid"
         >
-          <img src={`/images/arrow.svg`} alt="Arrow" class="w-6 h-6" />
+          <img src={`${base}/images/arrow.svg`} alt="Arrow" class="w-6 h-6" />
         </button>
       </div>
     </form>
