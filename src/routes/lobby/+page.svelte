@@ -1,5 +1,5 @@
 <script>
-  import { onMount } from 'svelte';  import { page } from '$app/stores';
+  import { base } from '$app/paths'; // ✅ use base path from SvelteKit
   import { goto } from '$app/navigation'; // ✅ replace push() from svelte-spa-router
   import socket from '$lib/socket'; // ✅ use SvelteKit alias
   import { playerStore, gameStore } from '$lib/stores/player';
@@ -29,7 +29,7 @@
         playerStore.setProp('id', id);
         playerStore.setProp('color', color);
 
-        goto('/waiting-room'); // ✅ SvelteKit navigation
+        goto(`${base}/waiting-room`); // ✅ SvelteKit navigation
     });
 
     socket.on('joined-lobby', (data) => {

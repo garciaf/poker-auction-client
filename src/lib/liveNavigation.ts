@@ -1,4 +1,5 @@
 import { goto } from '$app/navigation';
+import { base } from '$app/paths';
 import { browser } from '$app/environment';
 import socket from '$lib/socket';
 import { playerStore, lotsStore } from '$lib/stores/player';
@@ -11,34 +12,34 @@ class LiveNavigation {
 
     socket?.on('change-screen', (data) => {
       if (data.screen === 'lot-intro') {
-        goto('/lot');
+        goto(`${base}/lot`);
       } else if (data.screen === 'loading') {
         loadingMessage.set({ message: data.message || "Loading..." });
-        goto('/loading');
+        goto(`${base}/loading`);
       } else if (data.screen === 'skip') {
-        goto('/skip');
+        goto(`${base}/skip`);
       } else if (data.screen === 'open-auction') {
         auctionState.set({
           currentBid: data.current_bid || 0,
           player: null,
         });
-        goto('/bid');
+        goto(`${base}/bid`);
       } else if (data.screen === 'silent-auction') {
         auctionState.set({
           currentBid: data.current_bid || 0,
           player: null,
         });
-        goto('/bid');
+        goto(`${base}/bid`);
       } else if (data.screen === 'dutch-auction') {
-        goto('/dutch-bid');
+        goto(`${base}/dutch-bid`);
       } else if (data.screen === 'result') {
-        goto('/result');
+        goto(`${base}/result`);
       } else if (data.screen === 'card-select') {
         lotsStore.set({ cards: data.cards || [] });
-        goto('/card-select');
+        goto(`${base}/card-select`);
       } else if (data.screen === 'hole-cards') {
         playerStore.setProp('hole_cards', data.hole_cards || []);
-        goto('/hole-cards');
+        goto(`${base}/hole-cards`);
       }
     });
 
