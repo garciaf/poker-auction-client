@@ -36,7 +36,10 @@ class LiveNavigation {
       } else if (data.screen === 'card-select') {
         lotsStore.set({ cards: data.cards || [] });
         goto('/card-select');
-      } 
+      } else if (data.screen === 'hole-cards') {
+        playerStore.setProp('hole_cards', data.hole_cards || []);
+        goto('/hole-cards');
+      }
     });
 
     socket?.on('update-finance', (data) => {
@@ -45,6 +48,7 @@ class LiveNavigation {
 
     socket?.on('update-hole-cards', (data) => {
       playerStore.setProp('hole_cards', data.hole_cards || []);
+      lotsStore.setProp('cards', data.hole_cards || []);
     });
 
     socket?.on('update-player', (data) => {
