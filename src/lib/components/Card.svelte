@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { base } from '$app/paths';
+
   export let flipped = false
   export let suit: 'HEARTS' | 'DIAMONDS' | 'CLUBS' | 'SPADES' = 'HEARTS';
   export let rank = 2;
@@ -23,8 +25,8 @@
     13: 'K',
     14: 'A'
   };
-  $: front = `/images/card${mappingSuit[suit]}${mappingRank[rank]}.png`;
-  $: back = `/images/cardBack.png`;
+  $: front = `${base}/images/card${mappingSuit[suit]}${mappingRank[rank]}.png`;
+  $: back = `${base}/images/cardBack.png`;
 </script>
 
 <div
