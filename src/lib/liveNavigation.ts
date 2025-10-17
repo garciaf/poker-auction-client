@@ -54,8 +54,8 @@ class LiveNavigation {
 
     socket?.on('update-player', (data) => {
       console.log('Updating player data:', data);
-      const { id, name, balance, color, rounds_won, hole_cards } = data;
-      playerStore.set({ id, name, balance, color, rounds_won, hole_cards });
+      const { id, name, balance, color, rounds_won } = data;
+      playerStore.set({ id, name, balance, color, rounds_won });
     });
 
     socket?.on('update-players-list', (data) => {

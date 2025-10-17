@@ -20,10 +20,7 @@
   <ul class="grid grid-cols-3 gap-4 p-4 mb-8">    
     {#each $gameStore.players as player}
       <li class="col-span-3 md:col-span-1 md:col-start-2 text-lg flex  items-center"> 
-        <div class="text-white font-[700] rounded-full bg-white/10 px-4 py-2 border-4" style="border-color: {player.color};">
-          {player.tag}
-        </div>
-        <div class="text-white font-[700] px-4 py-2">
+        <div class="text-white font-[700] rounded-lg bg-white/10 px-4 py-2 border-4" style="border-color: {player.color};">
           {player.name}
         </div>
       </li>

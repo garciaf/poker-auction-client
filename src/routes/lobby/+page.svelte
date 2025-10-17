@@ -3,8 +3,6 @@
   import { goto } from '$app/navigation'; // ✅ replace push() from svelte-spa-router
   import socket from '$lib/socket'; // ✅ use SvelteKit alias
   import { playerStore, gameStore } from '$lib/stores/player';
-  import LiveNavigation from '$lib/liveNavigation';
-  import { derived } from 'svelte/store';
 
 
   let name = '';
@@ -36,10 +34,11 @@
       const { lobbyId, clientId } = data;
       playerStore.setProp('lobbyId', lobbyId);
       playerStore.setProp('id', clientId);
-      
+      playerStore.setProp('name', name);
+
       if (socket) {
         socket.emit('new-player', {
-          name: $playerStore.name,
+          name: name,
         });
       }
     });
