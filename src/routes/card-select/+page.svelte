@@ -19,21 +19,19 @@
       {/each}
     </div>
   </div>
-  <div class= "flex flex-col items-center justify-center items-center gap-y-4 text-center">
-    <div class="flex gap-6 perspective-1000">
-      {#each $lotsStore.cards as card}
-        <div class="items-center flex flex-col">
-          Card to select:
-          <Card
-            suit={card.suit}
-            rank={card.rank}
-            flipped={false}
-          />
-        <button class="btn btn-primary mt-4" on:click={() => socket?.emit('select-card', { card })}>
-          Select this card
-        </button>
-        </div>
-      {/each}
-    </div>
+  <h2 class="text-white text-2xl font-[700] text-center"> Select a card for the community </h2>
+  <div class= "grid grid-cols-3 items-center justify-center items-center text-center">
+    {#each $lotsStore.cards as card}
+      <div class="items-center flex flex-col gap-y-2">
+        <Card
+          suit={card.suit}
+          rank={card.rank}
+          flipped={false}
+        />
+      <button class="btn btn-primary justify-center items-center" on:click={() => socket?.emit('select-card', { card })}>
+        Select
+      </button>
+      </div>
+    {/each}
   </div>
 </div>
