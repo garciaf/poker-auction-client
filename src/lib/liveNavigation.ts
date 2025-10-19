@@ -31,7 +31,7 @@ class LiveNavigation {
         });
         goto(`${base}/bid`);
       } else if (data.screen === 'dutch-auction') {
-        goto(`${base}/dutch-bid`);
+        goto(`${base}/offer`);
       } else if (data.screen === 'result') {
         goto(`${base}/result`);
       } else if (data.screen === 'card-select') {
