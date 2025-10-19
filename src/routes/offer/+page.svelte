@@ -15,7 +15,7 @@
   function newOffer(event) {
     event.preventDefault();
     // @ts-ignore
-    if (socket && amount && amount > 0) {
+    if (socket) {
       socket.emit('new-offer', {});
     }
   }
