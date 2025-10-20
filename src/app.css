@@ -31,8 +31,7 @@
 
   &:active,
   &:focus:active,
-  &:focus-visible,
-  &:focus {
+  &:focus-visible {
     @apply bg-poker-darker-green/80 scale-95;
   }
 
