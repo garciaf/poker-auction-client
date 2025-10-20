@@ -1,14 +1,14 @@
-<script>
+<script lang="ts">
   import { base } from '$app/paths';
   import socket from '$lib/socket';
   import Card from '$lib/components/Card.svelte';
-  import { financeState, auctionState, playerStore } from '$lib/stores/player';
-  import  LiveNavigation  from '$lib/liveNavigation';
+  import Chip from '$lib/components/Chip.svelte';
+  import { playerStore } from '$lib/stores/player';
   // @ts-ignore
   /**
      * @type {number | undefined}
      */
-  let amount = undefined;
+  let amount: Number;
   let currentBid = 0;
   let flipped = false
 
@@ -18,7 +18,7 @@
   /**
      * @param {{ preventDefault: () => void; }} event
      */
-  function newBid(event) {
+  function newBid(event: Event) {
     event.preventDefault();
     // @ts-ignore
     if (socket && amount && amount > 0) {
@@ -32,8 +32,6 @@
   if (socket) {
     socket.on('current-bid', (data) => {
       currentBid = data.current_bid || 0;
-      auctionState.setProp('currentBid', currentBid);
-      auctionState.setProp('player', data.player || null);
     });
   }
 </script>
@@ -41,6 +39,7 @@
 
 <div class="layout-content space-y-8 lg:px-4 py-12">
   <div class= "flex flex-col items-center justify-center items-center gap-y-4 text-center">
+    <Chip />  
     <div class="flex gap-6 perspective-1000">
       {#each $playerStore.hole_cards as card}
         <Card

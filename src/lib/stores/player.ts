@@ -1,33 +1,19 @@
-import { localStorageStore } from './localStorageStore';
-import { derived } from 'svelte/store';
+import { persisted } from 'svelte-persisted-store'
+export interface Card { suit: 'HEARTS' | 'DIAMONDS' | 'CLUBS' | 'SPADES' ; rank: number }
 
-export const financeState = localStorageStore({
-	balance: 0,
-});
-export interface Card { suit: string; rank: number }
-
-export const auctionState = localStorageStore({
-	winner: '',
-	player: null,
-	auctionTitle: '',
-	currentBid: 0,
-	soldPrice: 0,
-	round: 1,
-});
-
-export const gameStore = localStorageStore('game', {
+export const gameStore = persisted('game', {
     players: [],
 });
 
-export const loadingMessage = localStorageStore('loadingMessage', {
+export const loadingMessage = persisted('loadingMessage', {
 	message: "Loading...",
 });
 
-export const lotsStore = localStorageStore('lots', {
+export const lotsStore = persisted('lots', {
 	cards: [] as Card[]
 });
 
-export const playerStore = localStorageStore('player',{
+export const playerStore = persisted('player',{
     id: null,
     lobbyId: null,
     name: "Guest",

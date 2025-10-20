@@ -25,14 +25,13 @@ class Socket {
 
     this.on('connected', (data: any) => {
       this.disconnected = false;
-      playerStore.setProp('id', data.from);
+      playerStore.update(state => ({ ...state, id: data.from }));
     });
 
     this.on('reconnected', (data: any) => {
       console.debug('[Socket] Reconnected:', data);
       this.disconnected = false;
-      playerStore.setProp('id', data.from);
-      playerStore.setProp('lobbyId', data.lobbyId);
+      playerStore.update(state => ({ ...state, id: data.from, lobbyId: data.lobbyId }));
     });
 
     this.socket.addEventListener('message', (event: MessageEvent) => {

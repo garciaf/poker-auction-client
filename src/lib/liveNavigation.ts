@@ -4,7 +4,7 @@ import { browser } from '$app/environment';
 import socket from '$lib/socket';
 import { playerStore, lotsStore } from '$lib/stores/player';
 // @ts-ignore
-import { financeState, auctionState, gameStore, loadingMessage } from '$lib/stores/player';
+import { gameStore, loadingMessage } from '$lib/stores/player';
 
 class LiveNavigation {
   constructor() {
@@ -19,16 +19,8 @@ class LiveNavigation {
       } else if (data.screen === 'skip') {
         goto(`${base}/skip`);
       } else if (data.screen === 'open-auction') {
-        auctionState.set({
-          currentBid: data.current_bid || 0,
-          player: null,
-        });
         goto(`${base}/bid`);
       } else if (data.screen === 'silent-auction') {
-        auctionState.set({
-          currentBid: data.current_bid || 0,
-          player: null,
-        });
         goto(`${base}/bid`);
       } else if (data.screen === 'dutch-auction') {
         goto(`${base}/offer`);
@@ -38,24 +30,32 @@ class LiveNavigation {
         lotsStore.set({ cards: data.cards || [] });
         goto(`${base}/card-select`);
       } else if (data.screen === 'hole-cards') {
-        playerStore.setProp('hole_cards', data.hole_cards || []);
+        const hole_cards = data.hole_cards || [];
+        playerStore.update(current => ({ ...current, hole_cards }));
         goto(`${base}/hole-cards`);
       }
     });
 
     socket?.on('update-finance', (data) => {
-      financeState.set({ balance: data.balance || 0 });
+      playerStore.update(current => ({ ...current, balance: data.balance || 0 }));
     });
 
     socket?.on('update-hole-cards', (data) => {
-      playerStore.setProp('hole_cards', data.hole_cards || []);
-      lotsStore.setProp('cards', data.hole_cards || []);
+      playerStore.update(current => ({ ...current, hole_cards: data.hole_cards || [] }));
     });
 
     socket?.on('update-player', (data) => {
       console.log('Updating player data:', data);
-      const { id, name, balance, color, rounds_won } = data;
-      playerStore.set({ id, name, balance, color, rounds_won });
+      const { id, lobbyId, name, balance, color, rounds_won, hole_cards } = data;
+      playerStore.set({
+        id,
+        lobbyId: lobbyId || null,
+        name: name || '',
+        color: color || '',
+        rounds_won: rounds_won || 0,
+        balance: balance || 0,
+        hole_cards: hole_cards || []
+      });
     });
 
     socket?.on('update-players-list', (data) => {
