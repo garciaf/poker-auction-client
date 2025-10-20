@@ -15,7 +15,7 @@ export const lotsStore = persisted('lots', {
 
 export const playerStore = persisted('player',{
     id: null,
-    lobbyId: null,
+    lobbyId: "",
     name: "Guest",
     color: "#000000",
 	rounds_won: 0,
