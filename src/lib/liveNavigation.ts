@@ -11,9 +11,7 @@ class LiveNavigation {
     this.onRefresh();
 
     socket?.on('change-screen', (data) => {
-      if (data.screen === 'lot-intro') {
-        goto(`${base}/lot`);
-      } else if (data.screen === 'loading') {
+      if (data.screen === 'loading') {
         loadingMessage.set({ message: data.message || "Loading..." });
         goto(`${base}/loading`);
       } else if (data.screen === 'skip') {
