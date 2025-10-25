@@ -1,3 +1,4 @@
+import { writable } from 'svelte/store';
 import { persisted } from 'svelte-persisted-store'
 export interface Card { suit: 'HEARTS' | 'DIAMONDS' | 'CLUBS' | 'SPADES' ; rank: number }
 
@@ -22,3 +23,6 @@ export const playerStore = persisted('player',{
     balance: 0,
 	hole_cards: [] as Card[]
 });
+
+
+export const isCardHidden = writable<boolean>(false);
