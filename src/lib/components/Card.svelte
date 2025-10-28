@@ -26,7 +26,7 @@
     14: 'A'
   };
   $: front = `${base}/images/card${mappingSuit[suit]}${mappingRank[rank]}.png`;
-  $: back = `${base}/images/cardBack.png`;
+  $: back = `${base}/images/cardBackSimple.png`;
 </script>
 
 <div

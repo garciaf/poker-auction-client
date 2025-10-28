@@ -6,19 +6,7 @@
 
 
   let name = '';
-  let lobbyId = readLobbyIdFromUrl() ?? '';
-  
-  function readLobbyIdFromUrl(): string {
-    if (typeof window === 'undefined') return '';
-    const href = window.location.href; // Use pathname to get the path part of the URL
-    const queryIndex = href.indexOf('?');
-    if (queryIndex !== -1) {
-      const queryString = href.substring(queryIndex + 1);
-      const params = new URLSearchParams(queryString);
-      return params.get('lobbyId') ?? '';
-    }
-    return '';
-  }
+  let lobbyId = '';
 
   // ✅ Move socket event listeners inside onMount so they don’t run on SSR
   socket?.on('player-joined-lobby', (data) => {
@@ -51,22 +39,32 @@
   }
 </script>
   <form on:submit|preventDefault={joinLobby} class="flex flex-col items-center gap-y-8 text-center layout-content p-4 pb-40">
-  <p class="text-white font-[700] rounded-full bg-white/10 px-8 py-4">{lobbyId}</p>
+    <label for="lobby_id" class="text-lg text-white font-[400]">Lobby ID</label>
+    <input
+      id="lobby_id"
+      type="text"
+      name="lobby_id"
+      class="input-text"
+      bind:value={lobbyId}
+      placeholder="X12XX"
+      required
+    />
 
-  <label for="player_name" class="text-lg text-white font-[400]">Welcome to the great auction. Please choose a name before joining the lobby.</label>
-  <input
-    id="name"
-    name="player_name"
-    type="text"
-    class="input-text"
-    bind:value={name}
-    placeholder="Your name"
-    required
-  />
+
+    <label for="player_name" class="text-lg text-white font-[400]">Welcome to the great auction. Please choose a name before joining the lobby.</label>
+    <input
+      id="name"
+      type="text"
+      name="player_name"
+      class="input-text"
+      bind:value={name}
+      placeholder="Your name"
+      required
+    />
 
   <footer class="fixed bottom-0 w-full bg-gradient-to-t from-poker-dark-green to-transparent backdrop-blur-sm py-10">
     <div class="flex flex-col items-center">
-      <button class="btn uppercase text-center" type="submit" disabled={!name}>Join Lobby</button>
+      <button class="btn uppercase text-center" type="submit" disabled={!name || !lobbyId}>Join Lobby</button>
     </div>
   </footer>
 </form>
