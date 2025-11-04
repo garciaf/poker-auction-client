@@ -15,8 +15,8 @@
   function newBid(event: Event) {
     event.preventDefault();
     // @ts-ignore
-    if (socket && amount && amount > 0) {
-      socket.emit('new-bid', {
+    if (amount && amount > 0) {
+      socket?.emit('new-bid', {
         amount: amount,
       });
     }

@@ -2,7 +2,7 @@ import { goto } from '$app/navigation';
 import { base } from '$app/paths';
 import { browser } from '$app/environment';
 import socket from '$lib/socket';
-import { playerStore, lotsStore } from '$lib/stores/player';
+import { playerStore, lotsStore, shopStore } from '$lib/stores/player';
 // @ts-ignore
 import { gameStore, loadingMessage } from '$lib/stores/player';
 
@@ -29,8 +29,13 @@ class LiveNavigation {
         goto(`${base}/card-select`);
       } else if (data.screen === 'hole-cards') {
         const hole_cards = data.hole_cards || [];
-        playerStore.update(current => ({ ...current, hole_cards }));
+        const jokers = data.jokers || []
+        playerStore.update(current => ({ ...current, hole_cards, jokers }));
         goto(`${base}/hole-cards`);
+      } else if (data.screen === 'shop') {
+        const jokers = data.jokers || []
+        shopStore.set({ jokers: jokers })
+        goto(`${base}/shop`)
       }
     });
 
@@ -39,12 +44,16 @@ class LiveNavigation {
     });
 
     socket?.on('update-hole-cards', (data) => {
-      playerStore.update(current => ({ ...current, hole_cards: data.hole_cards || [] }));
+      playerStore.update(current => ({ ...current, hole_cards: data.hole_cards || [], jokers: data.jokers || [] }));
     });
+
+    socket?.on('update-jokers', (data) => {
+      playerStore.update(current => ({ ...current, jokers: data.jokers || [] }));
+    })
 
     socket?.on('update-player', (data) => {
       console.log('Updating player data:', data);
-      const { id, lobbyId, name, balance, color, rounds_won, hole_cards } = data;
+      const { id, lobbyId, name, balance, color, rounds_won, hole_cards, jokers } = data;
       playerStore.set({
         id,
         lobbyId: lobbyId || null,
@@ -52,7 +61,8 @@ class LiveNavigation {
         color: color || '',
         rounds_won: rounds_won || 0,
         balance: balance || 0,
-        hole_cards: hole_cards || []
+        hole_cards: hole_cards || [],
+        jokers: jokers || []
       });
     });
 

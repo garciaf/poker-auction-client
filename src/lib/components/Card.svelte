@@ -4,6 +4,8 @@
   export let flipped = false
   export let suit: 'HEARTS' | 'DIAMONDS' | 'CLUBS' | 'SPADES' = 'HEARTS';
   export let rank = 2;
+  export let onClick: (() => void) | undefined = undefined;
+
   const mappingSuit = {
     'HEARTS': 'Hearts',
     'DIAMONDS': 'Diamonds',
@@ -28,23 +30,28 @@
   $: front = `${base}/images/card${mappingSuit[suit]}${mappingRank[rank]}.png`;
   $: back = `${base}/images/cardBackSimple.png`;
 </script>
-
-<div
-  class="relative w-32 h-48 transition-transform duration-700 transform-style-preserve-3d"
-  class:rotate-y-180={flipped}
+<button
+  on:click={onClick}
+  class="bg-transparent border-none p-0 cursor-pointer active:scale-95 hover:scale-105"
+  aria-label="{flipped ? mappingRank[rank] + ' of ' + suit : 'Card back'}"
 >
-  <img
-    src={front}
-    alt="Front"
-    class="absolute w-full h-full backface-hidden shadow-xs"
-  />
-  <img
-    src={back}
-    alt="Back"
-    class="absolute w-full h-full backface-hidden rotate-y-180 shadow-xs"
-  />
-</div>
+  <div
+    class="relative w-32 h-48 transition-transform duration-700 transform-style-preserve-3d"
+    class:rotate-y-180={flipped}
+  >
+    <img
+      src={front}
+      alt="Front"
+      class="absolute w-full h-full backface-hidden shadow-xs"
+    />
+    <img
+      src={back}
+      alt="Back"
+      class="absolute w-full h-full backface-hidden rotate-y-180 shadow-xs"
+    />
 
+  </div>
+</button>
 <style>
   .transform-style-preserve-3d {
     transform-style: preserve-3d;
