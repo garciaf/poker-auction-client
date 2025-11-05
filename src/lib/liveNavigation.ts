@@ -2,7 +2,7 @@ import { goto } from '$app/navigation';
 import { base } from '$app/paths';
 import { browser } from '$app/environment';
 import socket from '$lib/socket';
-import { playerStore, lotsStore, shopStore } from '$lib/stores/player';
+import { playerStore, lotsStore, shopStore, updateJokerStatus, notifications } from '$lib/stores/player';
 // @ts-ignore
 import { gameStore, loadingMessage } from '$lib/stores/player';
 
@@ -47,6 +47,18 @@ class LiveNavigation {
       playerStore.update(current => ({ ...current, hole_cards: data.hole_cards || [], jokers: data.jokers || [] }));
     });
 
+    socket?.on('allowed-joker', (data) => {
+      const { joker } = data;
+      
+      updateJokerStatus(joker.key, true)
+    });
+    
+    socket?.on('forbid-joker', (data) => {
+      const { joker } = data;
+      
+      updateJokerStatus(joker.key, false)
+    });
+
     socket?.on('update-jokers', (data) => {
       playerStore.update(current => ({ ...current, jokers: data.jokers || [] }));
     })
@@ -71,7 +83,6 @@ class LiveNavigation {
     });
 
     socket?.on('new-message', (data) => {
-      // @ts-ignore
       notifications.update((n) => {
         n.push({
           message: data.message,
@@ -81,7 +92,6 @@ class LiveNavigation {
       });
 
       setTimeout(() => {
-        // @ts-ignore
         notifications.update((n) => n.filter((notif) => notif.message !== data.message));
       }, 3000);
     });

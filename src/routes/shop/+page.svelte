@@ -2,6 +2,7 @@
   import socket from '$lib/socket';
   import Chip from '$lib/components/Chip.svelte';
   import Joker from '$lib/components/Joker.svelte';
+  import SaleJoker from '$lib/components/SaleJoker.svelte';
   import { shopStore } from '$lib/stores/player';
   import { playerStore } from '$lib/stores/player';
 
@@ -26,8 +27,8 @@
   <div class= "flex flex-col items-center justify-center items-center gap-y-4 text-center">
       {#each $shopStore.jokers as joker}
         <h2> { joker.name}</h2>
-        <Joker
-          joker={ joker}
+        <SaleJoker
+          joker={ joker }
           onClick={() => buyJoker(joker)}
         />
         <p> { joker.description }</p>
