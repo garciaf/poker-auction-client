@@ -1,6 +1,6 @@
 {
   "common": {
-    "lobbyId": "ID du Salon",
+    "lobbyId": "ID du Lobby",
     "playerName": "Nom du Joueur",
     "yourName": "Votre nom",
     "start": "Démarrer",
@@ -12,8 +12,8 @@
     "joinLobby": "Rejoindre le lobby",
     "buyNow": "Achète !",
     "selectCard": "Sélectionnez une carte pour la communauté",
-    "selectJoker": "Acheter  un joker",
-    "submitBid": "nouvelle enchère"
+    "selectJoker": "Acheter un joker",
+    "submitBid": "Nouvelle enchère"
   },
   "messages": {
     "welcomeAuction": "Bienvenue au poker sournois. Veuillez choisir un nom avant de rejoindre le lobby.",
