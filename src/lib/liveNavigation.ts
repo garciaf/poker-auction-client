@@ -63,6 +63,13 @@ class LiveNavigation {
       playerStore.update(current => ({ ...current, jokers: data.jokers || [] }));
     })
 
+    socket?.on('player-joined-lobby', (data) => {
+      const { name, id, color, tag, avatar } = data;
+      playerStore.update(state => ({...state, id, color}));
+
+      goto(`${base}/waiting-room`); // ✅ SvelteKit navigation
+  });
+
     socket?.on('update-player', (data) => {
       console.log('Updating player data:', data);
       const { id, lobbyId, name, balance, color, rounds_won, hole_cards, jokers } = data;

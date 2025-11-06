@@ -3,6 +3,7 @@
   import socket from '$lib/socket';
   import HoleCards from '$lib/components/HoleCards.svelte'
   import Chip from '$lib/components/Chip.svelte';
+  import { t } from '$lib/i18n';
   // @ts-ignore
   /**
      * @type {number | undefined}
@@ -34,7 +35,7 @@
   <div class= "flex flex-col items-center justify-center items-center gap-y-4 text-center">
     <Chip />  
     <HoleCards />
-    <form on:submit={newBid} class="bg-transparent btn-width">
+    <form onsubmit={newBid} class="bg-transparent btn-width">
       <div class="flex items-center bg-zinc-900 rounded-full border border-zinc-700 px-4 py-2 w-full">
         <!-- Number Input -->
         <div class="grow pr-4 justify-start">
@@ -45,7 +46,7 @@
               inputmode="numeric"
               bind:value={amount}
               step="1"
-              placeholder="10"
+              placeholder={$t('placeholders.bidAmount')}
               class="bg-transparent border border-transparent focus:border-transparent focus:ring-0 text-white text-lg font-bold outline-none w-24 text-left w-full"
             />
 
@@ -56,7 +57,7 @@
         <button
           type="submit"
           class="w-12 h-12 flex items-center justify-center rounded-full bg-gradient-to-br from-poker-darker-green to-poker-green shadow-inner"
-          aria-label="Submit Bid"
+          aria-label={$t('actions.submitBid')}
         >
           <img src={`${base}/images/arrow.svg`} alt="Arrow" class="w-6 h-6" />
         </button>

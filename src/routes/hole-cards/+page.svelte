@@ -1,6 +1,7 @@
 <script>
   import socket from '$lib/socket';
   import HoleCards from '$lib/components/HoleCards.svelte'
+  import { t } from '$lib/i18n';
 
   function ready() {
     if (socket) {
@@ -19,6 +20,6 @@
 
 <footer class="fixed bottom-0 w-full bg-gradient-to-t from-poker-dark-green to-transparent backdrop-blur-sm py-10">
     <div class="flex flex-col items-center">
-    <button class="btn" on:click={ready}>Ready</button>
+    <button class="btn" onclick={ready}>{$t('common.ready')}</button>
   </div>
 </footer>

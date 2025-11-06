@@ -1,0 +1,31 @@
+{
+  "common": {
+    "lobbyId": "Lobby ID",
+    "playerName": "Player Name",
+    "yourName": "Your name",
+    "start": "Start",
+    "ready": "Ready",
+    "loading": "Loading...",
+    "guest": "Guest"
+  },
+  "actions": {
+    "joinLobby": "Join Lobby",
+    "buyNow": "Buy Now",
+    "selectCard": "Select a card for the community",
+    "selectJoker": "Select a joker to buy",
+    "submitBid": "Submit Bid"
+  },
+  "messages": {
+    "welcomeAuction": "Welcome to the great auction. Please choose a name before joining the lobby.",
+    "gameStartsWhenReady": "The game starts when every player has confirmed"
+  },
+  "placeholders": {
+    "lobbyIdExample": "X12XX",
+    "yourName": "Your name",
+    "bidAmount": "10"
+  },
+  "languages": {
+    "english": "English",
+    "french": "French"
+  }
+}

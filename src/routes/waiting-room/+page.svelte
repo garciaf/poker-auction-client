@@ -1,8 +1,9 @@
 <script>
     import socket from '$lib/socket';
     import { playerStore, gameStore } from '$lib/stores/player';
-    
+
     import LiveNavigation from '$lib/liveNavigation';
+    import { t } from '$lib/i18n';
 
     function start() {
         if (socket) {
@@ -11,9 +12,9 @@
     }
 </script>
 
-<div class="flex flex-col items-center gap-y-8 text-center layout-content p-4"> 
-    <p class="text-white font-[700] rounded-full bg-white/10 px-8 py-4"> { $playerStore.lobbyId } </p>  
-    <p class="text-lg text-white font-[400]">The game starts when every player has confirmed</p>
+<div class="flex flex-col items-center gap-y-8 text-center layout-content p-4">
+    <p class="text-white font-[700] rounded-full bg-white/10 px-8 py-4"> { $playerStore.lobbyId } </p>
+    <p class="text-lg text-white font-[400]">{$t('messages.gameStartsWhenReady')}</p>
 </div>
 
 <div>
@@ -30,6 +31,6 @@
 
 <footer class="fixed bottom-0 w-full bg-gradient-to-t from-poker-dark-green to-transparent backdrop-blur-sm py-10">
     <div class="flex flex-col items-center">
-    <button class="btn" on:click={start}>Start</button>
+    <button class="btn" onclick={start}>{$t('common.start')}</button>
   </div>
 </footer>

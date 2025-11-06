@@ -1,0 +1,31 @@
+{
+  "common": {
+    "lobbyId": "ID du Salon",
+    "playerName": "Nom du Joueur",
+    "yourName": "Votre nom",
+    "start": "Démarrer",
+    "ready": "Prêt",
+    "loading": "Chargement...",
+    "guest": "Invité"
+  },
+  "actions": {
+    "joinLobby": "Rejoindre le lobby",
+    "buyNow": "Achète !",
+    "selectCard": "Sélectionnez une carte pour la communauté",
+    "selectJoker": "Acheter  un joker",
+    "submitBid": "nouvelle enchère"
+  },
+  "messages": {
+    "welcomeAuction": "Bienvenue au poker sournois. Veuillez choisir un nom avant de rejoindre le lobby.",
+    "gameStartsWhenReady": "La partie commence lorsque tous les joueurs ont confirmé"
+  },
+  "placeholders": {
+    "lobbyIdExample": "X12XX",
+    "yourName": "Votre nom",
+    "bidAmount": "10"
+  },
+  "languages": {
+    "english": "Anglais",
+    "french": "Français"
+  }
+}

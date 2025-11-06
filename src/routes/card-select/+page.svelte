@@ -3,6 +3,7 @@
   import HoleCards from '$lib/components/HoleCards.svelte'
   import Card from '$lib/components/Card.svelte';
   import { lotsStore } from '$lib/stores/player';
+  import { t } from '$lib/i18n';
 </script>
 
 
@@ -10,7 +11,7 @@
   <div class= "flex flex-col items-center justify-center items-center gap-y-4 text-center">
     <HoleCards />
   </div>
-  <h2 class="text-white text-2xl font-[700] text-center"> Select a card for the community </h2>
+  <h2 class="text-white text-2xl font-[700] text-center">{$t('actions.selectCard')}</h2>
   <div class= "flex flex-col items-center justify-center items-center gap-y-4 text-center">
     <div class="grid grid-cols-3 md:grid-cols-4 gap-6">
       {#each $lotsStore.cards as card}

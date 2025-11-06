@@ -5,6 +5,7 @@
   import SaleJoker from '$lib/components/SaleJoker.svelte';
   import { shopStore } from '$lib/stores/player';
   import { playerStore } from '$lib/stores/player';
+  import { t } from '$lib/i18n';
 
   function buyJoker(joker: any) {
     socket?.emit('buy', {key: joker.key,});
@@ -23,7 +24,7 @@
       {/each}
     </div>
   </div>
-  <h2 class="text-white text-2xl font-[700] text-center"> Select a joker to buy </h2>
+  <h2 class="text-white text-2xl font-[700] text-center">{$t('actions.selectJoker')}</h2>
   <div class= "flex flex-col items-center justify-center items-center gap-y-4 text-center">
       {#each $shopStore.jokers as joker}
         <h2> { joker.name}</h2>
