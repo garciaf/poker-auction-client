@@ -34,32 +34,30 @@
 </script>
 
 <form onsubmit={joinLobby} class="flex flex-col items-center gap-y-8 text-center layout-content p-4 pb-40">
-    <label for="lobby_id" class="text-lg text-white font-[400]">{$t('common.lobbyId')}</label>
+    <label for="lobby_id" class="text-xl text-white font-eight-bit">{$t('common.lobbyId')}</label>
     <input
       id="lobby_id"
       type="text"
       name="lobby_id"
-      class="input-text"
+      class="input-text font-eight-bit"
       bind:value={lobbyId}
       placeholder={$t('placeholders.lobbyIdExample')}
       required
     />
 
 
-    <label for="player_name" class="text-lg text-white font-[400]">{$t('messages.welcomeAuction')}</label>
+    <label for="player_name" class="text-xl text-white font-eight-bit">{$t('messages.welcomeAuction')}</label>
     <input
       id="name"
       type="text"
       name="player_name"
-      class="input-text"
+      class="input-text font-eight-bit"
       bind:value={name}
       placeholder={$t('placeholders.yourName')}
       required
     />
 
-  <footer class="fixed bottom-0 w-full bg-gradient-to-t from-poker-dark-green to-transparent backdrop-blur-sm py-10">
-    <div class="flex flex-col items-center">
+    <div class="flex flex-col items-center w-full">
       <button class="btn uppercase text-center" type="submit" disabled={!name || !lobbyId}>{$t('actions.joinLobby')}</button>
     </div>
-  </footer>
 </form>

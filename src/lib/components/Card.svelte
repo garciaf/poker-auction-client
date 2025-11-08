@@ -36,7 +36,7 @@
   aria-label="{flipped ? mappingRank[rank] + ' of ' + suit : 'Card back'}"
 >
   <div
-    class="relative w-32 h-48 transition-transform duration-700 transform-style-preserve-3d"
+    class="relative w-24 h-36 transition-transform duration-700 transform-style-preserve-3d"
     class:rotate-y-180={flipped}
   >
     <img

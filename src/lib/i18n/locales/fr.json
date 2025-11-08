@@ -10,10 +10,12 @@
   },
   "actions": {
     "joinLobby": "Rejoindre le lobby",
-    "buyNow": "Achète !",
+    "buyNow": "Nouvelle offre",
+    "yourBid": "Votre offre",
+    "lookTheScreen": "Regarde l'écran",
     "selectCard": "Sélectionnez une carte pour la communauté",
     "selectJoker": "Acheter un joker",
-    "submitBid": "Nouvelle enchère"
+    "submitBid": "Nouvelle offre"
   },
   "messages": {
     "welcomeAuction": "Bienvenue au poker sournois. Veuillez choisir un nom avant de rejoindre le lobby.",

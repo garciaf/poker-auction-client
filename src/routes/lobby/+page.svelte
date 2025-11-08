@@ -45,22 +45,20 @@
 </script>
 
 <form onsubmit={joinLobby} class="flex flex-col items-center gap-y-8 text-center layout-content p-4 pb-40">
-  <p class="text-white font-[700] rounded-full bg-white/10 px-8 py-4">{lobbyId}</p>
+  <p class="text-white font-eight-bit rounded-full bg-white/10 px-8 py-4">{lobbyId}</p>
 
-  <label for="player_name" class="text-lg text-white font-[400]">{$t('messages.welcomeAuction')}</label>
+  <label for="player_name" class="text-xl text-white font-eight-bit">{$t('messages.welcomeAuction')}</label>
   <input
     id="name"
     name="player_name"
     type="text"
-    class="input-text"
+    class="input-text font-eight-bit"
     bind:value={name}
     placeholder={$t('placeholders.yourName')}
     required
   />
 
-  <footer class="fixed bottom-0 w-full bg-gradient-to-t from-poker-dark-green to-transparent backdrop-blur-sm py-10">
-    <div class="flex flex-col items-center">
-      <button class="btn uppercase text-center" type="submit" disabled={!name}>{$t('actions.joinLobby')}</button>
-    </div>
-  </footer>
+  <div class="flex flex-col items-center w-full ">
+    <button class="btn uppercase text-center" type="submit" disabled={!name}>{$t('actions.joinLobby')}</button>
+  </div>
 </form>

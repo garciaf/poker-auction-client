@@ -21,7 +21,7 @@
 
 >
   <div
-    class="relative w-32 h-48"
+    class="relative w-24 h-36"
   >
     <img
       src={front}

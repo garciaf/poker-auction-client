@@ -11,6 +11,8 @@
   "actions": {
     "joinLobby": "Join Lobby",
     "buyNow": "Buy Now",
+    "yourBid": "Your bid",
+    "lookTheScreen": "Look at the screen",
     "selectCard": "Select a card for the community",
     "selectJoker": "Select a joker to buy",
     "submitBid": "Submit Bid"

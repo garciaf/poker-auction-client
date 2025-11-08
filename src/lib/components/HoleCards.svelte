@@ -16,7 +16,7 @@
 
 </script>
 
-<div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+<div class="flex justify-center gap-4 mb-8">
     {#each $playerStore.hole_cards as card}
       <Card
         suit={card.suit}

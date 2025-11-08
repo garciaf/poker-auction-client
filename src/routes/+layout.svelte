@@ -8,7 +8,7 @@
   import { locale } from '$lib/i18n';
   import { localePreference } from '$lib/stores/locale';
   import { onMount } from 'svelte';
-
+  import { playerStore } from '$lib/stores/player';
   // Sync locale with persisted preference
   onMount(() => {
     const unsubscribe = localePreference.subscribe(value => {
@@ -23,8 +23,8 @@
 </svelte:head>
 
 <main class="bg-poker-green h-dvh text-white overflow-auto">
-  <PlayerTag />
-  <header class="flex justify-end p-4">
+  <header class="px-5 py-3 flex justify-between items-center shadow-xl" style={`background-color: ${$playerStore.color};`}>
+    <PlayerTag />
     <LanguageSwitcher />
   </header>
   <Notifications />
