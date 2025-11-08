@@ -3,6 +3,7 @@
     "lobbyId": "ID du Lobby",
     "playerName": "Nom du Joueur",
     "yourName": "Votre nom",
+    "yourChips": "Vos Jetons",
     "start": "Démarrer",
     "ready": "Prêt",
     "loading": "Chargement...",

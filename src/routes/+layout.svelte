@@ -20,6 +20,7 @@
 
 <svelte:head>
   <link rel="icon" type="image/svg+xml" href="{base}/images/favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 </svelte:head>
 
 <main class="bg-poker-green h-dvh text-white overflow-auto">

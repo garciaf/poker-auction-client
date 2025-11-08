@@ -30,6 +30,10 @@
   -webkit-text-stroke: var(--text-stroke-width-sm) black;
 }
 
+ * {
+  touch-action: manipulation;
+}
+
 .input-text{
   @apply outline-none bg-classy-black text-white text-lg border-transparent border px-2 md:px-4 py-4 w-7/8 md:w-2/3 lg:w-1/2 rounded-lg;
 }
