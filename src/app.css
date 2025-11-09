@@ -19,6 +19,7 @@
   --color-golden-dark: #795F00;
   --color-dark-gray: #272727;
   --color-saulmon: #B96363;
+  --color-red: #DC143C;
   --color-dutch-orange: #FF8300;
   
   --text-stroke-width-sm: 1px;
@@ -43,7 +44,9 @@
 }
 
 .btn {
-  @apply h-16 h-16 border-2 border-poker-green font-eight-bit bg-poker-darker-green text-white text-xl uppercase text-center px-8 py-4 w-7/8 md:w-2/3 lg:w-1/2 rounded-lg transition-all duration-150 ease-in-out;
+  @apply h-16 h-16 font-eight-bit bg-poker-darker-green text-white text-xl uppercase text-center px-8 py-4 w-7/8 md:w-2/3 lg:w-1/2 rounded-lg transition-all duration-150 ease-in-out;
+
+
 
   &:disabled {
     @apply bg-white/20 text-white/40;
@@ -60,6 +63,20 @@
     &:focus {
       @apply bg-poker-darker-green/80 scale-95;
     }
+  }
+}
+
+.btn.btn-primary {
+  @apply border-2 border-poker-green
+}
+
+.btn.btn-danger {
+  @apply border-2 border-red;
+  
+  &:active,
+  &:focus:active,
+  &:focus-visible {
+    @apply bg-red scale-95;
   }
 }
 

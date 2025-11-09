@@ -58,6 +58,6 @@
     />
 
     <div class="flex flex-col items-center w-full">
-      <button class="btn uppercase text-center" type="submit" disabled={!name || !lobbyId}>{$t('actions.joinLobby')}</button>
+      <button class="btn btn-primary text-center" type="submit" disabled={!name || !lobbyId}>{$t('actions.joinLobby')}</button>
     </div>
 </form>

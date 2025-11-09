@@ -1,7 +1,7 @@
 import { writable } from 'svelte/store';
 import { persisted } from 'svelte-persisted-store'
 export interface Card { suit: 'HEARTS' | 'DIAMONDS' | 'CLUBS' | 'SPADES' ; rank: number }
-export interface Joker { key: 'bid-sweep' | 'sneak-peek', name: String, description: String, allowed: boolean }
+export interface Joker { key: 'bid-sweep' | 'sneak-peek', name: String, description: String, allowed: boolean, price: Number }
 export interface Notification { message: string; author: string; }
 
 export const notifications = writable<Notification[]>([]);

@@ -16,7 +16,7 @@
       class="px-3 py-2 rounded-lg transition-all duration-200 {$localePreference === code ? 'bg-white/20 ring-2 ring-white' : 'bg-white/10 hover:bg-white/15'}"
       title={name}
     >
-      <span class="text-2xl">{flag}</span>
+      <span class="text-base">{name}</span>
     </button>
   {/each}
 </div>

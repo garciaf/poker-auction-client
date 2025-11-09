@@ -1,7 +1,6 @@
 <script lang="ts">
   import { base } from '$app/paths';
   import type { Joker } from '$lib/stores/player';
-  export let onClick: (() => void) | undefined = undefined;
   export let joker: Joker; 
 
   const mappingJoker = {
@@ -11,19 +10,8 @@
   $: front = `${base}/images/${mappingJoker[joker.key]}`;
 </script>
 
-<button
-  on:click={onClick}
-  aria-label={`${joker.description}`}
-  class="bg-transparent border-none p-0 cursor-pointer transition-transform active:scale-95 hover:scale-105"
-
->
-  <div
-    class="relative w-32 h-48"
-  >
-    <img
-      src={front}
-      alt="Front"
-      class="absolute w-full h-full"
-    />
-  </div>
-</button>
+<img
+  src={front}
+  alt="Front"
+  class="w-48 h-64"
+/>

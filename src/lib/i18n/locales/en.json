@@ -9,14 +9,23 @@
     "loading": "Loading...",
     "guest": "Guest"
   },
+  "holeCards":{
+    "dealing": "Dealing",
+    "yourHoleCards": "Your hole cards",
+    "privateCarsForYou": "This card are private to you",
+    "tapBellow": "Tap below when you're ready to start the auction round"
+  },
   "actions": {
     "joinLobby": "Join Lobby",
     "buyNow": "Buy Now",
+    "buyFor": "Buy for {{price}} chips",
     "yourBid": "Your bid",
+    "cancel": "Cancel",
     "lookTheScreen": "Look at the screen",
     "selectCard": "Select a card for the community",
     "selectJoker": "Select a joker to buy",
-    "submitBid": "Submit Bid"
+    "submitBid": "Submit Bid",
+    "startAuction": "Start auction round"
   },
   "messages": {
     "welcomeAuction": "Welcome to the great auction. Please choose a name before joining the lobby.",

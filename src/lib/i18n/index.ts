@@ -53,7 +53,7 @@ export const { t, locale, locales, loading, loadTranslations } = new i18n(config
 // Available locales with metadata
 export const availableLocales = [
 	{ code: 'en', name: 'English', flag: '🇬🇧' },
-	{ code: 'fr', name: 'French', flag: '🇫🇷' }
+	{ code: 'fr', name: 'Français', flag: '🇫🇷' }
 ] as const;
 
 export type LocaleCode = 'en' | 'fr';

@@ -4,19 +4,28 @@
     "playerName": "Nom du Joueur",
     "yourName": "Votre nom",
     "yourChips": "Vos Jetons",
+    "cancel": "Annuler",
     "start": "Démarrer",
     "ready": "Prêt",
     "loading": "Chargement...",
     "guest": "Invité"
   },
+  "holeCards":{
+    "dealing": "Distribution",
+    "yourHoleCards": "Vos cartes privées",
+    "privateCarsForYou": "Ces cartes sont pour vous et vous seul",
+    "tapBellow": "Appuyez ci-dessous quand vous êtes prêt à commencer"
+  },
   "actions": {
     "joinLobby": "Rejoindre le lobby",
     "buyNow": "Nouvelle offre",
+    "buyFor": "Achete pour {{price}} jetons",
     "yourBid": "Votre offre",
     "lookTheScreen": "Regarde l'écran",
     "selectCard": "Sélectionnez une carte pour la communauté",
     "selectJoker": "Acheter un joker",
-    "submitBid": "Nouvelle offre"
+    "submitBid": "Nouvelle offre",
+    "startAuction": "Commencer les enchères"
   },
   "messages": {
     "welcomeAuction": "Bienvenue au poker sournois. Veuillez choisir un nom avant de rejoindre le lobby.",

@@ -27,7 +27,7 @@
       <div class="flex">
         
         <button onclick={newOffer} 
-          class="flex-[2] btn"
+          class="flex-[2] btn btn-primary"
           >
           {$t('actions.buyNow')}
         </button>

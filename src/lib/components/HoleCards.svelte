@@ -17,18 +17,18 @@
 </script>
 
 <div class="flex justify-center gap-4 mb-8">
-    {#each $playerStore.hole_cards as card}
-      <Card
-        suit={card.suit}
-        rank={card.rank}
-        flipped={$isCardHidden}
-        onClick={toggleCard}
-      />
-    {/each}
-    {#each $playerStore.jokers as joker }
-      <Joker
-        joker={ joker}
-        onClick={() => useJoker(joker)}
-      />
-    {/each}
+  {#each $playerStore.hole_cards as card}
+    <Card
+      suit={card.suit}
+      rank={card.rank}
+      flipped={$isCardHidden}
+      onClick={toggleCard}
+    />
+  {/each}
+  {#each $playerStore.jokers as joker }
+    <Joker
+      joker={ joker}
+      onClick={() => useJoker(joker)}
+    />
+  {/each}
 </div>

@@ -24,6 +24,10 @@
     amount = undefined; // Reset the input field after submitting the bid
   }
 
+  function cancelBid() {
+    amount = undefined
+  }
+
   function adjustBid(value: number) {
     let newBid
     if(amount){
@@ -86,10 +90,17 @@
         </button>
       </div>
         <!-- Submit Button -->
-      <div class="flex">
+      <div class="flex gap-3">
+        <button
+          onclick={cancelBid}
+          class="flex-1 btn btn-danger"
+          aria-label={$t('actions.cancel')}
+        >
+          {$t('actions.cancel')}
+        </button>
         <button
           onclick={submitBid}
-          class="flex-[2] btn"
+          class="flex-[2] btn btn-primary"
           aria-label={$t('actions.submitBid')}
         >
           {$t('actions.submitBid')}
