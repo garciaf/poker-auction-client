@@ -4,6 +4,7 @@
     "playerName": "Nom du Joueur",
     "yourName": "Votre nom",
     "yourChips": "Vos Jetons",
+    "chips": "Jetons",
     "cancel": "Annuler",
     "start": "Démarrer",
     "ready": "Prêt",
@@ -17,6 +18,7 @@
     "tapBellow": "Appuyez ci-dessous quand vous êtes prêt à commencer"
   },
   "actions": {
+    "cancel": "Annuler",
     "joinLobby": "Rejoindre le lobby",
     "buyNow": "Nouvelle offre",
     "buyFor": "Achete pour {{price}} jetons",

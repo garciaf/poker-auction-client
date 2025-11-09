@@ -30,7 +30,7 @@
               <div class="absolute -top-10 -right-10 price-tag rounded-full w-20 h-20 flex items-center justify-center z-10">
                 <div class="text-center">
                   <div class="text-2xl font-eight-bit font-bold text-gray-800">{ joker.price }</div>
-                  <div class="text-xs text-gray-700 font-eight-bit">Ships</div>
+                  <div class="text-xs text-gray-700 font-eight-bit">{$t("common.chips")}</div>
                 </div>
               </div>
               <div class="text-center mb-4">
