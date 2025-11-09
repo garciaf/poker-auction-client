@@ -27,9 +27,9 @@ export const playerStore = persisted('player',{
     lobbyId: "",
     name: "Guest",
     color: "#000000",
-	rounds_won: 0,
+	  rounds_won: 0,
     balance: 0,
-	hole_cards: [] as Card[],
+	  hole_cards: [] as Card[],
     jokers: [] as Joker[]
 });
 

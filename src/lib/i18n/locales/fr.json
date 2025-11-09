@@ -20,7 +20,7 @@
   "actions": {
     "cancel": "Annuler",
     "joinLobby": "Rejoindre le lobby",
-    "buyNow": "Nouvelle offre",
+    "buyNow": "Achète!",
     "buyFor": "Achete pour {{price}} jetons",
     "yourBid": "Votre offre",
     "lookTheScreen": "Regarde l'écran",
