@@ -67,7 +67,12 @@
 }
 
 .btn.btn-primary {
-  @apply border-2 border-poker-green
+  @apply border-2 border-poker-green;
+  &:active,
+  &:focus:active,
+  &:focus-visible {
+    @apply bg-poker-green scale-95;
+  }
 }
 
 .btn.btn-danger {

@@ -29,7 +29,5 @@
     <LanguageSwitcher />
   </header>
   <Notifications />
-  <div class= "h-full">
-    <slot />
-  </div>
+  <slot />
 </main>

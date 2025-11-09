@@ -44,7 +44,7 @@
 </script>
 
 
-<div class="layout-content space-y-8 lg:px-4 py-12 p-4">
+<div class="layout-content space-y-8 lg:px-4 p-4">
   <div class= "flex flex-col items-center justify-center items-center gap-y-4 text-center">
     <Chip />  
     <HoleCards />
