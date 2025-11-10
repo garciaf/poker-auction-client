@@ -49,8 +49,8 @@
     <Chip />  
     <HoleCards />
     
-    <div class="bg-poker-darker-green rounded-2xl p-6 mb-5 flex flex-col space-y-6">
-      <div class="text-center text-base font-eight-bit uppercase tracking-wider mb-4">{$t('actions.yourBid')}</div>
+    <div class="bg-black/20 rounded-2xl p-6 mb-5 flex flex-col space-y-6">
+      <label for="bid" class="text-center text-base font-eight-bit uppercase tracking-wider mb-4">{$t('actions.yourBid')}</label>
       <div class="flex gap-3 mb-5 items-stretch">
         <!-- Number Input -->
          <button 
@@ -60,7 +60,8 @@
         </button>
         <div class="flex-1">
           <input 
-              type="number" 
+              type="number"
+              id="bid"
               inputmode="numeric"
               bind:value={amount}
               class="w-full h-[70px] border-3 border-white/30 rounded-lg bg-black/40 text-white text-4xl font-eight-bit text-center outline-none focus:border-[#D4A574] focus:bg-black/50"
@@ -75,17 +76,17 @@
       <div class="grid grid-cols-3 gap-2">  
         <button 
           onclick={() => adjustBid(5) }
-          class="h-12 rounded-lg bg-dutch-orange/70 border-2 border-[#D4A574]/40 text-white font-eight-bit transition-all active:bg-[#D4A574]/50 active:scale-95">
+          class="h-12 rounded-lg bg-deep-crimson border-2 border-[#D4A574]/40 text-white font-eight-bit transition-all active:bg-[#D4A574]/50 active:scale-95">
             +5
         </button>
         <button 
             onclick={() => adjustBid(10)}
-            class="h-12 rounded-lg bg-dutch-orange/70 border-2 border-[#D4A574]/40 text-white font-eight-bit transition-all active:bg-[#D4A574]/50 active:scale-95">
+            class="h-12 rounded-lg bg-deep-crimson border-2 border-[#D4A574]/40 text-white font-eight-bit transition-all active:bg-[#D4A574]/50 active:scale-95">
             +10
         </button>
         <button 
             onclick={() => adjustBid(20)}
-            class="h-12 rounded-lg bg-dutch-orange/70 border-2 border-[#D4A574]/40 text-white font-eight-bit transition-all active:bg-[#D4A574]/50 active:scale-95">
+            class="h-12 rounded-lg bg-deep-crimson border-2 border-[#D4A574]/40 text-white font-eight-bit transition-all active:bg-[#D4A574]/50 active:scale-95">
             +20
         </button>
       </div>

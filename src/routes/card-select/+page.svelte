@@ -16,11 +16,9 @@
 <div class="layout-content space-y-8 p-4">
   <div class="max-w-lg mx-auto">
     <div class="bg-black/20 rounded-xl p-3 mb-6">
-      <div class="flex items-center justify-between mb-2">
-        <div class="flex items-center gap-2">
-          <span class="text-sm font-semibold opacity-80">{$t('selectCard.yourCard')}</span>
-          <span class="text-xs opacity-60">{$t('selectCard.yourCardInfo')}</span>
-        </div>
+      <div class="flex items-center justify-center mb-2">
+        <span class="text-sm font-semibold opacity-80">{$t('selectCard.yourCard')}</span>
+        <span class="text-xs opacity-60">{$t('selectCard.yourCardInfo')}</span>
       </div>
       <div class="flex justify-center gap-2">
         {#each $playerStore.hole_cards as card}
