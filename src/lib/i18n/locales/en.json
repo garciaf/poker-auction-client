@@ -8,6 +8,7 @@
     "start": "Start",
     "ready": "Ready",
     "loading": "Loading...",
+    "confirm": "Confirm selection",
     "guest": "Guest"
   },
   "holeCards":{
@@ -15,6 +16,12 @@
     "yourHoleCards": "Your hole cards",
     "privateCarsForYou": "This card are private to you",
     "tapBellow": "Tap below when you're ready to start the auction round"
+  },
+  "selectCard": {
+    "yourCard": "Your cards",
+    "yourCardInfo": "(for info only)",
+    "infoUseAllPlayer": "This card will be usable to all players",
+    "choose": "Choose 1 card to share:"
   },
   "actions": {
     "joinLobby": "Join Lobby",

@@ -84,3 +84,33 @@
 .input-text{
   @apply bg-classy-black text-white text-lg border border-white/20 px-8 py-4 w-7/8 md:w-2/3 lg:w-1/2 rounded-lg;
 }
+
+.card-selectable {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.card-selectable:hover {
+  transform: translateY(-10px);
+}
+
+.card-selectable:active {
+  transform: translateY(-5px) scale(0.98);
+}
+.card-selected {
+  transform: translateY(-15px) scale(1.05);
+  box-shadow: 0 12px 24px rgba(255, 215, 0, 0.6), 0 0 0 4px #FFD700;
+}
+
+@keyframes pulse-ring {
+  0%, 100% {
+    box-shadow: 0 0 0 0px rgba(255, 215, 0, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(255, 215, 0, 0);
+  }
+}
+
+.card-selected {
+  animation: pulse-ring 2s infinite;
+}

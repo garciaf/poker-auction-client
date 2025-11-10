@@ -9,6 +9,7 @@
     "start": "Démarrer",
     "ready": "Prêt",
     "loading": "Chargement...",
+    "confirm": "Confirme la selection",
     "guest": "Invité"
   },
   "holeCards":{
@@ -16,6 +17,12 @@
     "yourHoleCards": "Vos cartes privées",
     "privateCarsForYou": "Ces cartes sont pour vous et vous seul",
     "tapBellow": "Appuyez ci-dessous quand vous êtes prêt à commencer"
+  },
+  "selectCard": {
+    "youCard": "Vos cartes",
+    "yourCardInfo": "(Pour information)",
+    "infoUseAllPlayer": "Cette carte sera utilisable par tous les joueurs",
+    "choose": "Choisissez 1 carte à partager:"
   },
   "actions": {
     "cancel": "Annuler",

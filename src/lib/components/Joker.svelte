@@ -18,7 +18,6 @@
   class:opacity-50={!joker.allowed}
   class:cursor-not-allowed={!joker.allowed}
   disabled={!joker.allowed}
-
 >
   <div
     class="relative w-24 h-36"

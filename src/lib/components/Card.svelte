@@ -1,39 +1,18 @@
 <script lang="ts">
   import { base } from '$app/paths';
-
+  import { cardMappingSuit, cardMappingRank } from '$lib/stores/player';
   export let flipped = false
   export let suit: 'HEARTS' | 'DIAMONDS' | 'CLUBS' | 'SPADES' = 'HEARTS';
   export let rank = 2;
+  export let extraClass =""
   export let onClick: (() => void) | undefined = undefined;
-
-  const mappingSuit = {
-    'HEARTS': 'Hearts',
-    'DIAMONDS': 'Diamonds',
-    'CLUBS': 'Clubs',
-    'SPADES': 'Spades'
-  };
-  const mappingRank: Record<number, string> = {
-    2: '2',
-    3: '3',
-    4: '4',
-    5: '5',
-    6: '6',
-    7: '7',
-    8: '8',
-    9: '9',
-    10: '10',
-    11: 'J',
-    12: 'Q',
-    13: 'K',
-    14: 'A'
-  };
-  $: front = `${base}/images/card${mappingSuit[suit]}${mappingRank[rank]}.png`;
+  $: front = `${base}/images/card${cardMappingSuit[suit]}${cardMappingRank[rank]}.png`;
   $: back = `${base}/images/cardBackSimple.png`;
 </script>
 <button
   on:click={onClick}
   class="bg-transparent border-none p-0 cursor-pointer active:scale-95 hover:scale-105"
-  aria-label="{flipped ? mappingRank[rank] + ' of ' + suit : 'Card back'}"
+  aria-label="{flipped ? cardMappingRank[rank] + ' of ' + suit : 'Card back'}"
 >
   <div
     class="relative w-24 h-36 transition-transform duration-700 transform-style-preserve-3d"

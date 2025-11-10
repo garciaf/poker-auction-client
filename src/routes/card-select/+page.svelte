@@ -1,26 +1,71 @@
-<script>
+<script lang="ts">
   import socket from '$lib/socket';
-  import HoleCards from '$lib/components/HoleCards.svelte'
   import Card from '$lib/components/Card.svelte';
-  import { lotsStore } from '$lib/stores/player';
+  import SmallCard from '$lib/components/SmallCard.svelte';
+  import { lotsStore, playerStore } from '$lib/stores/player';
+  import type { Card as CardType } from '$lib/stores/player';
+
   import { t } from '$lib/i18n';
+  let selectedCard: CardType;
+  function confirmSelection(selectedCard: CardType): void {
+    if(selectedCard){
+      socket?.emit('select-card', { card: selectedCard })
+    }
+  }
 </script>
+<div class="layout-content space-y-8 p-4">
+  <div class="max-w-lg mx-auto">
+    <div class="bg-black/20 rounded-xl p-3 mb-6">
+      <div class="flex items-center justify-between mb-2">
+        <div class="flex items-center gap-2">
+          <span class="text-sm font-semibold opacity-80">{$t('selectCard.yourCard')}</span>
+          <span class="text-xs opacity-60">{$t('selectCard.yourCardInfo')}</span>
+        </div>
+      </div>
+      <div class="flex justify-center gap-2">
+        {#each $playerStore.hole_cards as card}
+          <SmallCard
+            suit={card.suit}
+            rank={card.rank}
+            size="SMALL"
+          />
+        {/each}
 
-
-<div class="layout-content space-y-8 lg:px-4 py-12">
-  <div class= "flex flex-col items-center justify-center items-center gap-y-4 text-center">
-    <HoleCards />
-  </div>
-  <h2 class="text-white text-2xl font-[700] text-center">{$t('actions.selectCard')}</h2>
-  <div class= "flex flex-col items-center justify-center items-center gap-y-4 text-center">
-    <div class="grid grid-cols-3 md:grid-cols-4 gap-6">
-      {#each $lotsStore.cards as card}
-        <Card
-          suit={card.suit}
-          rank={card.rank}
-          onClick={() => socket?.emit('select-card', { card })}
-        />
-      {/each}
+      </div>
+    </div>
+    <div class="text-center mb-6">
+      <div class="text-2xl font-eight-bit mb-2">
+        {$t('actions.selectCard')}
+      </div>
+    </div>
+    <div class="bg-blue-900/40 rounded-lg p-3 border-2 border-blue-500/30  mb-4">
+      <div class="flex items-center font-eight-bit justify-center gap-2 text-sm">
+        {$t('selectCard.infoUseAllPlayer')}
+      </div>
+    </div>
+    <div class="text-center mb-5">
+      <p class="text-lg font-eight-bit font-semibold">{$t('selectCard.choose')}</p>
+    </div>
+    <div class= "flex justify-center gap-6 mb-6">
+      <div class="grid grid-cols-3 md:grid-cols-4 gap-6">
+        {#each $lotsStore.cards as card}
+          <SmallCard
+            suit={card.suit}
+            size="NORMAL"
+            rank={card.rank}
+            extraClass={selectedCard?.rank === card.rank && selectedCard?.suit === card.suit ? 'card-selectable card-selected' : 'card-selectable'}
+            onClick={() => selectedCard = card }
+          />
+        {/each}
+      </div>
+    </div>
+    <div class="flex gap-3">
+      <button 
+        class="flex-[2] btn btn-primary" 
+        onclick={() => confirmSelection(selectedCard) }
+        disabled={!selectedCard}>
+        { $t('common.confirm')}
+      </button>
     </div>
   </div>
 </div>
