@@ -1,4 +1,43 @@
 {
+  "cards": {
+		"of": "de",
+		"suits": {
+			"HEARTS": "Cœurs",
+			"DIAMONDS": "Carreaux",
+			"CLUBS": "Trèfles",
+			"SPADES": "Piques"
+		},
+		"ranks": {
+			"2": "2",
+			"3": "3",
+			"4": "4",
+			"5": "5",
+			"6": "6",
+			"7": "7",
+			"8": "8",
+			"9": "9",
+			"10": "10",
+			"11": "Valet",
+			"12": "Dame",
+			"13": "Roi",
+			"14": "As"
+		},
+		"ranksShort": {
+			"2": "2",
+			"3": "3",
+			"4": "4",
+			"5": "5",
+			"6": "6",
+			"7": "7",
+			"8": "8",
+			"9": "9",
+			"10": "10",
+			"11": "V",
+			"12": "D",
+			"13": "R",
+			"14": "A"
+		}
+	},
   "common": {
     "lobbyId": "ID du Lobby",
     "playerName": "Nom du Joueur",
@@ -19,7 +58,7 @@
     "tapBellow": "Appuyez ci-dessous quand vous êtes prêt à commencer"
   },
   "selectCard": {
-    "youCard": "Vos cartes",
+    "yourCard": "Vos cartes",
     "yourCardInfo": "(Pour information)",
     "infoUseAllPlayer": "Cette carte sera utilisable par tous les joueurs",
     "choose": "Choisissez 1 carte à partager:"

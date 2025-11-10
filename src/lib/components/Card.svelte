@@ -1,10 +1,9 @@
 <script lang="ts">
   import { base } from '$app/paths';
-  import { cardMappingSuit, cardMappingRank } from '$lib/stores/player';
+  import { cardMappingSuit, cardMappingRank } from '$lib/cardHelper';
   export let flipped = false
   export let suit: 'HEARTS' | 'DIAMONDS' | 'CLUBS' | 'SPADES' = 'HEARTS';
   export let rank = 2;
-  export let extraClass =""
   export let onClick: (() => void) | undefined = undefined;
   $: front = `${base}/images/card${cardMappingSuit[suit]}${cardMappingRank[rank]}.png`;
   $: back = `${base}/images/cardBackSimple.png`;

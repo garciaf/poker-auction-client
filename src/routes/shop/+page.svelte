@@ -1,10 +1,8 @@
 <script lang="ts">
   import socket from '$lib/socket';
   import Chip from '$lib/components/Chip.svelte';
-  import Joker from '$lib/components/Joker.svelte';
   import SaleJoker from '$lib/components/SaleJoker.svelte';
   import { shopStore } from '$lib/stores/player';
-  import { playerStore } from '$lib/stores/player';
   import { t } from '$lib/i18n';
 
   function buyJoker(joker: any) {

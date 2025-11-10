@@ -2,9 +2,9 @@
   import socket from '$lib/socket';
   import Card from '$lib/components/Card.svelte';
   import SmallCard from '$lib/components/SmallCard.svelte';
-  import { lotsStore, playerStore } from '$lib/stores/player';
-  import type { Card as CardType } from '$lib/stores/player';
-
+  import { lotsStore, playerStore,  } from '$lib/stores/player';
+  import type { Card as CardType } from '$lib/cardHelper';
+  import { cardName } from '$lib/cardHelper';
   import { t } from '$lib/i18n';
   let selectedCard: CardType;
   function confirmSelection(selectedCard: CardType): void {
@@ -47,7 +47,7 @@
       <p class="text-lg font-eight-bit font-semibold">{$t('selectCard.choose')}</p>
     </div>
     <div class= "flex justify-center gap-6 mb-6">
-      <div class="grid grid-cols-3 md:grid-cols-4 gap-6">
+      <div class="grid grid-cols-3 gap-6">
         {#each $lotsStore.cards as card}
           <SmallCard
             suit={card.suit}
@@ -57,6 +57,12 @@
             onClick={() => selectedCard = card }
           />
         {/each}
+      </div>
+    </div>
+    <div class="text-center mb-5">
+      <div class="inline-block bg-yellow-400/20 rounded-lg px-4 py-2 border-2 border-yellow-400/50">
+        <span class="text-sm font-eight-bit"> Selected</span>
+        <span class="font-bold text-yellow-400 font-eight-bit">{cardName(selectedCard)}</span>
       </div>
     </div>
     <div class="flex gap-3">
