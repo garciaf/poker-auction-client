@@ -21,6 +21,10 @@ export const shopStore = persisted('shop', {
     jokers: [] as Joker[]
 })
 
+export const bonusStore = persisted('bonus', {
+  amount: 0 as Number
+})
+
 export const playerStore = persisted('player',{
     id: null,
     lobbyId: "",

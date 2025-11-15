@@ -56,6 +56,11 @@
     "privateCarsForYou": "This card are private to you",
     "tapBellow": "Tap below when you're ready to start the auction round"
   },
+  "finance": {
+    "title": "Finance",
+    "subtitle": "Your chips for this round",
+    "hint": "Use your chips wisely to bid on cards during the auction rounds!"
+  },
   "selectCard": {
     "yourCard": "Your cards",
     "yourCardInfo": "(for info only)",

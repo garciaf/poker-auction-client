@@ -2,7 +2,7 @@ import { goto } from '$app/navigation';
 import { base } from '$app/paths';
 import { browser } from '$app/environment';
 import socket from '$lib/socket';
-import { playerStore, lotsStore, shopStore, updateJokerStatus, notifications } from '$lib/stores/player';
+import { playerStore, lotsStore, shopStore, updateJokerStatus, bonusStore, notifications } from '$lib/stores/player';
 // @ts-ignore
 import { gameStore, loadingMessage } from '$lib/stores/player';
 
@@ -24,6 +24,11 @@ class LiveNavigation {
         goto(`${base}/offer`);
       } else if (data.screen === 'result') {
         goto(`${base}/result`);
+      } else if(data.screen === 'finance') {
+        const { bonus } = data
+        bonusStore.set({ amount: bonus })
+        goto(`${base}/finance`);
+
       } else if (data.screen === 'card-select') {
         lotsStore.set({ cards: data.cards || [] });
         goto(`${base}/card-select`);

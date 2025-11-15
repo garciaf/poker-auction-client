@@ -38,6 +38,11 @@
 			"14": "A"
 		}
 	},
+  "finance": {
+    "title": "Finance",
+    "subtitle": "Vos jetons pour ce tour",
+    "hint": "Utiliser vos jetons avec sagesse pour les enchères et achetez les meilleurs cartes"
+  },
   "common": {
     "lobbyId": "ID du Lobby",
     "playerName": "Nom du Joueur",
