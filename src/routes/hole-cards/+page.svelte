@@ -15,7 +15,7 @@
 
 <div class="layout-content space-y-8 lg:px-4 py-12">
   <div class="max-w-lg mx-auto p-4">
-    <div class= "flex justify-between items-center mb-6 bg-black/20 rounded-xl p-4">
+    <div class= "flex flex-col justify-between items-center mb-6 bg-black/20 rounded-xl p-4">
       <div class="text-xl md:text-5xl font-eight-bit uppercase tracking-wider">{$t('holeCards.dealing')}</div>
       <div class="text-right">
         <Chip />
