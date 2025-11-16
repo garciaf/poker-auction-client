@@ -1,6 +1,6 @@
 import { browser } from '$app/environment';
-import { writable, get } from 'svelte/store';
-import { playerStore } from '$lib/stores/player'; // use $lib path if inside src/lib
+import { get } from 'svelte/store';
+import { playerStore } from '$lib/stores/player';
 
 const websocketUrl = import.meta.env.VITE_WEBSOCKET_URL;
 
@@ -15,24 +15,25 @@ type EventPayload = {
 type Callback = (...args: any[]) => void;
 
 class Socket {
-  private socket: WebSocket;
+  private socket: WebSocket | null = null;
   private listeners: Map<string, Callback[]>;
   public disconnected = true;
+  
+  // Reconnection config
+  private reconnectAttempts = 0;
+  private maxReconnectAttempts = 5;
+  private reconnectDelay = 1000;
+  private maxReconnectDelay = 30000;
+  private reconnectTimer: ReturnType<typeof setTimeout> | null = null;
+  private intentionalClose = false;
 
   constructor() {
     this.listeners = new Map();
+    this.connect();
+  }
+
+  private connect(): void {
     this.socket = new WebSocket(websocketUrl);
-
-    this.on('connected', (data: any) => {
-      this.disconnected = false;
-      playerStore.update(state => ({ ...state, id: data.from }));
-    });
-
-    this.on('reconnected', (data: any) => {
-      console.debug('[Socket] Reconnected:', data);
-      this.disconnected = false;
-      playerStore.update(state => ({ ...state, id: data.from, lobbyId: data.lobbyId }));
-    });
 
     this.socket.addEventListener('message', (event: MessageEvent) => {
       try {
@@ -45,25 +46,87 @@ class Socket {
     });
 
     this.socket.addEventListener('open', () => {
-      if (this.disconnected) {
-        this.emit('connect', { clientId: this.getPlayerId() });
-        console.warn('[Socket] Connected to server');
+      console.log('[Socket] Connected to server');
+      this.disconnected = false;
+      this.reconnectAttempts = 0;
+      this.reconnectDelay = 1000;
+      
+      const playerId = this.getPlayerId();
+      if (playerId) {
+        this.emit('reconnect', { clientId: playerId });
+      } else {
+        this.emit('connect', { clientId: playerId });
       }
     });
 
-    this.socket.addEventListener('close', () => {
+    this.socket.addEventListener('close', (event) => {
       this.disconnected = true;
-      console.warn('[Socket] Disconnected from server');
+      console.warn('[Socket] Disconnected from server', event.code, event.reason);
+      
+      if (!this.intentionalClose) {
+        this.attemptReconnect();
+      }
     });
 
     this.socket.addEventListener('error', (error: Event) => {
       console.error('[Socket] Error:', error);
     });
 
-    this.socket.onclose = () => {
-      this.disconnected = true;
-      console.warn('[Socket] WebSocket connection closed');
-    };
+    this.on('connected', (data: any) => {
+      this.disconnected = false;
+      playerStore.update(state => ({ ...state, id: data.from }));
+    });
+
+    this.on('reconnected', (data: any) => {
+      console.debug('[Socket] Reconnected:', data);
+      this.disconnected = false;
+      playerStore.update(state => ({ ...state, id: data.from, lobbyId: data.lobbyId }));
+    });
+  }
+
+  private attemptReconnect(): void {
+    if (this.reconnectAttempts >= this.maxReconnectAttempts) {
+      console.error('[Socket] Max reconnection attempts reached');
+      const callbacks = this.listeners.get('max_reconnect_failed') || [];
+      callbacks.forEach(cb => cb({ attempts: this.reconnectAttempts }));
+      return;
+    }
+
+    this.reconnectAttempts++;
+    
+    const delay = Math.min(
+      this.reconnectDelay * Math.pow(2, this.reconnectAttempts - 1),
+      this.maxReconnectDelay
+    );
+
+    console.log(`[Socket] Attempting reconnection ${this.reconnectAttempts}/${this.maxReconnectAttempts} in ${delay}ms`);
+
+    const callbacks = this.listeners.get('reconnecting') || [];
+    callbacks.forEach(cb => cb({ 
+      attempt: this.reconnectAttempts, 
+      maxAttempts: this.maxReconnectAttempts,
+      delay 
+    }));
+
+    this.reconnectTimer = setTimeout(() => {
+      this.connect();
+    }, delay);
+  }
+
+  public disconnect(): void {
+    this.intentionalClose = true;
+    if (this.reconnectTimer) {
+      clearTimeout(this.reconnectTimer);
+      this.reconnectTimer = null;
+    }
+    this.socket?.close();
+  }
+
+  public reconnect(): void {
+    this.intentionalClose = false;
+    this.reconnectAttempts = 0;
+    this.disconnect();
+    this.connect();
   }
 
   public on(eventName: string, callback: Callback): void {
@@ -87,13 +150,11 @@ class Socket {
     const playerId = get(playerStore).id;
 
     const message: EventPayload = { event, data, from: playerId, to: to || null, lobbyId };
-    if (this.socket.readyState === WebSocket.OPEN) {
+    
+    if (this.socket?.readyState === WebSocket.OPEN) {
       this.socket.send(JSON.stringify(message));
     } else {
-      console.warn('[Socket] Socket is not open, waiting for connection...');
-      this.socket.onopen = () => {
-        this.socket.send(JSON.stringify(message));
-      };
+      console.warn('[Socket] Socket is not open, message not sent');
     }
   }
 }
