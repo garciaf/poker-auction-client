@@ -27,6 +27,12 @@ class Socket {
   private reconnectTimer: ReturnType<typeof setTimeout> | null = null;
   private intentionalClose = false;
 
+  // Heartbeat config
+  private heartbeatInterval: ReturnType<typeof setInterval> | null = null;
+  private heartbeatTimeout: ReturnType<typeof setTimeout> | null = null;
+  private readonly HEARTBEAT_INTERVAL = 25000;
+  private readonly HEARTBEAT_TIMEOUT = 5000;
+
   constructor() {
     this.listeners = new Map();
     this.connect();
@@ -50,7 +56,10 @@ class Socket {
       this.disconnected = false;
       this.reconnectAttempts = 0;
       this.reconnectDelay = 1000;
-      
+
+      // Start heartbeat after connection
+      this.startHeartbeat();
+
       const playerId = this.getPlayerId();
       if (playerId) {
         this.emit('reconnect', { clientId: playerId });
@@ -61,6 +70,7 @@ class Socket {
 
     this.socket.addEventListener('close', (event) => {
       this.disconnected = true;
+      this.stopHeartbeat(); // ← CRITICAL: Stop heartbeat when connection closes
       console.warn('[Socket] Disconnected from server', event.code, event.reason);
       
       if (!this.intentionalClose) {
@@ -82,9 +92,52 @@ class Socket {
       this.disconnected = false;
       playerStore.update(state => ({ ...state, id: data.from, lobbyId: data.lobbyId }));
     });
+
+    this.on('pong', () => {
+      console.debug('[Socket] Received pong from server');
+      if (this.heartbeatTimeout) {
+        clearTimeout(this.heartbeatTimeout);
+        this.heartbeatTimeout = null;
+      }
+    });
+  }
+
+  private startHeartbeat(): void {
+    this.stopHeartbeat();
+    
+    console.log('[Socket] Starting heartbeat');
+    
+    this.heartbeatInterval = setInterval(() => {
+      if (this.socket?.readyState === WebSocket.OPEN) {
+        console.debug('[Socket] Sending ping');
+        this.emit('ping', { timestamp: Date.now() });
+        
+        this.heartbeatTimeout = setTimeout(() => {
+          console.warn('[Socket] No pong received, connection appears dead');
+          this.socket?.close();
+        }, this.HEARTBEAT_TIMEOUT);
+      }
+    }, this.HEARTBEAT_INTERVAL);
+  }
+
+  private stopHeartbeat(): void {
+    if (this.heartbeatInterval) {
+      clearInterval(this.heartbeatInterval);
+      this.heartbeatInterval = null;
+    }
+    if (this.heartbeatTimeout) {
+      clearTimeout(this.heartbeatTimeout);
+      this.heartbeatTimeout = null;
+    }
   }
 
   private attemptReconnect(): void {
+    // Clean up any existing reconnect timer
+    if (this.reconnectTimer) {
+      clearTimeout(this.reconnectTimer);
+      this.reconnectTimer = null;
+    }
+
     if (this.reconnectAttempts >= this.maxReconnectAttempts) {
       console.error('[Socket] Max reconnection attempts reached');
       const callbacks = this.listeners.get('max_reconnect_failed') || [];
@@ -115,6 +168,8 @@ class Socket {
 
   public disconnect(): void {
     this.intentionalClose = true;
+    this.stopHeartbeat();
+
     if (this.reconnectTimer) {
       clearTimeout(this.reconnectTimer);
       this.reconnectTimer = null;
@@ -123,9 +178,26 @@ class Socket {
   }
 
   public reconnect(): void {
-    this.intentionalClose = false;
+    // Stop any pending reconnection attempts
+    if (this.reconnectTimer) {
+      clearTimeout(this.reconnectTimer);
+      this.reconnectTimer = null;
+    }
+
+    // Reset state
     this.reconnectAttempts = 0;
-    this.disconnect();
+    this.intentionalClose = false; // ← Set BEFORE closing
+
+    // Close existing connection if any
+    this.stopHeartbeat();
+    if (this.socket) {
+      // Temporarily set intentionalClose to true just for this close
+      this.intentionalClose = true;
+      this.socket.close();
+    }
+
+    // Now reset and connect
+    this.intentionalClose = false; // ← Reset for new connection
     this.connect();
   }
 
