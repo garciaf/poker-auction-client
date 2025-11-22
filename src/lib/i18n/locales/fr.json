@@ -92,5 +92,51 @@
   "languages": {
     "english": "Anglais",
     "french": "Français"
+  },
+  "help": {
+    "title": "Mains de Poker",
+    "description": "Apprenez les combinaisons de poker de la plus forte à la plus faible:",
+    "hands": {
+      "royalFlush": {
+        "name": "Quinte Flush Royale",
+        "description": "La meilleure main possible! Cinq cartes consécutives de 10 à l'As, toutes de la même couleur."
+      },
+      "straightFlush": {
+        "name": "Quinte Flush",
+        "description": "Cinq cartes consécutives de la même couleur. Si deux joueurs ont une quinte flush, celui avec la carte la plus haute gagne."
+      },
+      "fourOfAKind": {
+        "name": "Carré",
+        "description": "Quatre cartes de même rang. La cinquième carte (le kicker) peut être n'importe laquelle."
+      },
+      "fullHouse": {
+        "name": "Full",
+        "description": "Trois cartes d'un même rang et deux cartes d'un autre rang. Aussi appelé 'main pleine'."
+      },
+      "flush": {
+        "name": "Couleur",
+        "description": "Cinq cartes de la même couleur, mais pas en séquence. Si deux joueurs ont une couleur, la carte la plus haute gagne."
+      },
+      "straight": {
+        "name": "Quinte",
+        "description": "Cinq cartes consécutives de couleurs différentes. L'As peut être haut (A-R-D-V-10) ou bas (5-4-3-2-A)."
+      },
+      "threeOfAKind": {
+        "name": "Brelan",
+        "description": "Trois cartes de même rang, plus deux cartes non liées. Aussi appelé 'trips'."
+      },
+      "twoPair": {
+        "name": "Double Paire",
+        "description": "Deux cartes d'un rang, deux cartes d'un autre rang, plus une carte non liée."
+      },
+      "pair": {
+        "name": "Paire",
+        "description": "Deux cartes de même rang, plus trois cartes non liées. La main gagnante la plus courante."
+      },
+      "highCard": {
+        "name": "Carte Haute",
+        "description": "Quand vous n'avez aucune des mains ci-dessus, c'est la carte la plus haute qui compte. L'As est la plus haute."
+      }
+    }
   }
 }
