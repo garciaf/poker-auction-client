@@ -93,8 +93,13 @@
     "french": "French"
   },
   "help": {
-    "title": "Poker Hands",
-    "description": "Learn poker hand rankings from highest to lowest:",
+    "title": "Game Help",
+    "tabs": {
+      "poker": "Poker Hands",
+      "auctions": "Auction Types"
+    },
+    "pokerDescription": "Learn poker hand rankings from highest to lowest:",
+    "auctionsDescription": "Learn how different auction types work:",
     "hands": {
       "royalFlush": {
         "name": "Royal Flush",
@@ -135,6 +140,27 @@
       "highCard": {
         "name": "High Card",
         "description": "When you don't have any of the above hands, the highest card in your hand plays. Ace is the highest."
+      }
+    },
+    "auctions": {
+      "howToPlay": "How to Play:",
+      "openAuction": {
+        "name": "Open Auction",
+        "shortDesc": "Classic ascending bid auction",
+        "description": "Players openly bid against each other. You can see the current highest bid. Enter your bid amount and submit when ready. The player with the highest bid wins the card.",
+        "howTo": "1. Check the current bid\n2. Enter a higher amount\n3. Submit your bid\n4. Highest bid wins!"
+      },
+      "silentAuction": {
+        "name": "Silent Auction",
+        "shortDesc": "Hidden bids revealed at the end",
+        "description": "All players submit their bids secretly. No one knows what others are bidding. All bids are revealed simultaneously, and the highest bidder wins the card.",
+        "howTo": "1. Enter your bid amount\n2. Submit your secret bid\n3. Wait for all players\n4. Highest bid revealed wins!"
+      },
+      "dutchAuction": {
+        "name": "Dutch Auction",
+        "shortDesc": "Descending price, first to buy wins",
+        "description": "The price starts high and drops over time (shown on the main screen). The first player to hit 'Buy Now' wins the card at the current price. Act fast to get a good deal, but wait too long and someone else might buy it!",
+        "howTo": "1. Watch the screen for price\n2. Wait for your target price\n3. Hit 'Buy Now' to claim\n4. First buyer wins!"
       }
     }
   }

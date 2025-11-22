@@ -94,8 +94,13 @@
     "french": "Français"
   },
   "help": {
-    "title": "Mains de Poker",
-    "description": "Apprenez les combinaisons de poker de la plus forte à la plus faible:",
+    "title": "Aide du Jeu",
+    "tabs": {
+      "poker": "Mains de Poker",
+      "auctions": "Types d'Enchères"
+    },
+    "pokerDescription": "Apprenez les combinaisons de poker de la plus forte à la plus faible:",
+    "auctionsDescription": "Découvrez comment fonctionnent les différents types d'enchères:",
     "hands": {
       "royalFlush": {
         "name": "Quinte Flush Royale",
@@ -136,6 +141,27 @@
       "highCard": {
         "name": "Carte Haute",
         "description": "Quand vous n'avez aucune des mains ci-dessus, c'est la carte la plus haute qui compte. L'As est la plus haute."
+      }
+    },
+    "auctions": {
+      "howToPlay": "Comment Jouer:",
+      "openAuction": {
+        "name": "Enchère Ouverte",
+        "shortDesc": "Enchère ascendante classique",
+        "description": "Les joueurs enchérissent ouvertement les uns contre les autres. Vous pouvez voir l'enchère la plus élevée actuelle. Entrez votre montant et soumettez quand vous êtes prêt. Le joueur avec l'enchère la plus élevée remporte la carte.",
+        "howTo": "1. Vérifiez l'enchère actuelle\n2. Entrez un montant plus élevé\n3. Soumettez votre enchère\n4. L'enchère la plus haute gagne!"
+      },
+      "silentAuction": {
+        "name": "Enchère Silencieuse",
+        "shortDesc": "Offres cachées révélées à la fin",
+        "description": "Tous les joueurs soumettent leurs enchères secrètement. Personne ne sait ce que les autres enchérissent. Toutes les enchères sont révélées simultanément, et le plus offrant remporte la carte.",
+        "howTo": "1. Entrez votre montant\n2. Soumettez votre enchère secrète\n3. Attendez tous les joueurs\n4. L'enchère la plus haute révélée gagne!"
+      },
+      "dutchAuction": {
+        "name": "Enchère Hollandaise",
+        "shortDesc": "Prix descendant, premier acheteur gagne",
+        "description": "Le prix commence haut et descend avec le temps (affiché sur l'écran principal). Le premier joueur à cliquer sur 'Acheter' remporte la carte au prix actuel. Agissez vite pour une bonne affaire, mais attendez trop longtemps et quelqu'un d'autre pourrait l'acheter!",
+        "howTo": "1. Regardez l'écran pour le prix\n2. Attendez votre prix cible\n3. Cliquez 'Acheter' pour réclamer\n4. Premier acheteur gagne!"
       }
     }
   }
