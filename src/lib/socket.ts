@@ -62,7 +62,8 @@ class Socket {
 
       const playerId = this.getPlayerId();
       if (playerId) {
-        this.emit('reconnect', { clientId: playerId });
+        const lobbyId = this.getLobbyId();
+        this.emit('reconnect', { clientId: playerId, lobbyId: lobbyId });
       } else {
         this.emit('connect', { clientId: playerId });
       }
