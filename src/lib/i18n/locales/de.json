@@ -1,0 +1,168 @@
+{
+	"cards": {
+		"of": "von",
+		"suits": {
+			"HEARTS": "Herz",
+			"DIAMONDS": "Karo",
+			"CLUBS": "Kreuz",
+			"SPADES": "Pik"
+		},
+		"ranks": {
+			"2": "2",
+			"3": "3",
+			"4": "4",
+			"5": "5",
+			"6": "6",
+			"7": "7",
+			"8": "8",
+			"9": "9",
+			"10": "10",
+			"11": "Bube",
+			"12": "Dame",
+			"13": "König",
+			"14": "Ass"
+		},
+		"ranksShort": {
+			"2": "2",
+			"3": "3",
+			"4": "4",
+			"5": "5",
+			"6": "6",
+			"7": "7",
+			"8": "8",
+			"9": "9",
+			"10": "10",
+			"11": "B",
+			"12": "D",
+			"13": "K",
+			"14": "A"
+		}
+	},
+	"common": {
+		"lobbyId": "Lobby-ID",
+		"playerName": "Spielername",
+		"yourName": "Dein Name",
+		"yourChips": "Deine Chips",
+		"chips": "Chips",
+		"start": "Start",
+		"ready": "Bereit",
+		"loading": "Lädt...",
+		"confirm": "Auswahl bestätigen",
+		"guest": "Gast"
+	},
+	"holeCards": {
+		"dealing": "Austeilen",
+		"yourHoleCards": "Deine verdeckten Karten",
+		"privateCarsForYou": "Diese Karten sind nur für dich sichtbar",
+		"tapBellow": "Tippe unten, wenn du bereit bist, die Auktionsrunde zu starten"
+	},
+	"finance": {
+		"title": "Finanzen",
+		"subtitle": "Deine Chips für diese Runde",
+		"hint": "Setze deine Chips weise ein, um während der Auktionsrunden auf Karten zu bieten!"
+	},
+	"selectCard": {
+		"yourCard": "Deine Karten",
+		"yourCardInfo": "(nur zur Info)",
+		"infoUseAllPlayer": "Diese Karte wird für alle Spieler nutzbar sein",
+		"choose": "Wähle 1 Karte zum Teilen:"
+	},
+	"actions": {
+		"joinLobby": "Lobby beitreten",
+		"buyNow": "Jetzt kaufen",
+		"buyFor": "Kaufen für {{price}} Chips",
+		"yourBid": "Dein Gebot",
+		"cancel": "Abbrechen",
+		"lookTheScreen": "Schau auf den Bildschirm",
+		"selectCard": "Wähle eine Karte für die Gemeinschaft",
+		"selectJoker": "Wähle einen Joker zum Kaufen",
+		"submitBid": "Gebot abgeben",
+		"startAuction": "Auktionsrunde starten"
+	},
+	"messages": {
+		"welcomeAuction": "Willkommen zur großen Auktion. Bitte wähle einen Namen, bevor du der Lobby beitrittst.",
+		"gameStartsWhenReady": "Das Spiel beginnt, wenn alle Spieler bestätigt haben"
+	},
+	"placeholders": {
+		"lobbyIdExample": "X12XX",
+		"yourName": "Dein Name",
+		"bidAmount": "10"
+	},
+	"languages": {
+		"english": "Englisch",
+		"french": "Französisch",
+		"german": "Deutsch"
+	},
+	"help": {
+		"title": "Spielhilfe",
+		"tabs": {
+			"poker": "Poker-Blätter",
+			"auctions": "Auktionsarten"
+		},
+		"pokerDescription": "Lerne die Poker-Blatt-Rangfolge von höchster bis niedrigster:",
+		"auctionsDescription": "Lerne, wie verschiedene Auktionsarten funktionieren:",
+		"hands": {
+			"royalFlush": {
+				"name": "Royal Flush",
+				"description": "Das bestmögliche Blatt! Fünf aufeinanderfolgende Karten von 10 bis Ass, alle in derselben Farbe."
+			},
+			"straightFlush": {
+				"name": "Straight Flush",
+				"description": "Fünf aufeinanderfolgende Karten derselben Farbe. Wenn zwei Spieler einen Straight Flush haben, gewinnt derjenige mit der höchsten Karte."
+			},
+			"fourOfAKind": {
+				"name": "Vierling",
+				"description": "Vier Karten desselben Rangs. Die fünfte Karte (Kicker) kann beliebig sein."
+			},
+			"fullHouse": {
+				"name": "Full House",
+				"description": "Drei Karten eines Rangs und zwei Karten eines anderen Rangs. Wird auch 'Boot' genannt."
+			},
+			"flush": {
+				"name": "Flush",
+				"description": "Fünf Karten derselben Farbe, aber nicht in Reihenfolge. Wenn zwei Spieler einen Flush haben, gewinnt die höchste Karte."
+			},
+			"straight": {
+				"name": "Straße",
+				"description": "Fünf aufeinanderfolgende Karten verschiedener Farben. Das Ass kann hoch (A-K-D-B-10) oder niedrig (5-4-3-2-A) sein."
+			},
+			"threeOfAKind": {
+				"name": "Drilling",
+				"description": "Drei Karten desselben Rangs plus zwei nicht zusammenhängende Karten. Wird auch 'Trips' oder 'Set' genannt."
+			},
+			"twoPair": {
+				"name": "Zwei Paare",
+				"description": "Zwei Karten eines Rangs, zwei Karten eines anderen Rangs plus eine nicht zusammenhängende Karte."
+			},
+			"pair": {
+				"name": "Ein Paar",
+				"description": "Zwei Karten desselben Rangs plus drei nicht zusammenhängende Karten. Das häufigste Gewinnblatt."
+			},
+			"highCard": {
+				"name": "Hohe Karte",
+				"description": "Wenn du keines der obigen Blätter hast, zählt die höchste Karte in deiner Hand. Das Ass ist die höchste."
+			}
+		},
+		"auctions": {
+			"howToPlay": "Wie man spielt:",
+			"openAuction": {
+				"name": "Offene Auktion",
+				"shortDesc": "Klassische aufsteigende Gebotsauktion",
+				"description": "Spieler bieten offen gegeneinander. Du kannst das aktuell höchste Gebot sehen. Gib deinen Gebotsbetrag ein und sende ihn ab, wenn du bereit bist. Der Spieler mit dem höchsten Gebot gewinnt die Karte.",
+				"howTo": "1. Überprüfe das aktuelle Gebot\n2. Gib einen höheren Betrag ein\n3. Sende dein Gebot ab\n4. Höchstes Gebot gewinnt!"
+			},
+			"silentAuction": {
+				"name": "Stille Auktion",
+				"shortDesc": "Versteckte Gebote werden am Ende offenbart",
+				"description": "Alle Spieler geben ihre Gebote geheim ab. Niemand weiß, was die anderen bieten. Alle Gebote werden gleichzeitig offenbart, und der Höchstbietende gewinnt die Karte.",
+				"howTo": "1. Gib deinen Gebotsbetrag ein\n2. Sende dein geheimes Gebot ab\n3. Warte auf alle Spieler\n4. Höchstes offenbartes Gebot gewinnt!"
+			},
+			"dutchAuction": {
+				"name": "Holländische Auktion",
+				"shortDesc": "Sinkender Preis, erster Käufer gewinnt",
+				"description": "Der Preis beginnt hoch und sinkt mit der Zeit (wird auf dem Hauptbildschirm angezeigt). Der erste Spieler, der 'Jetzt kaufen' drückt, gewinnt die Karte zum aktuellen Preis. Handle schnell, um ein gutes Angebot zu bekommen, aber warte nicht zu lange, sonst kauft sie vielleicht jemand anders!",
+				"howTo": "1. Beobachte den Bildschirm für den Preis\n2. Warte auf deinen Zielpreis\n3. Drücke 'Jetzt kaufen' zum Erwerben\n4. Erster Käufer gewinnt!"
+			}
+		}
+	}
+}

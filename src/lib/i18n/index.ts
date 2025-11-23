@@ -5,6 +5,7 @@ import i18n from 'sveltekit-i18n';
 // Import translations
 import en from './locales/en.json';
 import fr from './locales/fr.json';
+import de from './locales/de.json';
 
 export interface Translations {
 	common: {
@@ -35,13 +36,15 @@ export interface Translations {
 	languages: {
 		english: string;
 		french: string;
+		german: string;
 	};
 }
 
 const config: Config<Translations> = {
 	translations: {
 		en,
-		fr
+		fr,
+		de
 	},
 	loaders: [],
 	initLocale: 'en',
@@ -53,7 +56,8 @@ export const { t, locale, locales, loading, loadTranslations } = new i18n(config
 // Available locales with metadata
 export const availableLocales = [
 	{ code: 'en', name: 'English', flag: '🇬🇧' },
-	{ code: 'fr', name: 'Français', flag: '🇫🇷' }
+	{ code: 'fr', name: 'Français', flag: '🇫🇷' },
+	{ code: 'de', name: 'Deutsch', flag: '🇩🇪' }
 ] as const;
 
-export type LocaleCode = 'en' | 'fr';
+export type LocaleCode = 'en' | 'fr' | 'de';
