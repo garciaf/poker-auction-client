@@ -36,6 +36,9 @@
     playerStore.update(state => ({...state, lobbyId, name}));
 
     if (socket) {
+      // Tell socket we're joining a new lobby (enables reconnection to it)
+      socket.joinLobby(lobbyId);
+
       socket.emit('join-lobby', {
         lobbyId: lobbyId,
         name: name,

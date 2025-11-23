@@ -18,7 +18,7 @@ class Socket {
   private socket: WebSocket | null = null;
   private listeners: Map<string, Callback[]>;
   public disconnected = true;
-  
+
   // Reconnection config
   private reconnectAttempts = 0;
   private maxReconnectAttempts = 5;
@@ -32,6 +32,10 @@ class Socket {
   private heartbeatTimeout: ReturnType<typeof setTimeout> | null = null;
   private readonly HEARTBEAT_INTERVAL = 25000;
   private readonly HEARTBEAT_TIMEOUT = 5000;
+
+  // Lobby state tracking
+  private currentLobbyId: string | null = null;
+  private shouldReconnectToLobby: boolean = true;
 
   constructor() {
     this.listeners = new Map();
@@ -61,11 +65,31 @@ class Socket {
       this.startHeartbeat();
 
       const playerId = this.getPlayerId();
-      if (playerId) {
-        const lobbyId = this.getLobbyId();
+      const lobbyId = this.getLobbyId();
+
+      // Detect lobby transition
+      const lobbyChanged = this.currentLobbyId !== null && this.currentLobbyId !== lobbyId;
+      if (lobbyChanged) {
+        console.log('[Socket] Lobby changed from', this.currentLobbyId, 'to', lobbyId);
+        this.shouldReconnectToLobby = true; // Allow reconnecting to new lobby
+      }
+
+      // Only attempt reconnection if we should reconnect and have valid credentials
+      if (playerId && lobbyId && lobbyId.trim() !== '' && this.shouldReconnectToLobby) {
+        console.log('[Socket] Attempting to reconnect to lobby:', lobbyId);
+        this.currentLobbyId = lobbyId; // Track the lobby we're connecting to
         this.emit('reconnect', { clientId: playerId, lobbyId: lobbyId });
-      } else {
+      } else if (playerId && lobbyId && lobbyId.trim() !== '' && !this.shouldReconnectToLobby) {
+        console.log('[Socket] Skipping reconnect - lobby reconnection disabled');
         this.emit('connect', { clientId: playerId });
+      } else if (playerId) {
+        console.log('[Socket] Connected without lobby');
+        this.currentLobbyId = null;
+        this.emit('connect', { clientId: playerId });
+      } else {
+        console.log('[Socket] Connected as new client');
+        this.currentLobbyId = null;
+        this.emit('connect', { clientId: null });
       }
     });
 
@@ -73,7 +97,7 @@ class Socket {
       this.disconnected = true;
       this.stopHeartbeat(); // ← CRITICAL: Stop heartbeat when connection closes
       console.warn('[Socket] Disconnected from server', event.code, event.reason);
-      
+
       if (!this.intentionalClose) {
         this.attemptReconnect();
       }
@@ -100,6 +124,16 @@ class Socket {
         clearTimeout(this.heartbeatTimeout);
         this.heartbeatTimeout = null;
       }
+    });
+
+    // Handle server events for invalid/non-existent lobbies
+    this.on('lobby-not-found', (data: any) => {
+      console.warn('[Socket] Lobby no longer exists:', data);
+      // Clear the lobbyId since the lobby doesn't exist
+      playerStore.update(state => ({ ...state, lobbyId: '' }));
+      this.currentLobbyId = null;
+      this.shouldReconnectToLobby = false;
+      this.disconnect(); // Stop trying to reconnect to non-existent lobby
     });
   }
 
@@ -200,6 +234,26 @@ class Socket {
     // Now reset and connect
     this.intentionalClose = false; // ← Reset for new connection
     this.connect();
+  }
+
+  public leaveLobby(): void {
+    console.log('[Socket] Leaving lobby:', this.currentLobbyId);
+    // Clear the lobbyId from the store
+    playerStore.update(state => ({ ...state, lobbyId: '' }));
+    // Prevent reconnecting to the old lobby
+    this.currentLobbyId = null;
+    this.shouldReconnectToLobby = false;
+    // Reset reconnection attempts
+    this.reconnectAttempts = 0;
+  }
+
+  public joinLobby(lobbyId: string): void {
+    console.log('[Socket] Joining lobby:', lobbyId);
+    // Allow reconnection to this new lobby
+    this.currentLobbyId = lobbyId;
+    this.shouldReconnectToLobby = true;
+    // Reset reconnection attempts for fresh start
+    this.reconnectAttempts = 0;
   }
 
   public on(eventName: string, callback: Callback): void {

@@ -4,9 +4,15 @@
   import socket from '$lib/socket'; // ✅ use SvelteKit alias
   import { playerStore } from '$lib/stores/player';
   import { t } from '$lib/i18n';
+  import { onMount } from 'svelte';
 
   let name = '';
   let lobbyId = '';
+
+  // Clear any previous lobby when landing on home page
+  onMount(() => {
+    socket?.leaveLobby();
+  });
 
   // ✅ Move socket event listeners inside onMount so they don't run on SSR
   socket?.on('joined-lobby', (data) => {
@@ -25,6 +31,9 @@
     playerStore.update(state => ({...state, lobbyId, name}));
 
     if (socket) {
+      // Tell socket we're joining a new lobby (enables reconnection to it)
+      socket.joinLobby(lobbyId);
+
       socket.emit('join-lobby', {
         lobbyId: lobbyId,
         name: name,
