@@ -116,6 +116,7 @@ class Socket {
       console.debug('[Socket] Reconnected:', data);
       this.disconnected = false;
       playerStore.update(state => ({ ...state, id: data.from, lobbyId: data.lobbyId }));
+      this.emit('player-reconnected');
     });
 
     this.on('pong', () => {
