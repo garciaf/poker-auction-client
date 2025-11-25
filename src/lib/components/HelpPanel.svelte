@@ -139,7 +139,8 @@
 		transition:fade={{ duration: 200 }}
 		onclick={closePanel}
 		aria-label="Close help panel"
-	/>
+	>
+	</button>
 
 	<!-- Panel -->
 	<div
