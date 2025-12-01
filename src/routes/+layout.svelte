@@ -11,7 +11,7 @@
   import { onMount } from 'svelte';
   import { playerStore } from '$lib/stores/player';
   import { isHelpPanelOpen } from '$lib/stores/help';
-
+  import { t } from '$lib/i18n';
   // Sync locale with persisted preference
   onMount(() => {
     const unsubscribe = localePreference.subscribe(value => {
@@ -34,19 +34,21 @@
 <main class="bg-poker-green h-dvh text-white overflow-auto">
   <header class="px-5 py-3 flex justify-between items-center shadow-xl" style={`background-color: ${$playerStore.color};`}>
     <PlayerTag />
-    <LanguageSwitcher />
+    <div class="flex flex-row gap-4">
+      <LanguageSwitcher />
+      <HelpPanel />
+      <button
+        onclick={toggleHelpPanel}
+        class="px-4 py-4 bg-white/10 rounded-lg font-eight-bit border-2 border-white/30 text-white transition-all duration-200 z-50"
+        aria-label="Help"
+      >
+        { $t("common.rules") }
+      </button>
+    </div>
   </header>
   <Notifications />
-  <HelpPanel />
 
   <!-- Help button -->
-  <button
-    onclick={toggleHelpPanel}
-    class="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-poker-green border-2 border-gold text-gold font-eight-bit text-2xl shadow-lg hover:bg-gold hover:text-poker-darker-green transition-all duration-200 z-50"
-    aria-label="Help"
-  >
-    ?
-  </button>
 
   <slot />
 </main>

@@ -48,7 +48,8 @@
 		"ready": "Bereit",
 		"loading": "Lädt...",
 		"confirm": "Auswahl bestätigen",
-		"guest": "Gast"
+		"guest": "Gast",
+		"rules": "Regel"
 	},
 	"holeCards": {
 		"dealing": "Austeilen",

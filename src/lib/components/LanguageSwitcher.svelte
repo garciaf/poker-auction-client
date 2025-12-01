@@ -19,16 +19,16 @@
       isOpen = false;
 		}
 	}
-  $: currentLanguageName = availableLocales.find(l => l.code === $localePreference)?.name ?? 'English';
+  $: currentLanguageName = availableLocales.find(l => l.code === $localePreference)?.code ?? 'en';
   
 </script>
 <svelte:window on:click={handleClickOutside} />
 
-<div class="lang-switcher relative">
+<div class="lang-switcher relative font-eight-bit">
   <button
     type="button"
     onclick={() => toggle()}
-    class={`px-4 py-2 bg-white/10 rounded-lg border-2 border-white/30 text-white transition-all flex items-center gap-2 ${isOpen ? 'bg-white/20 border-white' : 'bg-white/10 border-white/30'}`}
+    class={`px-4 py-4 bg-white/10 rounded-full font-eight-bit border-2 border-white/30 text-white uppercase transition-all flex items-center gap-2 ${isOpen ? 'bg-white/20 border-white' : 'bg-white/10 border-white/30'}`}
     title={currentLanguageName}
   >
     <span class="text-base">{currentLanguageName}</span>

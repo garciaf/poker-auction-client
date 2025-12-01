@@ -48,7 +48,8 @@
     "ready": "Ready",
     "loading": "Loading...",
     "confirm": "Confirm selection",
-    "guest": "Guest"
+    "guest": "Guest",
+    "rules": "Rules"
   },
   "holeCards":{
     "dealing": "Dealing",
