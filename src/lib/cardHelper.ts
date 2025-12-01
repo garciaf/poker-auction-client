@@ -32,3 +32,14 @@ export function cardName(card: Card): String {
   return `${rank} ${connector} ${suit}`;
 
 }
+
+export function cardNameByValue(rank: number, suit: string): string {
+  if (!rank) return '';
+  if (!suit) return '';
+  const rankName = t.get(`cards.ranks.${rank}`);
+	const suitName = t.get(`cards.suits.${suit}`);
+	const connector = t.get('cards.of');
+	
+  return `${rankName} ${connector} ${suitName}`;
+
+}

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { base } from '$app/paths';
-  import { cardMappingSuit, cardMappingRank } from '$lib/cardHelper';
+  import { cardMappingSuit, cardMappingRank, cardNameByValue } from '$lib/cardHelper';
   export let suit: 'HEARTS' | 'DIAMONDS' | 'CLUBS' | 'SPADES' = 'HEARTS';
   export let rank = 2;
   export let size: 'SMALL' | 'NORMAL'
@@ -17,7 +17,7 @@
     >
     <img
         src={front}
-        alt={cardMappingRank[rank] + ' of ' + suit }
+        alt={cardNameByValue(rank, suit) }
         class="w-full h-full"
     />
 </button>
