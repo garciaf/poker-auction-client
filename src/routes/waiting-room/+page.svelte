@@ -1,8 +1,6 @@
 <script>
     import socket from '$lib/socket';
     import { playerStore, gameStore } from '$lib/stores/player';
-
-    import LiveNavigation from '$lib/liveNavigation';
     import { t } from '$lib/i18n';
 
     function start() {

@@ -21,7 +21,7 @@ class Socket {
 
   // Reconnection config
   private reconnectAttempts = 0;
-  private maxReconnectAttempts = 5;
+  private maxReconnectAttempts = 50;
   private reconnectDelay = 1000;
   private maxReconnectDelay = 30000;
   private reconnectTimer: ReturnType<typeof setTimeout> | null = null;
@@ -129,12 +129,10 @@ class Socket {
 
     // Handle server events for invalid/non-existent lobbies
     this.on('lobby-not-found', (data: any) => {
-      console.warn('[Socket] Lobby no longer exists:', data);
-      // Clear the lobbyId since the lobby doesn't exist
-      playerStore.update(state => ({ ...state, lobbyId: '' }));
-      this.currentLobbyId = null;
-      this.shouldReconnectToLobby = false;
-      this.disconnect(); // Stop trying to reconnect to non-existent lobby
+      console.warn('[Socket] Lobby no longer exists, will keep retrying:', data);
+      // Don't clear lobbyId - keep trying to reconnect
+      // The lobby might be temporarily unavailable or recreated
+      // If max attempts is reached, the user can manually give up
     });
   }
 
@@ -182,19 +180,26 @@ class Socket {
     }
 
     this.reconnectAttempts++;
-    
+
     const delay = Math.min(
       this.reconnectDelay * Math.pow(2, this.reconnectAttempts - 1),
       this.maxReconnectDelay
     );
 
-    console.log(`[Socket] Attempting reconnection ${this.reconnectAttempts}/${this.maxReconnectAttempts} in ${delay}ms`);
+    const totalAttempts = this.maxReconnectAttempts;
+    const remainingAttempts = totalAttempts - this.reconnectAttempts;
+    const estimatedTimeRemaining = remainingAttempts * this.maxReconnectDelay / 1000; // seconds
+
+    console.log(
+      `[Socket] Attempting reconnection ${this.reconnectAttempts}/${totalAttempts} ` +
+      `in ${delay}ms (est. ${Math.floor(estimatedTimeRemaining / 60)}m remaining)`
+    );
 
     const callbacks = this.listeners.get('reconnecting') || [];
-    callbacks.forEach(cb => cb({ 
-      attempt: this.reconnectAttempts, 
+    callbacks.forEach(cb => cb({
+      attempt: this.reconnectAttempts,
       maxAttempts: this.maxReconnectAttempts,
-      delay 
+      delay
     }));
 
     this.reconnectTimer = setTimeout(() => {
@@ -255,6 +260,24 @@ class Socket {
     this.shouldReconnectToLobby = true;
     // Reset reconnection attempts for fresh start
     this.reconnectAttempts = 0;
+  }
+
+  public retryReconnection(): void {
+    console.log('[Socket] Manual reconnection retry triggered');
+
+    // Reset reconnection state
+    this.reconnectAttempts = 0;
+    this.shouldReconnectToLobby = true;
+    this.intentionalClose = false;
+
+    // Cancel any pending reconnection timer
+    if (this.reconnectTimer) {
+      clearTimeout(this.reconnectTimer);
+      this.reconnectTimer = null;
+    }
+
+    // Force a fresh reconnection attempt
+    this.attemptReconnect();
   }
 
   public on(eventName: string, callback: Callback): void {
