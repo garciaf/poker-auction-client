@@ -1,13 +1,6 @@
 <script lang="ts">
-  import socket from '$lib/socket';
-  import Chip from '$lib/components/Chip.svelte';
   import { bonusStore } from '$lib/stores/player';
   import { t } from '$lib/i18n';
-  function start() {
-        if (socket) {
-            socket.emit('ready');
-        }
-    }
 </script>
 
 
@@ -25,15 +18,6 @@
     <div class="text-center mb-4">
         <h2 class="text-2xl font-eight-bit font-bold mb-1">{$t('finance.subtitle')}</h2>
         <div class="text-sm opacity-70 font-eight-bit">{$t('finance.hint')}</div>
-    </div>
-    <div class="flex gap-3">
-      <button
-          onclick={() => start()}
-          class="flex-[2] btn btn-primary"
-          aria-label={$t('actions.submitBid')}
-      >
-          {$t('common.start')}
-      </button>  
     </div>
   </div>
 </div>

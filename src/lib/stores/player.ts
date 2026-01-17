@@ -7,23 +7,22 @@ export const notifications = writable<Notification[]>([]);
 
 export const gameStore = persisted('game', {
     players: [],
-});
+}, { storage: 'session' });
 
 export const loadingMessage = persisted('loadingMessage', {
 	message: "Loading...",
-});
-
+}, { storage: 'session' });
 export const lotsStore = persisted('lots', {
 	cards: [] as Card[]
 });
 
 export const shopStore = persisted('shop', {
     jokers: [] as Joker[]
-})
+}, { storage: 'session' })
 
 export const bonusStore = persisted('bonus', {
   amount: 0 as Number
-})
+}, { storage: 'session' })
 
 export const playerStore = persisted('player',{
     id: null,
@@ -34,7 +33,7 @@ export const playerStore = persisted('player',{
     balance: 0,
 	  hole_cards: [] as Card[],
     jokers: [] as Joker[]
-});
+}, { storage: 'session' });
 
 export function updateJokerStatus(jokerKey: string, allowed: boolean) {
   playerStore.update(player => {
