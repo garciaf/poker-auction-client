@@ -38,7 +38,7 @@
 }
 
 .image-pixelated {
-  image-rendering: pixelated;
+  image-rendering: crisp-edges;
 }
 
 .input-text{
