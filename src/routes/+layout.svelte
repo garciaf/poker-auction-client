@@ -32,7 +32,7 @@
 </svelte:head>
 
 <main class="bg-poker-green h-dvh text-white overflow-auto">
-  <header class="px-5 py-3 flex justify-between items-center shadow-xl" style={`background-color: ${$playerStore.color};`}>
+  <header class="px-5 py-3 flex justify-between items-center shadow-[0_2px_1px_rgba(0,0,0,0.3)]" style={`background-color: ${$playerStore.color};`}>
     <PlayerTag />
     <div class="flex flex-row gap-4">
       <LanguageSwitcher />

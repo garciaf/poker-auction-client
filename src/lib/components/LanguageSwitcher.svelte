@@ -34,7 +34,7 @@
     <span class="text-base">{currentLanguageName}</span>
   </button>
   {#if isOpen}
-    <div class="absolute top-full mt-2 bg-gray-800 rounded-lg border-2 border-white/30 shadow-xl overflow-hidden z-50 min-w-full">
+    <div class="absolute top-full mt-2 bg-gray-800 rounded-lg border-2 border-white/30 shadow-[4px_4px_0_0_rgba(0,0,0,1)] overflow-hidden z-50 min-w-full">
 
     {#each availableLocales as { code, flag, name }}
       <button
