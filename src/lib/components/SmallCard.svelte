@@ -18,6 +18,6 @@
     <img
         src={front}
         alt={cardNameByValue(rank, suit) }
-        class="w-full h-full"
+        class="w-full h-full image-pixelated"
     />
 </button>

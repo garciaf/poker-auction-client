@@ -20,12 +20,12 @@
     <img
       src={front}
       alt="Front"
-      class="absolute w-full h-full backface-hidden shadow-xs"
+      class="absolute w-full h-full backface-hidden shadow-xs image-pixelated"
     />
     <img
       src={back}
       alt="Back"
-      class="absolute w-full h-full backface-hidden rotate-y-180 shadow-xs"
+      class="absolute w-full h-full backface-hidden rotate-y-180 shadow-xs image-pixelated"
     />
 
   </div>
