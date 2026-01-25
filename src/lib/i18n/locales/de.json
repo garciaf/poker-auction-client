@@ -165,5 +165,14 @@
 				"howTo": "1. Beobachte den Bildschirm für den Preis\n2. Warte auf deinen Zielpreis\n3. Drücke 'Jetzt kaufen' zum Erwerben\n4. Erster Käufer gewinnt!"
 			}
 		}
+	},
+	"jokerMenu": {
+		"title": "Deine Joker",
+		"selectTarget": "Ziel wählen",
+		"selectTargetHint": "Wähle einen Spieler als Ziel",
+		"back": "Zurück",
+		"noJokers": "Du hast keine Joker",
+		"noPlayersToTarget": "Keine anderen Spieler verfügbar",
+		"targeted": "Ziel"
 	}
 }

@@ -164,5 +164,14 @@
         "howTo": "1. Watch the screen for price\n2. Wait for your target price\n3. Hit 'Buy Now' to claim\n4. First buyer wins!"
       }
     }
+  },
+  "jokerMenu": {
+    "title": "Your Jokers",
+    "selectTarget": "Select Target",
+    "selectTargetHint": "Choose a player to target",
+    "back": "Back",
+    "noJokers": "You don't have any jokers",
+    "noPlayersToTarget": "No other players available",
+    "targeted": "Target"
   }
 }

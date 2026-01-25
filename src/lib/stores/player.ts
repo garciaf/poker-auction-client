@@ -1,12 +1,32 @@
 import { writable } from 'svelte/store';
 import { persisted } from 'svelte-persisted-store'
 import type { Card } from '$lib/cardHelper';
-export interface Joker { key: 'bid-sweep' | 'sneak-peek', name: String, description: String, allowed: boolean, price: Number }
+
+export interface Joker {
+  key: 'bid-sweep' | 'sneak-peek' | 'block-bid',
+  name: string,
+  description: string,
+  allowed: boolean,
+  price: number,
+  requiresTarget?: boolean
+}
+
+export interface GamePlayer {
+  id: string;
+  name: string;
+  color: string;
+}
+
+export const mappingJokerKeyToAsset = {
+  "sneak-peek": "joker-sneak-peek.png",
+  "bid-sweep": "joker-bid-sweep.png",
+  "block-bid": "block.png",
+}
 export interface Notification { message: string; author: string; }
 export const notifications = writable<Notification[]>([]);
 
 export const gameStore = persisted('game', {
-    players: [],
+    players: [] as GamePlayer[],
 }, { storage: 'session' });
 
 export const loadingMessage = persisted('loadingMessage', {

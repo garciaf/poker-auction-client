@@ -165,5 +165,14 @@
         "howTo": "1. Regardez l'écran pour le prix\n2. Attendez votre prix cible\n3. Cliquez 'Acheter' pour réclamer\n4. Premier acheteur gagne!"
       }
     }
+  },
+  "jokerMenu": {
+    "title": "Vos Jokers",
+    "selectTarget": "Choisir la cible",
+    "selectTargetHint": "Choisissez un joueur à cibler",
+    "back": "Retour",
+    "noJokers": "Vous n'avez pas de jokers",
+    "noPlayersToTarget": "Aucun autre joueur disponible",
+    "targeted": "Cible"
   }
 }

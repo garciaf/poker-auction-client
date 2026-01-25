@@ -5,6 +5,8 @@
   import Notifications from '$lib/components/Notifications.svelte';
   import LanguageSwitcher from '$lib/components/LanguageSwitcher.svelte';
   import HelpPanel from '$lib/components/HelpPanel.svelte';
+  import JokerMenu from '$lib/components/JokerMenu.svelte';
+  import JokerMenuTrigger from '$lib/components/JokerMenuTrigger.svelte';
   import { base } from '$app/paths'; // ✅ use base path from SvelteKit
   import { locale } from '$lib/i18n';
   import { localePreference } from '$lib/stores/locale';
@@ -47,8 +49,8 @@
     </div>
   </header>
   <Notifications />
-
-  <!-- Help button -->
+  <JokerMenu />
+  <JokerMenuTrigger />
 
   <slot />
 </main>
