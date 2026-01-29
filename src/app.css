@@ -49,6 +49,10 @@
   @apply w-7/8 md:w-2/3 lg:w-1/2;
 }
 
+.btn-cta {
+  @apply h-16 h-16 font-eight-bit bg-poker-darker-green text-white text-xl text-center px-8 py-4 w-7/8 md:w-2/3 lg:w-1/2 rounded-b-lg transition-all duration-150 ease-in-out;
+}
+
 .btn {
   @apply h-16 h-16 font-eight-bit bg-poker-darker-green text-white text-xs md:text-xl text-center px-8 py-4 w-7/8 md:w-2/3 lg:w-1/2 rounded-lg transition-all duration-150 ease-in-out;
 
