@@ -77,3 +77,20 @@ export function updateJokerStatus(jokerKey: string, allowed: boolean) {
 }
 
 export const isCardHidden = writable<boolean>(false);
+
+// Connection status store for UI feedback
+export interface ConnectionStatus {
+  connected: boolean;
+  reconnecting: boolean;
+  reconnectAttempt: number;
+  maxAttempts: number;
+  lastError: string | null;
+}
+
+export const connectionStatus = writable<ConnectionStatus>({
+  connected: false,
+  reconnecting: false,
+  reconnectAttempt: 0,
+  maxAttempts: 50,
+  lastError: null
+});

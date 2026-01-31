@@ -174,5 +174,11 @@
     "noJokers": "Vous n'avez pas de jokers",
     "noPlayersToTarget": "Aucun autre joueur disponible",
     "targeted": "Cible"
+  },
+  "connection": {
+    "reconnecting": "Reconnexion...",
+    "disconnected": "Déconnecté",
+    "lost": "Connexion perdue",
+    "retry": "Réessayer"
   }
 }

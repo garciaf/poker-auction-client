@@ -174,5 +174,11 @@
 		"noJokers": "Du hast keine Joker",
 		"noPlayersToTarget": "Keine anderen Spieler verfügbar",
 		"targeted": "Ziel"
+	},
+	"connection": {
+		"reconnecting": "Verbindung wird wiederhergestellt...",
+		"disconnected": "Getrennt",
+		"lost": "Verbindung verloren",
+		"retry": "Erneut versuchen"
 	}
 }

@@ -173,5 +173,11 @@
     "noJokers": "You don't have any jokers",
     "noPlayersToTarget": "No other players available",
     "targeted": "Target"
+  },
+  "connection": {
+    "reconnecting": "Reconnecting...",
+    "disconnected": "Disconnected",
+    "lost": "Connection lost",
+    "retry": "Retry"
   }
 }

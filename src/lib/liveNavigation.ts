@@ -48,10 +48,6 @@ class LiveNavigation {
       playerStore.update(current => ({ ...current, balance: data.balance || 0 }));
     });
 
-    socket?.on('update-hole-cards', (data) => {
-      playerStore.update(current => ({ ...current, hole_cards: data.hole_cards || [], jokers: data.jokers || [] }));
-    });
-
     socket?.on('allowed-joker', (data) => {
       const { joker } = data;
       
@@ -88,6 +84,22 @@ class LiveNavigation {
         hole_cards: hole_cards || [],
         jokers: jokers || []
       });
+    });
+
+    // Handle full player state sync on reconnect
+    socket?.on('update-player-state', (data) => {
+      console.log('Syncing full player state on reconnect:', data);
+      const { id, name, balance, color, rounds_won, hole_cards, jokers } = data;
+      playerStore.update(current => ({
+        ...current,
+        id: id || current.id,
+        name: name || current.name,
+        color: color || current.color,
+        rounds_won: rounds_won ?? current.rounds_won,
+        balance: balance ?? current.balance,
+        hole_cards: hole_cards || current.hole_cards,
+        jokers: jokers || current.jokers
+      }));
     });
 
     socket?.on('update-players-list', (data) => {

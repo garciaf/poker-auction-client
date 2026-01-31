@@ -1,6 +1,6 @@
 import { browser } from '$app/environment';
 import { get } from 'svelte/store';
-import { playerStore } from '$lib/stores/player';
+import { playerStore, connectionStatus } from '$lib/stores/player';
 
 const websocketUrl = import.meta.env.VITE_WEBSOCKET_URL;
 
@@ -37,6 +37,11 @@ class Socket {
   private currentLobbyId: string | null = null;
   private shouldReconnectToLobby: boolean = true;
 
+  // Message queue for offline actions
+  private messageQueue: Array<{ event: string; data?: any; to?: string; timestamp: number }> = [];
+  private readonly MAX_QUEUE_SIZE = 50;
+  private readonly QUEUE_MESSAGE_TTL = 60000; // 1 minute
+
   constructor() {
     this.listeners = new Map();
     this.connect();
@@ -60,6 +65,15 @@ class Socket {
       this.disconnected = false;
       this.reconnectAttempts = 0;
       this.reconnectDelay = 1000;
+
+      // Update connection status
+      connectionStatus.set({
+        connected: true,
+        reconnecting: false,
+        reconnectAttempt: 0,
+        maxAttempts: this.maxReconnectAttempts,
+        lastError: null
+      });
 
       // Start heartbeat after connection
       this.startHeartbeat();
@@ -98,6 +112,13 @@ class Socket {
       this.stopHeartbeat(); // ← CRITICAL: Stop heartbeat when connection closes
       console.warn('[Socket] Disconnected from server', event.code, event.reason);
 
+      // Update connection status
+      connectionStatus.update(s => ({
+        ...s,
+        connected: false,
+        reconnecting: !this.intentionalClose
+      }));
+
       if (!this.intentionalClose) {
         this.attemptReconnect();
       }
@@ -110,12 +131,14 @@ class Socket {
     this.on('connected', (data: any) => {
       this.disconnected = false;
       playerStore.update(state => ({ ...state, id: data.from }));
+      this.flushMessageQueue();
     });
 
     this.on('reconnected', (data: any) => {
       console.debug('[Socket] Reconnected:', data);
       this.disconnected = false;
       playerStore.update(state => ({ ...state, id: data.from, lobbyId: data.lobbyId }));
+      this.flushMessageQueue();
       this.emit('player-reconnected');
     });
 
@@ -174,6 +197,11 @@ class Socket {
 
     if (this.reconnectAttempts >= this.maxReconnectAttempts) {
       console.error('[Socket] Max reconnection attempts reached');
+      connectionStatus.update(s => ({
+        ...s,
+        reconnecting: false,
+        lastError: 'Max reconnection attempts reached'
+      }));
       const callbacks = this.listeners.get('max_reconnect_failed') || [];
       callbacks.forEach(cb => cb({ attempts: this.reconnectAttempts }));
       return;
@@ -194,6 +222,14 @@ class Socket {
       `[Socket] Attempting reconnection ${this.reconnectAttempts}/${totalAttempts} ` +
       `in ${delay}ms (est. ${Math.floor(estimatedTimeRemaining / 60)}m remaining)`
     );
+
+    // Update connection status
+    connectionStatus.update(s => ({
+      ...s,
+      reconnecting: true,
+      reconnectAttempt: this.reconnectAttempts,
+      maxAttempts: this.maxReconnectAttempts
+    }));
 
     const callbacks = this.listeners.get('reconnecting') || [];
     callbacks.forEach(cb => cb({
@@ -301,12 +337,48 @@ class Socket {
     const playerId = get(playerStore).id;
 
     const message: EventPayload = { event, data, from: playerId, to: to || null, lobbyId };
-    
+
     if (this.socket?.readyState === WebSocket.OPEN) {
       this.socket.send(JSON.stringify(message));
     } else {
-      console.warn('[Socket] Socket is not open, message not sent');
+      // Queue critical messages for retry on reconnect
+      if (this.isCriticalMessage(event)) {
+        this.queueMessage(event, data, to);
+        console.warn('[Socket] Socket is not open, critical message queued');
+      } else {
+        console.warn('[Socket] Socket is not open, message not sent');
+      }
     }
+  }
+
+  private isCriticalMessage(event: string): boolean {
+    const criticalEvents = ['new-bid', 'buy', 'select-card', 'use-joker', 'new-offer'];
+    return criticalEvents.includes(event);
+  }
+
+  private queueMessage(event: string, data?: any, to?: string): void {
+    if (this.messageQueue.length >= this.MAX_QUEUE_SIZE) {
+      this.messageQueue.shift(); // Remove oldest
+    }
+    this.messageQueue.push({ event, data, to, timestamp: Date.now() });
+    console.log(`[Socket] Message queued (${this.messageQueue.length} in queue)`);
+  }
+
+  private flushMessageQueue(): void {
+    const now = Date.now();
+    const validMessages = this.messageQueue.filter(
+      msg => (now - msg.timestamp) < this.QUEUE_MESSAGE_TTL
+    );
+
+    if (validMessages.length > 0) {
+      console.log(`[Socket] Flushing ${validMessages.length} queued messages`);
+
+      for (const msg of validMessages) {
+        this.emit(msg.event, msg.data, msg.to);
+      }
+    }
+
+    this.messageQueue = [];
   }
 }
 
