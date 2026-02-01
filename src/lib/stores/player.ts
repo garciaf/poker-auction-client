@@ -21,6 +21,7 @@ export const mappingJokerKeyToAsset = {
   "sneak-peek": "joker-sneak-peek.png",
   "bid-sweep": "joker-bid-sweep.png",
   "block-bid": "block.png",
+  "love": "joker-love.png"
 }
 export interface Notification { message: string; author: string; }
 export const notifications = writable<Notification[]>([]);
