@@ -6,7 +6,7 @@
   export let rank = 2;
   export let onClick: (() => void) | undefined = undefined;
   $: front = `${base}/images/card${cardMappingSuit[suit]}${cardMappingRank[rank]}.png`;
-  $: back = `${base}/images/cardBackSimple.png`;
+  $: back = `${base}/images/cardBack.png`;
 </script>
 <button
   on:click={onClick}
