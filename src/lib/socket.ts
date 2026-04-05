@@ -18,11 +18,6 @@ class Socket {
   private currentLobbyId: string | null = null;
   private shouldReconnectToLobby: boolean = true;
 
-  // Message queue for offline critical actions
-  private messageQueue: Array<{ event: string; data?: any; to?: string; timestamp: number }> = [];
-  private readonly MAX_QUEUE_SIZE = 50;
-  private readonly QUEUE_MESSAGE_TTL = 60000; // 1 minute
-
   constructor() {
     this.connect();
   }
@@ -89,14 +84,12 @@ class Socket {
     this.on('connected', (data: any) => {
       this.disconnected = false;
       playerStore.update(state => ({ ...state, id: data.from }));
-      this.flushMessageQueue();
     });
 
     this.on('reconnected', (data: any) => {
       console.debug('[Socket] Reconnected:', data);
       this.disconnected = false;
       playerStore.update(state => ({ ...state, id: data.from, lobbyId: data.lobbyId }));
-      this.flushMessageQueue();
       this.emit('player-reconnected');
     });
 
@@ -123,16 +116,7 @@ class Socket {
       return;
     }
 
-    if (this.socket?.connected) {
-      this.socket.emit(event, { data, from: playerId, to: to || null });
-    } else {
-      if (this.isCriticalMessage(event)) {
-        this.queueMessage(event, data, to);
-        console.warn('[Socket] Socket is not connected, critical message queued');
-      } else {
-        console.warn('[Socket] Socket is not connected, message not sent');
-      }
-    }
+    this.socket?.emit(event, { data, from: playerId, to: to || null });
   }
 
   public disconnect(): void {
@@ -175,29 +159,6 @@ class Socket {
     return get(playerStore).lobbyId;
   }
 
-  private isCriticalMessage(event: string): boolean {
-    return ['new-bid', 'buy', 'select-card', 'use-joker', 'new-offer'].includes(event);
-  }
-
-  private queueMessage(event: string, data?: any, to?: string): void {
-    if (this.messageQueue.length >= this.MAX_QUEUE_SIZE) {
-      this.messageQueue.shift();
-    }
-    this.messageQueue.push({ event, data, to, timestamp: Date.now() });
-    console.log(`[Socket] Message queued (${this.messageQueue.length} in queue)`);
-  }
-
-  private flushMessageQueue(): void {
-    const now = Date.now();
-    const valid = this.messageQueue.filter(m => now - m.timestamp < this.QUEUE_MESSAGE_TTL);
-    this.messageQueue = [];
-    if (valid.length > 0) {
-      console.log(`[Socket] Flushing ${valid.length} queued messages`);
-      for (const msg of valid) {
-        this.emit(msg.event, msg.data, msg.to);
-      }
-    }
-  }
 }
 
 let socket: Socket | null = null;
