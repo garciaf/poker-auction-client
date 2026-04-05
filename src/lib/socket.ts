@@ -1,131 +1,89 @@
+import { io, type Socket as IOSocket } from 'socket.io-client';
 import { browser } from '$app/environment';
 import { get } from 'svelte/store';
 import { playerStore, connectionStatus } from '$lib/stores/player';
 
-const websocketUrl = import.meta.env.VITE_WEBSOCKET_URL;
-
-type EventPayload = {
-  event: string;
-  data: any;
-  from: string | null;
-  to: string | null;
-  lobbyId?: string | null;
-};
+const serverUrl = import.meta.env.VITE_WEBSOCKET_URL;
 
 type Callback = (...args: any[]) => void;
 
 class Socket {
-  private socket: WebSocket | null = null;
-  private listeners: Map<string, Callback[]>;
+  private socket: IOSocket | null = null;
+  private listeners: Map<string, Callback[]> = new Map();
   public disconnected = true;
 
-  // Reconnection config
-  private reconnectAttempts = 0;
-  private maxReconnectAttempts = 50;
-  private reconnectDelay = 1000;
-  private maxReconnectDelay = 30000;
-  private reconnectTimer: ReturnType<typeof setTimeout> | null = null;
-  private intentionalClose = false;
-
-  // Heartbeat config
-  private heartbeatInterval: ReturnType<typeof setInterval> | null = null;
-  private heartbeatTimeout: ReturnType<typeof setTimeout> | null = null;
-  private readonly HEARTBEAT_INTERVAL = 25000;
-  private readonly HEARTBEAT_TIMEOUT = 5000;
+  private readonly maxReconnectAttempts = 50;
 
   // Lobby state tracking
   private currentLobbyId: string | null = null;
   private shouldReconnectToLobby: boolean = true;
 
-  // Message queue for offline actions
+  // Message queue for offline critical actions
   private messageQueue: Array<{ event: string; data?: any; to?: string; timestamp: number }> = [];
   private readonly MAX_QUEUE_SIZE = 50;
   private readonly QUEUE_MESSAGE_TTL = 60000; // 1 minute
 
   constructor() {
-    this.listeners = new Map();
     this.connect();
   }
 
   private connect(): void {
-    this.socket = new WebSocket(websocketUrl);
-
-    this.socket.addEventListener('message', (event: MessageEvent) => {
-      try {
-        const eventPayload: EventPayload = JSON.parse(event.data);
-        const callbacks = this.listeners.get(eventPayload.event) || [];
-        callbacks.forEach(cb => cb(eventPayload.data));
-      } catch (e) {
-        console.error('[Socket] Failed to parse message:', e);
-      }
+    this.socket = io(serverUrl, {
+      reconnection: true,
+      reconnectionAttempts: this.maxReconnectAttempts,
+      reconnectionDelay: 1000,
+      reconnectionDelayMax: 30000,
+      // Called on every connection attempt so the server always gets the current clientId
+      auth: (cb) => cb({ clientId: this.getPlayerId() }),
     });
 
-    this.socket.addEventListener('open', () => {
+    this.socket.on('connect', () => {
       console.log('[Socket] Connected to server');
       this.disconnected = false;
-      this.reconnectAttempts = 0;
-      this.reconnectDelay = 1000;
-
-      // Update connection status
       connectionStatus.set({
         connected: true,
         reconnecting: false,
         reconnectAttempt: 0,
         maxAttempts: this.maxReconnectAttempts,
-        lastError: null
+        lastError: null,
       });
-
-      // Start heartbeat after connection
-      this.startHeartbeat();
-
-      const playerId = this.getPlayerId();
-      const lobbyId = this.getLobbyId();
-
-      // Detect lobby transition
-      const lobbyChanged = this.currentLobbyId !== null && this.currentLobbyId !== lobbyId;
-      if (lobbyChanged) {
-        console.log('[Socket] Lobby changed from', this.currentLobbyId, 'to', lobbyId);
-        this.shouldReconnectToLobby = true; // Allow reconnecting to new lobby
-      }
-
-      // Only attempt reconnection if we should reconnect and have valid credentials
-      if (playerId && lobbyId && lobbyId.trim() !== '' && this.shouldReconnectToLobby) {
-        console.log('[Socket] Attempting to reconnect to lobby:', lobbyId);
-        this.currentLobbyId = lobbyId; // Track the lobby we're connecting to
-        this.emit('reconnect', { clientId: playerId, lobbyId: lobbyId });
-      } else if (playerId && lobbyId && lobbyId.trim() !== '' && !this.shouldReconnectToLobby) {
-        console.log('[Socket] Skipping reconnect - lobby reconnection disabled');
-        this.emit('connect', { clientId: playerId });
-      } else if (playerId) {
-        console.log('[Socket] Connected without lobby');
-        this.currentLobbyId = null;
-        this.emit('connect', { clientId: playerId });
-      } else {
-        console.log('[Socket] Connected as new client');
-        this.currentLobbyId = null;
-        this.emit('connect', { clientId: null });
-      }
     });
 
-    this.socket.addEventListener('close', (event) => {
+    this.socket.on('disconnect', (reason) => {
+      console.warn('[Socket] Disconnected from server:', reason);
       this.disconnected = true;
-      this.stopHeartbeat(); // ← CRITICAL: Stop heartbeat when connection closes
-      console.warn('[Socket] Disconnected from server', event.code, event.reason);
+      connectionStatus.update(s => ({ ...s, connected: false, reconnecting: true }));
+    });
 
-      // Update connection status
+    this.socket.io.on('reconnect_attempt', (attempt) => {
+      console.log(`[Socket] Reconnection attempt ${attempt}/${this.maxReconnectAttempts}`);
       connectionStatus.update(s => ({
         ...s,
-        connected: false,
-        reconnecting: !this.intentionalClose
+        reconnecting: true,
+        reconnectAttempt: attempt,
+        maxAttempts: this.maxReconnectAttempts,
       }));
-
-      if (!this.intentionalClose) {
-        this.attemptReconnect();
-      }
     });
 
-    this.socket.addEventListener('error', (error: Event) => {
-      console.error('[Socket] Error:', error);
+    this.socket.io.on('reconnect_failed', () => {
+      console.error('[Socket] Max reconnection attempts reached');
+      connectionStatus.update(s => ({
+        ...s,
+        reconnecting: false,
+        lastError: 'Max reconnection attempts reached',
+      }));
+      const callbacks = this.listeners.get('max_reconnect_failed') || [];
+      callbacks.forEach(cb => cb({ attempts: this.maxReconnectAttempts }));
+    });
+
+    // Dispatch all incoming events to local listeners.
+    // Server system events (connected, reconnected, lobby-not-found) send payload flat: { from, lobbyId }.
+    // Server-routed game events wrap the inner data:                                    { data: {...}, from, lobbyId }.
+    // Passing payload.data when present preserves existing callback signatures.
+    this.socket.onAny((event, payload) => {
+      const callbacks = this.listeners.get(event) || [];
+      const arg = payload?.data !== undefined ? payload.data : payload;
+      callbacks.forEach(cb => cb(arg));
     });
 
     this.on('connected', (data: any) => {
@@ -142,178 +100,9 @@ class Socket {
       this.emit('player-reconnected');
     });
 
-    this.on('pong', () => {
-      console.debug('[Socket] Received pong from server');
-      if (this.heartbeatTimeout) {
-        clearTimeout(this.heartbeatTimeout);
-        this.heartbeatTimeout = null;
-      }
-    });
-
-    // Handle server events for invalid/non-existent lobbies
     this.on('lobby-not-found', (data: any) => {
-      console.warn('[Socket] Lobby no longer exists, will keep retrying:', data);
-      // Don't clear lobbyId - keep trying to reconnect
-      // The lobby might be temporarily unavailable or recreated
-      // If max attempts is reached, the user can manually give up
+      console.warn('[Socket] Lobby not found:', data);
     });
-  }
-
-  private startHeartbeat(): void {
-    this.stopHeartbeat();
-    
-    console.log('[Socket] Starting heartbeat');
-    
-    this.heartbeatInterval = setInterval(() => {
-      if (this.socket?.readyState === WebSocket.OPEN) {
-        console.debug('[Socket] Sending ping');
-        this.emit('ping', { timestamp: Date.now() });
-        
-        this.heartbeatTimeout = setTimeout(() => {
-          console.warn('[Socket] No pong received, connection appears dead');
-          this.socket?.close();
-        }, this.HEARTBEAT_TIMEOUT);
-      }
-    }, this.HEARTBEAT_INTERVAL);
-  }
-
-  private stopHeartbeat(): void {
-    if (this.heartbeatInterval) {
-      clearInterval(this.heartbeatInterval);
-      this.heartbeatInterval = null;
-    }
-    if (this.heartbeatTimeout) {
-      clearTimeout(this.heartbeatTimeout);
-      this.heartbeatTimeout = null;
-    }
-  }
-
-  private attemptReconnect(): void {
-    // Clean up any existing reconnect timer
-    if (this.reconnectTimer) {
-      clearTimeout(this.reconnectTimer);
-      this.reconnectTimer = null;
-    }
-
-    if (this.reconnectAttempts >= this.maxReconnectAttempts) {
-      console.error('[Socket] Max reconnection attempts reached');
-      connectionStatus.update(s => ({
-        ...s,
-        reconnecting: false,
-        lastError: 'Max reconnection attempts reached'
-      }));
-      const callbacks = this.listeners.get('max_reconnect_failed') || [];
-      callbacks.forEach(cb => cb({ attempts: this.reconnectAttempts }));
-      return;
-    }
-
-    this.reconnectAttempts++;
-
-    const delay = Math.min(
-      this.reconnectDelay * Math.pow(2, this.reconnectAttempts - 1),
-      this.maxReconnectDelay
-    );
-
-    const totalAttempts = this.maxReconnectAttempts;
-    const remainingAttempts = totalAttempts - this.reconnectAttempts;
-    const estimatedTimeRemaining = remainingAttempts * this.maxReconnectDelay / 1000; // seconds
-
-    console.log(
-      `[Socket] Attempting reconnection ${this.reconnectAttempts}/${totalAttempts} ` +
-      `in ${delay}ms (est. ${Math.floor(estimatedTimeRemaining / 60)}m remaining)`
-    );
-
-    // Update connection status
-    connectionStatus.update(s => ({
-      ...s,
-      reconnecting: true,
-      reconnectAttempt: this.reconnectAttempts,
-      maxAttempts: this.maxReconnectAttempts
-    }));
-
-    const callbacks = this.listeners.get('reconnecting') || [];
-    callbacks.forEach(cb => cb({
-      attempt: this.reconnectAttempts,
-      maxAttempts: this.maxReconnectAttempts,
-      delay
-    }));
-
-    this.reconnectTimer = setTimeout(() => {
-      this.connect();
-    }, delay);
-  }
-
-  public disconnect(): void {
-    this.intentionalClose = true;
-    this.stopHeartbeat();
-
-    if (this.reconnectTimer) {
-      clearTimeout(this.reconnectTimer);
-      this.reconnectTimer = null;
-    }
-    this.socket?.close();
-  }
-
-  public reconnect(): void {
-    // Stop any pending reconnection attempts
-    if (this.reconnectTimer) {
-      clearTimeout(this.reconnectTimer);
-      this.reconnectTimer = null;
-    }
-
-    // Reset state
-    this.reconnectAttempts = 0;
-    this.intentionalClose = false; // ← Set BEFORE closing
-
-    // Close existing connection if any
-    this.stopHeartbeat();
-    if (this.socket) {
-      // Temporarily set intentionalClose to true just for this close
-      this.intentionalClose = true;
-      this.socket.close();
-    }
-
-    // Now reset and connect
-    this.intentionalClose = false; // ← Reset for new connection
-    this.connect();
-  }
-
-  public leaveLobby(): void {
-    console.log('[Socket] Leaving lobby:', this.currentLobbyId);
-    // Clear the lobbyId from the store
-    playerStore.update(state => ({ ...state, lobbyId: '' }));
-    // Prevent reconnecting to the old lobby
-    this.currentLobbyId = null;
-    this.shouldReconnectToLobby = false;
-    // Reset reconnection attempts
-    this.reconnectAttempts = 0;
-  }
-
-  public joinLobby(lobbyId: string): void {
-    console.log('[Socket] Joining lobby:', lobbyId);
-    // Allow reconnection to this new lobby
-    this.currentLobbyId = lobbyId;
-    this.shouldReconnectToLobby = true;
-    // Reset reconnection attempts for fresh start
-    this.reconnectAttempts = 0;
-  }
-
-  public retryReconnection(): void {
-    console.log('[Socket] Manual reconnection retry triggered');
-
-    // Reset reconnection state
-    this.reconnectAttempts = 0;
-    this.shouldReconnectToLobby = true;
-    this.intentionalClose = false;
-
-    // Cancel any pending reconnection timer
-    if (this.reconnectTimer) {
-      clearTimeout(this.reconnectTimer);
-      this.reconnectTimer = null;
-    }
-
-    // Force a fresh reconnection attempt
-    this.attemptReconnect();
   }
 
   public on(eventName: string, callback: Callback): void {
@@ -321,6 +110,61 @@ class Socket {
       this.listeners.set(eventName, []);
     }
     this.listeners.get(eventName)?.push(callback);
+  }
+
+  public emit(event: string, data?: any, to?: string): void {
+    console.log(`[Socket] Emitting event: ${event}`, data);
+    const playerId = this.getPlayerId();
+
+    // 'join-lobby' is handled by a dedicated server listener expecting { lobbyId } directly,
+    // not the generic routing wrapper used by all other events.
+    if (event === 'join-lobby') {
+      this.socket?.emit(event, data);
+      return;
+    }
+
+    if (this.socket?.connected) {
+      this.socket.emit(event, { data, from: playerId, to: to || null });
+    } else {
+      if (this.isCriticalMessage(event)) {
+        this.queueMessage(event, data, to);
+        console.warn('[Socket] Socket is not connected, critical message queued');
+      } else {
+        console.warn('[Socket] Socket is not connected, message not sent');
+      }
+    }
+  }
+
+  public disconnect(): void {
+    this.socket?.disconnect();
+  }
+
+  public reconnect(): void {
+    this.socket?.connect();
+  }
+
+  public leaveLobby(): void {
+    console.log('[Socket] Leaving lobby:', this.currentLobbyId);
+    playerStore.update(state => ({ ...state, lobbyId: '' }));
+    this.currentLobbyId = null;
+    this.shouldReconnectToLobby = false;
+  }
+
+  public joinLobby(lobbyId: string): void {
+    console.log('[Socket] Joining lobby:', lobbyId);
+    this.currentLobbyId = lobbyId;
+    this.shouldReconnectToLobby = true;
+  }
+
+  public retryReconnection(): void {
+    console.log('[Socket] Manual reconnection retry triggered');
+    this.shouldReconnectToLobby = true;
+    // Reset Socket.IO's internal attempt counter then reconnect
+    if (this.socket) {
+      this.socket.io.reconnectionAttempts(this.maxReconnectAttempts);
+      this.socket.connect();
+    }
+    connectionStatus.update(s => ({ ...s, reconnecting: true, reconnectAttempt: 0 }));
   }
 
   public getPlayerId(): string | null {
@@ -331,34 +175,13 @@ class Socket {
     return get(playerStore).lobbyId;
   }
 
-  public emit(event: string, data?: any, to?: string): void {
-    console.log(`[Socket] Emitting event: ${event}`, data);
-    const lobbyId = get(playerStore).lobbyId;
-    const playerId = get(playerStore).id;
-
-    const message: EventPayload = { event, data, from: playerId, to: to || null, lobbyId };
-
-    if (this.socket?.readyState === WebSocket.OPEN) {
-      this.socket.send(JSON.stringify(message));
-    } else {
-      // Queue critical messages for retry on reconnect
-      if (this.isCriticalMessage(event)) {
-        this.queueMessage(event, data, to);
-        console.warn('[Socket] Socket is not open, critical message queued');
-      } else {
-        console.warn('[Socket] Socket is not open, message not sent');
-      }
-    }
-  }
-
   private isCriticalMessage(event: string): boolean {
-    const criticalEvents = ['new-bid', 'buy', 'select-card', 'use-joker', 'new-offer'];
-    return criticalEvents.includes(event);
+    return ['new-bid', 'buy', 'select-card', 'use-joker', 'new-offer'].includes(event);
   }
 
   private queueMessage(event: string, data?: any, to?: string): void {
     if (this.messageQueue.length >= this.MAX_QUEUE_SIZE) {
-      this.messageQueue.shift(); // Remove oldest
+      this.messageQueue.shift();
     }
     this.messageQueue.push({ event, data, to, timestamp: Date.now() });
     console.log(`[Socket] Message queued (${this.messageQueue.length} in queue)`);
@@ -366,23 +189,17 @@ class Socket {
 
   private flushMessageQueue(): void {
     const now = Date.now();
-    const validMessages = this.messageQueue.filter(
-      msg => (now - msg.timestamp) < this.QUEUE_MESSAGE_TTL
-    );
-
-    if (validMessages.length > 0) {
-      console.log(`[Socket] Flushing ${validMessages.length} queued messages`);
-
-      for (const msg of validMessages) {
+    const valid = this.messageQueue.filter(m => now - m.timestamp < this.QUEUE_MESSAGE_TTL);
+    this.messageQueue = [];
+    if (valid.length > 0) {
+      console.log(`[Socket] Flushing ${valid.length} queued messages`);
+      for (const msg of valid) {
         this.emit(msg.event, msg.data, msg.to);
       }
     }
-
-    this.messageQueue = [];
   }
 }
 
-// Instantiate only in the browser
 let socket: Socket | null = null;
 
 if (browser) {
