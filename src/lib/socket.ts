@@ -12,7 +12,7 @@ class Socket {
   private listeners: Map<string, Callback[]> = new Map();
   public disconnected = true;
 
-  private readonly maxReconnectAttempts = 50;
+  private readonly maxReconnectAttempts = 10;
 
   // Lobby state tracking
   private currentLobbyId: string | null = null;
@@ -27,7 +27,7 @@ class Socket {
       reconnection: true,
       reconnectionAttempts: this.maxReconnectAttempts,
       reconnectionDelay: 1000,
-      reconnectionDelayMax: 30000,
+      reconnectionDelayMax: 10000,
       // Called on every connection attempt so the server always gets the current clientId
       auth: (cb) => cb({ clientId: this.getPlayerId() }),
     });
@@ -90,7 +90,6 @@ class Socket {
       console.debug('[Socket] Reconnected:', data);
       this.disconnected = false;
       playerStore.update(state => ({ ...state, id: data.from, lobbyId: data.lobbyId }));
-      this.emit('player-reconnected');
     });
 
     this.on('lobby-not-found', (data: any) => {
