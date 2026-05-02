@@ -82,7 +82,8 @@
 	},
 	"messages": {
 		"welcomeAuction": "Willkommen zur großen Auktion. Bitte wähle einen Namen, bevor du der Lobby beitrittst.",
-		"gameStartsWhenReady": "Das Spiel beginnt, wenn alle Spieler bestätigt haben"
+		"gameStartsWhenReady": "Das Spiel beginnt, wenn alle Spieler bestätigt haben",
+		"selectPlayerToRejoin": "Wähle den Spieler aus, als den du dich neu verbinden möchtest"
 	},
 	"placeholders": {
 		"lobbyIdExample": "X12XX",

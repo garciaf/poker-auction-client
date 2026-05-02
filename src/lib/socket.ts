@@ -71,6 +71,11 @@ class Socket {
       callbacks.forEach(cb => cb({ attempts: this.maxReconnectAttempts }));
     });
 
+    this.on('connected', (data: any) => {
+      this.disconnected = false;
+      console.debug('[Socket] Connected event received:', data);
+      playerStore.update(state => ({ ...state, id: data.from }));
+    });
     // Dispatch all incoming events to local listeners.
     // Server system events (connected, reconnected, lobby-not-found) send payload flat: { from, lobbyId }.
     // Server-routed game events wrap the inner data:                                    { data: {...}, from, lobbyId }.
@@ -79,11 +84,6 @@ class Socket {
       const callbacks = this.listeners.get(event) || [];
       const arg = payload?.data !== undefined ? payload.data : payload;
       callbacks.forEach(cb => cb(arg));
-    });
-
-    this.on('connected', (data: any) => {
-      this.disconnected = false;
-      playerStore.update(state => ({ ...state, id: data.from }));
     });
 
     this.on('reconnected', (data: any) => {
@@ -108,9 +108,10 @@ class Socket {
     console.log(`[Socket] Emitting event: ${event}`, data);
     const playerId = this.getPlayerId();
 
-    // 'join-lobby' is handled by a dedicated server listener expecting { lobbyId } directly,
+    // These events are handled by dedicated server listeners expecting the payload directly,
     // not the generic routing wrapper used by all other events.
-    if (event === 'join-lobby') {
+    const flatEvents = ['join-lobby', 'request-rejoin', 'player-rejoined-as'];
+    if (flatEvents.includes(event)) {
       this.socket?.emit(event, data);
       return;
     }

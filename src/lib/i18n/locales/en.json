@@ -82,7 +82,8 @@
   },
   "messages": {
     "welcomeAuction": "Welcome to the great auction. Please choose a name before joining the lobby.",
-    "gameStartsWhenReady": "The game starts when every player has confirmed"
+    "gameStartsWhenReady": "The game starts when every player has confirmed",
+    "selectPlayerToRejoin": "Select the player you want to reconnect as"
   },
   "placeholders": {
     "lobbyIdExample": "X12XX",

@@ -83,7 +83,8 @@
   },
   "messages": {
     "welcomeAuction": "Bienvenue au poker sournois. Veuillez choisir un nom avant de rejoindre le lobby.",
-    "gameStartsWhenReady": "La partie commence lorsque tous les joueurs ont confirmé"
+    "gameStartsWhenReady": "La partie commence lorsque tous les joueurs ont confirmé",
+    "selectPlayerToRejoin": "Sélectionnez le joueur avec lequel vous souhaitez vous reconnecter"
   },
   "placeholders": {
     "lobbyIdExample": "X12XX",
