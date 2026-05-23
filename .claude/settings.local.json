@@ -3,7 +3,11 @@
     "allow": [
       "Bash(npm install:*)",
       "Bash(npm run dev:*)",
-      "Bash(pkill:*)"
+      "Bash(pkill:*)",
+      "Bash(npm view *)",
+      "Bash(node -e ' *)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(brew list *)"
     ],
     "deny": [],
     "ask": []
