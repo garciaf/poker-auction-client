@@ -1,6 +1,5 @@
 <!-- src/components/Notifications.svelte -->
 <script>
-    import { base } from '$app/paths';
     import { notifications } from '$lib/stores/player';
     import { fly, fade } from 'svelte/transition';
 </script>

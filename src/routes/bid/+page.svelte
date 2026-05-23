@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { base } from '$app/paths';
   import socket from '$lib/socket';
   import HoleCards from '$lib/components/HoleCards.svelte'
   import Chip from '$lib/components/Chip.svelte';

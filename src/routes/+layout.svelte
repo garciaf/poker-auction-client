@@ -8,7 +8,7 @@
   import JokerMenu from '$lib/components/JokerMenu.svelte';
   import JokerMenuTrigger from '$lib/components/JokerMenuTrigger.svelte';
   import ConnectionStatus from '$lib/components/ConnectionStatus.svelte';
-  import { base } from '$app/paths'; // ✅ use base path from SvelteKit
+  import { asset } from '$app/paths'; // ✅ use base path from SvelteKit
   import { locale } from '$lib/i18n';
   import { localePreference } from '$lib/stores/locale';
   import { onMount } from 'svelte';
@@ -30,7 +30,7 @@
 
 <svelte:head>
   <title>Shaddy poker</title>
-  <link rel="icon" type="image/svg+xml" href="{base}/images/favicon.svg" />
+  <link rel="icon" type="image/svg+xml" href="{asset('/images/favicon.svg')}" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 </svelte:head>
 

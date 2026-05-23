@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { base } from '$app/paths'; // ✅ use base path from SvelteKit
-  import { goto } from '$app/navigation'; // ✅ replace push() from svelte-spa-router
   import socket from '$lib/socket'; // ✅ use SvelteKit alias
   import { playerStore } from '$lib/stores/player';
   import { t } from '$lib/i18n';

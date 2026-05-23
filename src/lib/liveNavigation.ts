@@ -1,5 +1,5 @@
-import { goto } from '$app/navigation';
-import { base } from '$app/paths';
+import { goto, } from '$app/navigation';
+import { resolve } from '$app/paths';
 import { browser } from '$app/environment';
 import socket from '$lib/socket';
 import { playerStore, lotsStore, shopStore, updateJokerStatus, bonusStore, notifications } from '$lib/stores/player';
@@ -13,34 +13,32 @@ class LiveNavigation {
     socket?.on('change-screen', (data) => {
       if (data.screen === 'loading') {
         loadingMessage.set({ message: data.message || "Loading..." });
-        goto(`${base}/loading`);
-      } else if (data.screen === 'skip') {
-        goto(`${base}/skip`);
+        goto(resolve('/loading'));
       } else if (data.screen === 'open-auction') {
-        goto(`${base}/bid`);
+        goto(resolve('/bid'));
       } else if (data.screen === 'silent-auction') {
-        goto(`${base}/bid`);
+        goto(resolve('/bid'));
       } else if (data.screen === 'dutch-auction') {
-        goto(`${base}/offer`);
+        goto(resolve('/offer'));
       } else if (data.screen === 'result') {
-        goto(`${base}/result`);
+        goto(resolve('/result'));
       } else if(data.screen === 'finance') {
         const { bonus } = data
         bonusStore.set({ amount: bonus })
-        goto(`${base}/finance`);
+        goto(resolve('/finance'));
 
       } else if (data.screen === 'card-select') {
         lotsStore.set({ cards: data.cards || [] });
-        goto(`${base}/card-select`);
+        goto(resolve('/card-select'));
       } else if (data.screen === 'hole-cards') {
         const hole_cards = data.hole_cards || [];
         const jokers = data.jokers || []
         playerStore.update(current => ({ ...current, hole_cards, jokers }));
-        goto(`${base}/hole-cards`);
+        goto(resolve('/hole-cards'));
       } else if (data.screen === 'shop') {
         const jokers = data.jokers || []
         shopStore.set({ jokers: jokers })
-        goto(`${base}/shop`)
+        goto(resolve('/shop'))
       }
     });
 
@@ -68,7 +66,7 @@ class LiveNavigation {
       const { name, id, color, tag, avatar } = data;
       playerStore.update(state => ({...state, id, color}));
 
-      goto(`${base}/waiting-room`); // ✅ SvelteKit navigation
+      goto(resolve('/waiting-room')); // ✅ SvelteKit navigation
   });
 
     socket?.on('update-player', (data) => {
