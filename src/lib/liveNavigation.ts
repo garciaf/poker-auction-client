@@ -20,8 +20,6 @@ class LiveNavigation {
         goto(resolve('/bid'));
       } else if (data.screen === 'dutch-auction') {
         goto(resolve('/offer'));
-      } else if (data.screen === 'result') {
-        goto(resolve('/result'));
       } else if(data.screen === 'finance') {
         const { bonus } = data
         bonusStore.set({ amount: bonus })
