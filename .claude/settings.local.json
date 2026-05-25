@@ -7,7 +7,9 @@
       "Bash(npm view *)",
       "Bash(node -e ' *)",
       "WebFetch(domain:raw.githubusercontent.com)",
-      "Bash(brew list *)"
+      "Bash(brew list *)",
+      "Bash(xargs grep -h \"color\\\\|background\\\\|#[0-9a-fA-F]\\\\{3,6\\\\}\\\\|rgb\\\\|hsl\")",
+      "Bash(grep -oP '#[0-9a-fA-F]{3,8}|rgb\\\\\\([^\\)]+\\\\\\)|hsl\\\\\\([^\\)]+\\\\\\)')"
     ],
     "deny": [],
     "ask": []
