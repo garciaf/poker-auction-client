@@ -4,7 +4,7 @@
   import { mappingJokerKeyToAsset } from '$lib/stores/player';
   export let joker: Joker; 
 
-  $: front = asset(`images/${mappingJokerKeyToAsset[joker.key]}`);
+  $: front = asset(`/images/${mappingJokerKeyToAsset[joker.key]}`);
 </script>
 
 <img

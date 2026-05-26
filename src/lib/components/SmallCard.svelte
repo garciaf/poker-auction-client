@@ -7,7 +7,7 @@
   export let extraClass=""
   export let onClick: (() => void) | undefined = undefined;
 
-  $: front = asset(`images/card${cardMappingSuit[suit]}${cardMappingRank[rank]}.png`);
+  $: front = asset(`/images/card${cardMappingSuit[suit]}${cardMappingRank[rank]}.png`);
   let cardClass = size == 'SMALL' ? "w-14 h-20" : "w-24 h-36"
 </script>
 <button 

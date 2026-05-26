@@ -5,8 +5,8 @@
   export let suit: 'HEARTS' | 'DIAMONDS' | 'CLUBS' | 'SPADES' = 'HEARTS';
   export let rank = 2;
   export let onClick: (() => void) | undefined = undefined;
-  $: front = asset(`images/card${cardMappingSuit[suit]}${cardMappingRank[rank]}.png`);
-  $: back = asset(`images/cardBack.png`);
+  $: front = asset(`/images/card${cardMappingSuit[suit]}${cardMappingRank[rank]}.png`);
+  $: back = asset(`/images/cardBack.png`);
 </script>
 <button
   on:click={onClick}

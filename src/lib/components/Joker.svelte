@@ -5,7 +5,7 @@
   export let onClick: (() => void) | undefined = undefined;
   export let joker: Joker; 
 
-  $: front = asset(`images/${mappingJokerKeyToAsset[joker.key]}`);
+  $: front = asset(`/images/${mappingJokerKeyToAsset[joker.key]}`);
 </script>
 
 <button
