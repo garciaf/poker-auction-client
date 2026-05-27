@@ -15,6 +15,8 @@
   import { playerStore } from '$lib/stores/player';
   import { isHelpPanelOpen } from '$lib/stores/help';
   import { t } from '$lib/i18n';
+  import { dev } from '$app/environment';
+  import DebugBar from '$lib/components/DebugBar.svelte';
   // Sync locale with persisted preference
   onMount(() => {
     const unsubscribe = localePreference.subscribe(value => {
@@ -53,6 +55,10 @@
   <JokerMenu />
   <JokerMenuTrigger />
   <ConnectionStatus />
+
+  {#if dev}
+    <DebugBar />
+  {/if}
 
   <slot />
 </main>
