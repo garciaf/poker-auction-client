@@ -10,5 +10,5 @@
 <img
   src={front}
   alt="Front"
-  class="w-48 h-64"
+  class="w-48 h-48 image-pixelated"
 />

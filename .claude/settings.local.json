@@ -9,7 +9,9 @@
       "WebFetch(domain:raw.githubusercontent.com)",
       "Bash(brew list *)",
       "Bash(xargs grep -h \"color\\\\|background\\\\|#[0-9a-fA-F]\\\\{3,6\\\\}\\\\|rgb\\\\|hsl\")",
-      "Bash(grep -oP '#[0-9a-fA-F]{3,8}|rgb\\\\\\([^\\)]+\\\\\\)|hsl\\\\\\([^\\)]+\\\\\\)')"
+      "Bash(grep -oP '#[0-9a-fA-F]{3,8}|rgb\\\\\\([^\\)]+\\\\\\)|hsl\\\\\\([^\\)]+\\\\\\)')",
+      "Bash(find /Users/fabiengarcia/Git/garciaf/great-auction-poker-night -name \"*.gd\" | xargs grep -l \"screenshot_requested\\\\|screenshot-requested\\\\|WebSocketIoClient\" 2>/dev/null)",
+      "Read(//Users/fabiengarcia/Git/garciaf/great-auction-poker-night/**)"
     ],
     "deny": [],
     "ask": []

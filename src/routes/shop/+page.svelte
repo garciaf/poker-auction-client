@@ -60,7 +60,7 @@
 
 <style>
   .price-tag {
-		background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+		background-color: #fbbf24; /* Tailwind's yellow-400 */
 		box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 	}
 </style>

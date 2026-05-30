@@ -17,7 +17,7 @@
   disabled={!joker.allowed}
 >
   <div
-    class="relative w-24 h-36"
+    class="relative w-24 h-24 image-pixelated"
   >
     <img
       src={front}
