@@ -8,7 +8,9 @@ export interface Joker {
   description: string,
   allowed: boolean,
   price: number,
-  requiresTarget?: boolean
+  requiresTarget?: boolean,
+  /** How many a player can hold at once; 0 or missing = no limit. */
+  maxPerPlayer?: number
 }
 
 export interface GamePlayer {
@@ -36,6 +38,14 @@ export const loadingMessage = persisted('loadingMessage', {
 export const lotsStore = persisted('lots', {
 	cards: [] as Card[]
 });
+
+// The silent auction screen: smallest bid, and why the last bid was refused
+// (empty when there is nothing to fix). "at" changes each time the game sends it.
+export const silentAuctionStore = persisted('silentAuction', {
+  minBid: 1,
+  error: '',
+  at: 0,
+}, { storage: 'session' });
 
 export const shopStore = persisted('shop', {
     jokers: [] as Joker[]

@@ -181,5 +181,30 @@
     "disconnected": "Déconnecté",
     "lost": "Connexion perdue",
     "retry": "Réessayer"
+  },
+  "shop": {
+    "title": "Boutique",
+    "buying": "Achat…",
+    "bought": "Acheté !",
+    "boughtToast": "{{name}} ajouté à vos jokers",
+    "notEnough": "Pas assez de jetons",
+    "failed": "Achat échoué, réessayez",
+    "owned": "Vous en avez {{count}}",
+    "limitReached": "Limite atteinte",
+    "limitHint": "{{max}} max par joueur",
+    "ownedOf": "Vous en avez {{count}}/{{max}}"
+  },
+  "silentBid": {
+    "title": "Enchère silencieuse",
+    "subtitle": "Une seule offre secrète chacun. La plus haute gagne ; toutes les offres sont révélées à l'écran.",
+    "yourBid": "Votre offre secrète",
+    "place": "Placer l'offre secrète",
+    "pass": "Passer",
+    "confirmPass": "Touchez encore pour passer",
+    "passHint": "Passer compte comme une offre de 0",
+    "min": "Minimum {{min}}",
+    "tooPoor": "Vous n'avez que {{balance}} jetons",
+    "allIn": "Tapis",
+    "sending": "Envoi…"
   }
 }

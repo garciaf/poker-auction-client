@@ -34,7 +34,7 @@
   }
 </script>
 
-<form onsubmit={joinLobby} class="flex flex-col items-center gap-y-8 text-center layout-content p-4 pb-40">
+<form onsubmit={joinLobby} class="flex flex-col items-center justify-center gap-y-6 text-center h-full p-4">
   <p class="text-white font-eight-bit rounded-full bg-white/10 px-8 py-4">{lobbyId}</p>
 
   <label for="player_name" class="text-xl text-white font-eight-bit">{$t('messages.welcomeAuction')}</label>

@@ -4,7 +4,7 @@
 </script>
 
 
-<div class="layout-content space-y-8 p-4">
+<div class="h-full flex flex-col justify-center p-4">
   <div class="max-w-lg mx-auto">
     <div class= "flex flex-col items-center mb-6 bg-black/20 rounded-xl p-4">
       <div class="text-5xl font-eight-bit uppercase">{$t('finance.title')}</div>

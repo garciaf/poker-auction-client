@@ -40,7 +40,7 @@
   }
 </script>
 
-<form onsubmit={joinLobby} class="flex flex-col items-center gap-y-8 text-center layout-content p-4 pb-40">
+<form onsubmit={joinLobby} class="flex flex-col items-center justify-center gap-y-6 text-center h-full p-4">
     <label for="lobby_id" class="text-xl text-white font-eight-bit">{$t('common.lobbyId')}</label>
     <input
       id="lobby_id"

@@ -181,5 +181,30 @@
 		"disconnected": "Getrennt",
 		"lost": "Verbindung verloren",
 		"retry": "Erneut versuchen"
-	}
+	},
+  "shop": {
+    "title": "Laden",
+    "buying": "Kaufe…",
+    "bought": "Gekauft!",
+    "boughtToast": "{{name}} zu deinen Jokern hinzugefügt",
+    "notEnough": "Nicht genug Chips",
+    "failed": "Nicht gekauft, versuch es nochmal",
+    "owned": "Du hast {{count}}",
+    "limitReached": "Limit erreicht",
+    "limitHint": "Max. {{max}} pro Spieler",
+    "ownedOf": "Du hast {{count}}/{{max}}"
+  },
+  "silentBid": {
+    "title": "Stille Auktion",
+    "subtitle": "Ein geheimes Gebot pro Person. Das höchste gewinnt; alle Gebote werden auf dem Bildschirm aufgedeckt.",
+    "yourBid": "Dein geheimes Gebot",
+    "place": "Geheimes Gebot abgeben",
+    "pass": "Passen",
+    "confirmPass": "Nochmal tippen zum Passen",
+    "passHint": "Passen zählt als Gebot von 0",
+    "min": "Minimum {{min}}",
+    "tooPoor": "Du hast nur {{balance}} Chips",
+    "allIn": "Alles",
+    "sending": "Sende…"
+  }
 }

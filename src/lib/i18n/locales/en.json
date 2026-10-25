@@ -180,5 +180,30 @@
     "disconnected": "Disconnected",
     "lost": "Connection lost",
     "retry": "Retry"
+  },
+  "shop": {
+    "title": "Shop",
+    "buying": "Buying…",
+    "bought": "Bought!",
+    "boughtToast": "{{name}} added to your jokers",
+    "notEnough": "Not enough chips",
+    "failed": "Not bought, try again",
+    "owned": "You have {{count}}",
+    "limitReached": "Limit reached",
+    "limitHint": "Max {{max}} per player",
+    "ownedOf": "You have {{count}}/{{max}}"
+  },
+  "silentBid": {
+    "title": "Silent auction",
+    "subtitle": "One secret bid each. Highest bid wins; all bids are revealed on the screen.",
+    "yourBid": "Your secret bid",
+    "place": "Place secret bid",
+    "pass": "Pass",
+    "confirmPass": "Tap again to pass",
+    "passHint": "Passing counts as a bid of 0",
+    "min": "Minimum {{min}}",
+    "tooPoor": "You only have {{balance}} chips",
+    "allIn": "All in",
+    "sending": "Sending…"
   }
 }

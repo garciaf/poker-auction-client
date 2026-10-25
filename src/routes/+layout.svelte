@@ -36,8 +36,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 </svelte:head>
 
-<main class="bg-poker-green h-dvh text-white overflow-auto">
-  <header class="px-5 py-3 flex justify-between items-center shadow-[0_2px_1px_rgba(0,0,0,0.3)]" style={`background-color: ${$playerStore.color};`}>
+<main class="bg-poker-green h-dvh text-white flex flex-col overflow-hidden">
+  <header class="px-5 py-3 flex justify-between items-center shadow-[0_2px_1px_rgba(0,0,0,0.3)] shrink-0" style={`background-color: ${$playerStore.color};`}>
     <PlayerTag />
     <div class="flex flex-row gap-4">
       <LanguageSwitcher />
@@ -60,5 +60,7 @@
     <DebugBar />
   {/if}
 
-  <slot />
+  <div class="flex-1 min-h-0">
+    <slot />
+  </div>
 </main>

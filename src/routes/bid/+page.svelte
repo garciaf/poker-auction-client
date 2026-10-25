@@ -43,12 +43,12 @@
 </script>
 
 
-<div class="layout-content space-y-8 lg:px-4 p-4">
-  <div class= "flex flex-col items-center justify-center items-center gap-y-4 text-center">
-    <Chip />  
+<div class="h-full flex flex-col overflow-y-auto p-4">
+  <div class="flex flex-col items-center justify-center gap-y-2 text-center">
+    <Chip />
     <HoleCards />
-    
-    <div class="bg-black/20 rounded-2xl p-6 mb-5 flex flex-col space-y-6">
+
+    <div class="bg-black/20 rounded-2xl p-4 mb-3 flex flex-col space-y-4 w-full max-w-md">
       <label for="bid" class="text-center text-base font-eight-bit uppercase tracking-wider mb-4">{$t('actions.yourBid')}</label>
       <div class="flex gap-3 mb-5 items-stretch">
         <!-- Number Input -->

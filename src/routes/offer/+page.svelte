@@ -17,11 +17,11 @@
 </script>
 
 
-<div class="layout-content space-y-8 p-4">
-  <div class= "flex flex-col items-center justify-center items-center gap-y-4 text-center">
+<div class="h-full flex flex-col items-center justify-center p-4">
+  <div class="flex flex-col items-center justify-center gap-y-3 text-center w-full">
     <Chip />
     <HoleCards />
-    <div class="bg-poker-darker-green rounded-2xl p-6 mb-5 flex flex-col space-y-6 btn-width">
+    <div class="bg-poker-darker-green rounded-2xl p-4 mb-3 flex flex-col space-y-4 btn-width">
       <div class="text-center text-base font-eight-bit uppercase tracking-wider mb-4">{$t('actions.yourBid')}</div>
       <p class="text-xl font-eight-bit">{$t('actions.lookTheScreen')}</p>
       <div class="flex">
