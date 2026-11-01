@@ -3,7 +3,7 @@ import { persisted } from 'svelte-persisted-store'
 import type { Card } from '$lib/cardHelper';
 
 export interface Joker {
-  key: 'bid-sweep' | 'sneak-peek' | 'block-bid',
+  key: 'bid-sweep' | 'sneak-peek' | 'block-bid' | 'love' | 'flip-hole-cards',
   name: string,
   description: string,
   allowed: boolean,
@@ -23,7 +23,8 @@ export const mappingJokerKeyToAsset = {
   "sneak-peek": "joker-sneak-peek.png",
   "bid-sweep": "joker-bid-sweep.png",
   "block-bid": "block.png",
-  "love": "joker-love.png"
+  "love": "joker-love.png",
+  "flip-hole-cards": "joker-flip-hole-cards.png"
 }
 export interface Notification { message: string; author: string; }
 export const notifications = writable<Notification[]>([]);

@@ -2,6 +2,7 @@
   import { onDestroy } from 'svelte';
   import socket from '$lib/socket';
   import Chip from '$lib/components/Chip.svelte';
+  import ChipBadge from '$lib/components/ChipBadge.svelte';
   import SaleJoker from '$lib/components/SaleJoker.svelte';
   import { shopStore, playerStore, notifications, type Joker } from '$lib/stores/player';
   import { t } from '$lib/i18n';
@@ -90,13 +91,12 @@
           <div class= "p-6">
             <div class="relative">
               <div class="flex flex-col item-center justify-center mb-6">
-                <div class="absolute -top-10 -right-10 price-tag rounded-full w-20 h-20 flex items-center justify-center z-10">
-                  <div class="text-center">
-                    <div class="text-2xl font-eight-bit font-bold text-gray-800">{ joker.price }</div>
-                    <div class="text-xs text-gray-700 font-eight-bit">{$t("common.chips")}</div>
-                  </div>
+                <!-- The price: a chip nobody owns (black), like on the main screen -->
+                <div class="absolute -top-5 -right-5 z-10">
+                  <ChipBadge amount={joker.price} size="4.5rem" />
                 </div>
-                <div class="text-center mb-4">
+                <!-- Room for the price chip on both sides, so the text stays centred -->
+                <div class="text-center mb-4 px-14">
                   <h2 class="text-2xl font-eight-bit font-bold mb-1"> { joker.name}</h2>
                   <div class="text-sm opacity-70 font-eight-bit"> { joker.description }</div>
                   {#if joker.maxPerPlayer}
@@ -177,8 +177,4 @@
   button:disabled:not(.btn-bought) {
     opacity: 0.6;
   }
-  .price-tag {
-		background-color: #fbbf24; /* Tailwind's yellow-400 */
-		box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-	}
 </style>

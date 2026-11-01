@@ -1,6 +1,7 @@
 <script lang="ts">
-  import { bonusStore } from '$lib/stores/player';
+  import { bonusStore, playerStore } from '$lib/stores/player';
   import { t } from '$lib/i18n';
+  import ChipBadge from '$lib/components/ChipBadge.svelte';
 </script>
 
 
@@ -9,9 +10,12 @@
     <div class= "flex flex-col items-center mb-6 bg-black/20 rounded-xl p-4">
       <div class="text-5xl font-eight-bit uppercase">{$t('finance.title')}</div>
       <div class="flex items-center justify-center p-4">
-        <div class="text-center mb-6 font-eight-bit">
+        <div class="flex flex-col items-center text-center mb-6 font-eight-bit">
             <div class="text-sm opacity-80 uppercase tracking-wider mb-2">{$t('common.yourChips')}</div>
-            <div class="text-5xl font-bold" style="text-shadow: 0 2px 4px rgba(0,0,0,0.3);">+ {$bonusStore.amount}</div>
+            <div class="flex items-center gap-3">
+              <div class="text-5xl font-bold" style="text-shadow: 0 2px 4px rgba(0,0,0,0.3);">+</div>
+              <ChipBadge amount={Number($bonusStore.amount)} color={$playerStore.color} size="6.5rem" />
+            </div>
         </div>
         </div>
     </div>
