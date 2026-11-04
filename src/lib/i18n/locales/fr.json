@@ -55,7 +55,8 @@
     "loading": "Chargement...",
     "confirm": "Confirme la selection",
     "guest": "Invité",
-    "rules": "Règles"
+    "rules": "Règles",
+    "close": "Fermer"
   },
   "holeCards":{
     "dealing": "Distribution",

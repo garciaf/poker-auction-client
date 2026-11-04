@@ -2,6 +2,13 @@
 <script>
     import { notifications } from '$lib/stores/player';
     import { fly, fade } from 'svelte/transition';
+    import { t } from '$lib/i18n';
+    import SmallCard from '$lib/components/SmallCard.svelte';
+
+    /** @param {import('$lib/stores/player').Notification} notification */
+    function dismiss(notification) {
+        notifications.update((n) => n.filter((notif) => notif !== notification));
+    }
 </script>
 
 <!-- Global notification live region, render this permanently at the end of the document -->
@@ -17,7 +24,19 @@
                     <div class="ml-3 w-0 flex-1 text-white font-eight-bit">
                         <p class="text-gold font-semibold text-sm truncate max-w-[200px]">{notification.author}</p>
                         <p>{notification.message}</p>
+                        {#if notification.card}
+                            <SmallCard suit={notification.card.suit} rank={notification.card.rank} size="NORMAL" extraClass="block mt-2" />
+                        {/if}
                     </div>
+                    {#if notification.card}
+                        <button
+                            onclick={() => dismiss(notification)}
+                            class="self-start w-10 h-10 shrink-0 text-2xl text-white font-eight-bit"
+                            aria-label={$t('common.close')}
+                        >
+                            ×
+                        </button>
+                    {/if}
                 </div>
             </div>
         {/each}

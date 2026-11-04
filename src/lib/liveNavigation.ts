@@ -108,9 +108,12 @@ class LiveNavigation {
         n.push({
           message: data.message,
           author: data.author,
+          card: data.card,
         });
         return n;
       });
+
+      if (data.card) return;
 
       setTimeout(() => {
         notifications.update((n) => n.filter((notif) => notif.message !== data.message));

@@ -26,7 +26,8 @@ export const mappingJokerKeyToAsset = {
   "love": "joker-love.png",
   "flip-hole-cards": "joker-flip-hole-cards.png"
 }
-export interface Notification { message: string; author: string; }
+// With a card (Sneak Peek), it stays on screen until the player closes it.
+export interface Notification { message: string; author: string; card?: Card; }
 export const notifications = writable<Notification[]>([]);
 
 export const gameStore = persisted('game', {

@@ -49,7 +49,8 @@
 		"loading": "Lädt...",
 		"confirm": "Auswahl bestätigen",
 		"guest": "Gast",
-		"rules": "Regel"
+		"rules": "Regel",
+		"close": "Schließen"
 	},
 	"holeCards": {
 		"dealing": "Austeilen",
