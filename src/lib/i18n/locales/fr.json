@@ -44,6 +44,8 @@
     "hint": "Utiliser vos jetons avec sagesse pour les enchères et achetez les meilleurs cartes"
   },
   "common": {
+    "menu": "Menu",
+    "language": "Langue",
     "lobbyId": "ID du Lobby",
     "playerName": "Nom du Joueur",
     "yourName": "Votre nom",
@@ -59,7 +61,6 @@
     "close": "Fermer"
   },
   "holeCards":{
-    "dealing": "Distribution",
     "yourHoleCards": "Vos cartes privées",
     "privateCarsForYou": "Ces cartes sont pour vous et vous seul",
     "tapBellow": "Appuyez ci-dessous quand vous êtes prêt à commencer"
@@ -202,7 +203,6 @@
     "place": "Placer l'offre secrète",
     "pass": "Passer",
     "confirmPass": "Touchez encore pour passer",
-    "passHint": "Passer compte comme une offre de 0",
     "min": "Minimum {{min}}",
     "tooPoor": "Vous n'avez que {{balance}} jetons",
     "allIn": "Tapis",

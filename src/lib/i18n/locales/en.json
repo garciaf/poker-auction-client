@@ -39,6 +39,8 @@
 		}
 	},
   "common": {
+    "menu": "Menu",
+    "language": "Language",
     "lobbyId": "Lobby ID",
     "playerName": "Player Name",
     "yourName": "Your name",
@@ -53,7 +55,6 @@
     "close": "Close"
   },
   "holeCards":{
-    "dealing": "Dealing",
     "yourHoleCards": "Your hole cards",
     "privateCarsForYou": "This card are private to you",
     "tapBellow": "Tap below when you're ready to start the auction round"
@@ -201,7 +202,6 @@
     "place": "Place secret bid",
     "pass": "Pass",
     "confirmPass": "Tap again to pass",
-    "passHint": "Passing counts as a bid of 0",
     "min": "Minimum {{min}}",
     "tooPoor": "You only have {{balance}} chips",
     "allIn": "All in",

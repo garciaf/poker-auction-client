@@ -1,7 +1,6 @@
 <script lang="ts">
   import { onDestroy } from 'svelte';
   import socket from '$lib/socket';
-  import Chip from '$lib/components/Chip.svelte';
   import ChipBadge from '$lib/components/ChipBadge.svelte';
   import SaleJoker from '$lib/components/SaleJoker.svelte';
   import { shopStore, playerStore, notifications, type Joker } from '$lib/stores/player';
@@ -75,14 +74,11 @@
 </script>
 
 
-<div class="h-full flex flex-col p-4">
+<div class="h-full flex flex-col p-3">
   <div class="max-w-lg md:max-w-2xl mx-auto w-full flex flex-col min-h-0 flex-1">
     <!-- Pinned shop header -->
-    <div class="flex justify-between items-center mb-4 bg-black/20 rounded-xl p-4 shrink-0">
-      <div class="text-5xl font-eight-bit uppercase tracking-wider">{$t('shop.title')}</div>
-      <div class="text-right">
-        <Chip />
-      </div>
+    <div class="mb-3 shrink-0">
+      <div class="text-2xl font-eight-bit uppercase tracking-wider">{$t('shop.title')}</div>
     </div>
     <!-- Scrollable joker list -->
     <div class="flex flex-col space-y-4 flex-1 min-h-0 overflow-y-auto">

@@ -1,7 +1,6 @@
 <script>
   import socket from '$lib/socket';
   import HoleCards from '$lib/components/HoleCards.svelte'
-  import Chip from '$lib/components/Chip.svelte';
   import { t } from '$lib/i18n';
 
   function ready() {
@@ -13,25 +12,16 @@
 </script>
 
 
-<div class="h-full flex flex-col justify-center p-4">
-  <div class="max-w-lg mx-auto w-full">
-    <div class= "flex flex-col justify-between items-center mb-6 bg-black/20 rounded-xl p-4">
-      <div class="text-xl md:text-5xl font-eight-bit uppercase tracking-wider">{$t('holeCards.dealing')}</div>
-      <div class="text-right">
-        <Chip />
-      </div>
+<div class="h-full flex flex-col overflow-y-auto p-3 gap-3">
+  <div class="flex-1 flex flex-col items-center justify-center gap-3 text-center">
+    <div>
+      <h2 class="text-2xl font-eight-bit font-bold mb-1">{$t('holeCards.yourHoleCards')}</h2>
+      <div class="text-sm opacity-70 font-eight-bit">{$t('holeCards.privateCarsForYou')}</div>
     </div>
-    <div class="flex flex-col item-center justify-center mb-6">
-      <div class="text-center mb-4">
-        <h2 class="text-2xl font-eight-bit font-bold mb-1">{$t('holeCards.yourHoleCards')}</h2>
-        <div class="text-sm opacity-70 font-eight-bit">{$t('holeCards.privateCarsForYou')}</div>
-      </div>
-      <HoleCards />
-
-    </div>
-    <p class="text-center font-eight-bit text-sm mb-2">{$t('holeCards.tapBellow')}</p>
-    <div class="flex ">
-      <button class="btn flex-[2]" onclick={ready}>{$t('actions.startAuction')}</button>
-    </div>
+    <HoleCards />
+    <p class="font-eight-bit text-sm">{$t('holeCards.tapBellow')}</p>
+  </div>
+  <div class="flex w-full max-w-lg mx-auto shrink-0">
+    <button class="btn flex-[2]" onclick={ready}>{$t('actions.startAuction')}</button>
   </div>
 </div>
