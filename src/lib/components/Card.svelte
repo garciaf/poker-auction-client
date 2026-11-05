@@ -14,7 +14,7 @@
   aria-label="{flipped ? cardMappingRank[rank] + ' of ' + suit : 'Card back'}"
 >
   <div
-    class="relative w-24 h-36 transition-transform duration-700 transform-style-preserve-3d"
+    class="hole-card relative transition-transform duration-700 transform-style-preserve-3d"
     class:rotate-y-180={flipped}
   >
     <img
@@ -31,6 +31,17 @@
   </div>
 </button>
 <style>
+  /* Exact multiples of the 56x80 art, so the pixels stay even. */
+  .hole-card {
+    width: 7rem;
+    height: 10rem;
+  }
+  @media (max-height: 600px) {
+    .hole-card {
+      width: 5.25rem;
+      height: 7.5rem;
+    }
+  }
   .transform-style-preserve-3d {
     transform-style: preserve-3d;
   }

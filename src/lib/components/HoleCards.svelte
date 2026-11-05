@@ -7,7 +7,7 @@
   }
 </script>
 
-<div class="flex justify-center gap-4 mb-8">
+<div class="flex justify-center gap-4">
   {#each $playerStore.hole_cards as card}
     <Card
       suit={card.suit}

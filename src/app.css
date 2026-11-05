@@ -163,3 +163,11 @@
 .card-selected {
   animation: pulse-ring 2s infinite;
 }
+
+.btn.btn-compact {
+  @apply h-14 w-auto px-2 py-0 text-sm leading-tight;
+}
+
+.btn.btn-hero {
+  @apply h-24 w-full px-2 py-0 text-3xl;
+}

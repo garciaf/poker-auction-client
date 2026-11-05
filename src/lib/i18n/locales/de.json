@@ -39,6 +39,8 @@
 		}
 	},
 	"common": {
+    "menu": "Menü",
+    "language": "Sprache",
 		"lobbyId": "Lobby-ID",
 		"playerName": "Spielername",
 		"yourName": "Dein Name",
@@ -53,7 +55,6 @@
 		"close": "Schließen"
 	},
 	"holeCards": {
-		"dealing": "Austeilen",
 		"yourHoleCards": "Deine verdeckten Karten",
 		"privateCarsForYou": "Diese Karten sind nur für dich sichtbar",
 		"tapBellow": "Tippe unten, wenn du bereit bist, die Auktionsrunde zu starten"
@@ -202,7 +203,6 @@
     "place": "Geheimes Gebot abgeben",
     "pass": "Passen",
     "confirmPass": "Nochmal tippen zum Passen",
-    "passHint": "Passen zählt als Gebot von 0",
     "min": "Minimum {{min}}",
     "tooPoor": "Du hast nur {{balance}} Chips",
     "allIn": "Alles",

@@ -1,20 +1,16 @@
 <script>
   import '../app.css';
   import LiveNavigation  from '$lib/liveNavigation';
-  import PlayerTag from '$lib/components/PlayerTag.svelte';
+  import PlayerBar from '$lib/components/PlayerBar.svelte';
+  import MenuSheet from '$lib/components/MenuSheet.svelte';
   import Notifications from '$lib/components/Notifications.svelte';
-  import LanguageSwitcher from '$lib/components/LanguageSwitcher.svelte';
   import HelpPanel from '$lib/components/HelpPanel.svelte';
   import JokerMenu from '$lib/components/JokerMenu.svelte';
-  import JokerMenuTrigger from '$lib/components/JokerMenuTrigger.svelte';
   import ConnectionStatus from '$lib/components/ConnectionStatus.svelte';
   import { asset } from '$app/paths'; // ✅ use base path from SvelteKit
   import { locale } from '$lib/i18n';
   import { localePreference } from '$lib/stores/locale';
   import { onMount } from 'svelte';
-  import { playerStore } from '$lib/stores/player';
-  import { isHelpPanelOpen } from '$lib/stores/help';
-  import { t } from '$lib/i18n';
   import { dev } from '$app/environment';
   import DebugBar from '$lib/components/DebugBar.svelte';
   // Sync locale with persisted preference
@@ -24,10 +20,6 @@
     });
     return unsubscribe;
   });
-
-  function toggleHelpPanel() {
-    isHelpPanelOpen.update(value => !value);
-  }
 </script>
 
 <svelte:head>
@@ -37,23 +29,11 @@
 </svelte:head>
 
 <main class="bg-poker-green h-dvh text-white flex flex-col overflow-hidden">
-  <header class="px-5 py-3 flex justify-between items-center shadow-[0_2px_1px_rgba(0,0,0,0.3)] shrink-0" style={`background-color: ${$playerStore.color};`}>
-    <PlayerTag />
-    <div class="flex flex-row gap-4">
-      <LanguageSwitcher />
-      <HelpPanel />
-      <button
-        onclick={toggleHelpPanel}
-        class="px-4 py-4 bg-white/10 rounded-lg font-eight-bit border-2 border-white/30 text-white transition-all duration-200 z-50"
-        aria-label="Help"
-      >
-        { $t("common.rules") }
-      </button>
-    </div>
-  </header>
+  <PlayerBar />
+  <HelpPanel />
+  <MenuSheet />
   <Notifications />
   <JokerMenu />
-  <JokerMenuTrigger />
   <ConnectionStatus />
 
   {#if dev}

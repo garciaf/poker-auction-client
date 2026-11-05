@@ -16,14 +16,14 @@
 {#if hasJokers}
   <button
     on:click={openMenu}
-    class="fixed bottom-6 right-6 w-16 h-16 rounded-full bg-gold shadow-lg flex items-center justify-center z-[100] transition-all hover:scale-110 active:scale-95"
+    class="relative w-11 h-11 rounded-lg bg-gold border-2 border-golden-light flex items-center justify-center transition-all active:scale-95"
     class:opacity-60={allowedJokerCount === 0}
     transition:scale={{ duration: 200 }}
     aria-label="Open joker menu"
   >
-    <span class="text-3xl">&#127183;</span>
+    <span class="text-2xl leading-none">&#127183;</span>
     {#if allowedJokerCount > 0}
-      <span class="absolute -top-1 -right-1 bg-red text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-eight-bit">
+      <span class="absolute -top-1 -right-1 bg-red text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-eight-bit">
         {allowedJokerCount}
       </span>
     {/if}
