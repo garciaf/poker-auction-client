@@ -68,7 +68,8 @@
 		"yourCard": "Deine Karten",
 		"yourCardInfo": "(nur zur Info)",
 		"infoUseAllPlayer": "Diese Karte wird für alle Spieler nutzbar sein",
-		"choose": "Wähle 1 Karte zum Teilen:"
+		"choose": "Wähle 1 Karte zum Teilen:",
+		"chooseMany": "Gierige Hände: wähle {{count}} Karten"
 	},
 	"actions": {
 		"joinLobby": "Lobby beitreten",
@@ -176,7 +177,15 @@
 		"back": "Zurück",
 		"noJokers": "Du hast keine Joker",
 		"noPlayersToTarget": "Keine anderen Spieler verfügbar",
-		"targeted": "Ziel"
+		"targeted": "Ziel",
+		"passive": "Passiv",
+		"winnerOnly": "Wenn du gewinnst",
+		"selectTableCardHint": "Wähle die Karte zum Verbrennen",
+		"noTableCards": "Noch keine Karte auf dem Tisch",
+		"burnConfirm": "Diese Karte verbrennen",
+		"pickpocketTake": "Nimm diese Karte aus dem Los",
+		"pickpocketGive": "Gib diese Karte ab",
+		"pickpocketConfirm": "Tauschen"
 	},
 	"connection": {
 		"reconnecting": "Verbindung wird wiederhergestellt...",

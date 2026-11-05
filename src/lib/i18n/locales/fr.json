@@ -69,7 +69,8 @@
     "yourCard": "Vos cartes",
     "yourCardInfo": "(Pour information)",
     "infoUseAllPlayer": "Cette carte sera utilisable par tous les joueurs",
-    "choose": "Choisissez 1 carte à partager:"
+    "choose": "Choisissez 1 carte à partager:",
+    "chooseMany": "Mains Gourmandes : choisissez {{count}} cartes"
   },
   "actions": {
     "cancel": "Annuler",
@@ -176,7 +177,15 @@
     "back": "Retour",
     "noJokers": "Vous n'avez pas de jokers",
     "noPlayersToTarget": "Aucun autre joueur disponible",
-    "targeted": "Cible"
+    "targeted": "Cible",
+    "passive": "Passif",
+    "winnerOnly": "Quand vous gagnez",
+    "selectTableCardHint": "Choisissez la carte à brûler",
+    "noTableCards": "Pas encore de carte sur la table",
+    "burnConfirm": "Brûler cette carte",
+    "pickpocketTake": "Prenez cette carte du lot",
+    "pickpocketGive": "Lâchez cette carte",
+    "pickpocketConfirm": "Échanger"
   },
   "connection": {
     "reconnecting": "Reconnexion...",

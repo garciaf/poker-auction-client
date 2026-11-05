@@ -2,15 +2,32 @@ import { writable } from 'svelte/store';
 import { persisted } from 'svelte-persisted-store'
 import type { Card } from '$lib/cardHelper';
 
+export type JokerKey =
+  | 'bid-sweep' | 'sneak-peek' | 'block-bid' | 'love' | 'flip-hole-cards'
+  | 'poker-face' | 'burn-card' | 'pickpocket' | 'greedy-hands';
+
+/**
+ * What the player picks to play the joker, besides a target player:
+ * - 'community-card': a card on the table (Burn Card)
+ * - 'lot-and-hole-card': a card of the lot, then one of their hole cards (Pickpocket)
+ * The cards are sent with 'use-joker' as `cards`, in that order.
+ */
+export type JokerChoice = '' | 'community-card' | 'lot-and-hole-card';
+
 export interface Joker {
-  key: 'bid-sweep' | 'sneak-peek' | 'block-bid' | 'love' | 'flip-hole-cards',
+  key: JokerKey,
   name: string,
   description: string,
   allowed: boolean,
   price: number,
   requiresTarget?: boolean,
   /** How many a player can hold at once; 0 or missing = no limit. */
-  maxPerPlayer?: number
+  maxPerPlayer?: number,
+  /** Works on its own while held, never played (Poker Face). */
+  passive?: boolean,
+  /** Only the auction winner plays it, while picking the card (Pickpocket, Greedy Hands). */
+  winnerOnly?: boolean,
+  choose?: JokerChoice
 }
 
 export interface GamePlayer {
@@ -24,7 +41,11 @@ export const mappingJokerKeyToAsset = {
   "bid-sweep": "joker-bid-sweep.png",
   "block-bid": "block.png",
   "love": "joker-love.png",
-  "flip-hole-cards": "joker-flip-hole-cards.png"
+  "flip-hole-cards": "joker-flip-hole-cards.png",
+  "poker-face": "joker-poker-face.png",
+  "burn-card": "joker-burn-card.png",
+  "pickpocket": "joker-pickpocket.png",
+  "greedy-hands": "joker-greedy-hands.png"
 }
 // With a card (Sneak Peek), it stays on screen until the player closes it.
 export interface Notification { message: string; author: string; card?: Card; }
@@ -37,9 +58,17 @@ export const gameStore = persisted('game', {
 export const loadingMessage = persisted('loadingMessage', {
 	message: "Loading...",
 }, { storage: 'session' });
+// The lot the auction winner picks from, and how many cards of it go on the
+// table (2 with Greedy Hands; missing = 1).
 export const lotsStore = persisted('lots', {
-	cards: [] as Card[]
+	cards: [] as Card[],
+	count: 1 as number
 });
+
+// The cards on the table (the game sends them each time they change).
+export const tableStore = persisted('table', {
+	cards: [] as Card[]
+}, { storage: 'session' });
 
 // The silent auction screen: smallest bid, and why the last bid was refused
 // (empty when there is nothing to fix). "at" changes each time the game sends it.

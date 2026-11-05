@@ -68,7 +68,8 @@
     "yourCard": "Your cards",
     "yourCardInfo": "(for info only)",
     "infoUseAllPlayer": "This card will be usable to all players",
-    "choose": "Choose 1 card to share:"
+    "choose": "Choose 1 card to share:",
+    "chooseMany": "Greedy Hands: pick {{count}} cards"
   },
   "actions": {
     "joinLobby": "Join Lobby",
@@ -175,7 +176,15 @@
     "back": "Back",
     "noJokers": "You don't have any jokers",
     "noPlayersToTarget": "No other players available",
-    "targeted": "Target"
+    "targeted": "Target",
+    "passive": "Passive",
+    "winnerOnly": "When you win",
+    "selectTableCardHint": "Choose the card to burn",
+    "noTableCards": "No card on the table yet",
+    "burnConfirm": "Burn this card",
+    "pickpocketTake": "Take this card from the lot",
+    "pickpocketGive": "Give up this card",
+    "pickpocketConfirm": "Swap"
   },
   "connection": {
     "reconnecting": "Reconnecting...",

@@ -2,7 +2,7 @@ import { goto, } from '$app/navigation';
 import { resolve } from '$app/paths';
 import { browser } from '$app/environment';
 import socket from '$lib/socket';
-import { playerStore, lotsStore, shopStore, updateJokerStatus, bonusStore, notifications, silentAuctionStore } from '$lib/stores/player';
+import { playerStore, lotsStore, shopStore, updateJokerStatus, bonusStore, notifications, silentAuctionStore, tableStore } from '$lib/stores/player';
 // @ts-ignore
 import { gameStore, loadingMessage } from '$lib/stores/player';
 
@@ -27,7 +27,7 @@ class LiveNavigation {
         goto(resolve('/finance'));
 
       } else if (data.screen === 'card-select') {
-        lotsStore.set({ cards: data.cards || [] });
+        lotsStore.set({ cards: data.cards || [], count: data.count || 1 });
         goto(resolve('/card-select'));
       } else if (data.screen === 'hole-cards') {
         const hole_cards = data.hole_cards || [];
@@ -55,6 +55,10 @@ class LiveNavigation {
       const { joker } = data;
       
       updateJokerStatus(joker.key, false)
+    });
+
+    socket?.on('update-community-cards', (data) => {
+      tableStore.set({ cards: data.cards || [] });
     });
 
     socket?.on('update-jokers', (data) => {
