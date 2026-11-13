@@ -167,6 +167,18 @@
         "shortDesc": "Prix descendant, premier acheteur gagne",
         "description": "Le prix commence haut et descend avec le temps (affiché sur l'écran principal). Le premier joueur à cliquer sur 'Acheter' remporte la carte au prix actuel. Agissez vite pour une bonne affaire, mais attendez trop longtemps et quelqu'un d'autre pourrait l'acheter!",
         "howTo": "1. Regardez l'écran pour le prix\n2. Attendez votre prix cible\n3. Cliquez 'Acheter' pour réclamer\n4. Premier acheteur gagne!"
+      },
+      "uniqueAuction": {
+        "name": "Plus Petite Offre Unique",
+        "shortDesc": "La plus petite offre que personne d'autre n'a faite gagne",
+        "description": "Chaque joueur fait une offre secrète. Les montants proposés par plusieurs joueurs sont éliminés ; la plus petite offre restante gagne la carte et la paie. Misez bas pour payer peu, mais pas là où tout le monde misera !",
+        "howTo": "1. Devinez les offres des autres\n2. Choisissez un montant que personne ne prendra\n3. Envoyez votre offre secrète\n4. La plus petite offre unique gagne !"
+      },
+      "voteAuction": {
+        "name": "Vote de la Table",
+        "shortDesc": "Vote gratuit, la carte la plus votée gagne",
+        "description": "Uniquement pour la première carte d'une manche. Personne ne paie : chaque joueur vote en secret pour une carte du lot. Les votes sont révélés sur l'écran principal et la carte la plus votée va sur la table (en cas d'égalité, tirage au sort entre les cartes à égalité).",
+        "howTo": "1. Regardez le lot\n2. Touchez la carte voulue\n3. Confirmez votre vote\n4. La carte la plus votée va sur la table !"
       }
     }
   },
@@ -216,5 +228,16 @@
     "tooPoor": "Vous n'avez que {{balance}} jetons",
     "allIn": "Tapis",
     "sending": "Envoi…"
+  },
+  "uniqueBid": {
+    "title": "Plus petite offre unique",
+    "subtitle": "Une offre secrète chacun. Le plus petit montant que personne d'autre n'a misé gagne, et le paie. Même montant qu'un autre : vous êtes éliminés tous les deux."
+  },
+  "vote": {
+    "title": "Vote de la Table",
+    "subtitle": "Gratuit : aucun jeton. Votez pour la carte que vous voulez sur la table. La carte la plus votée y va.",
+    "confirm": "Voter pour cette carte",
+    "sending": "Envoi…",
+    "pick": "Touchez une carte pour voter"
   }
 }

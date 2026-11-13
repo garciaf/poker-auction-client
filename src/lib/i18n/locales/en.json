@@ -166,6 +166,18 @@
         "shortDesc": "Descending price, first to buy wins",
         "description": "The price starts high and drops over time (shown on the main screen). The first player to hit 'Buy Now' wins the card at the current price. Act fast to get a good deal, but wait too long and someone else might buy it!",
         "howTo": "1. Watch the screen for price\n2. Wait for your target price\n3. Hit 'Buy Now' to claim\n4. First buyer wins!"
+      },
+      "uniqueAuction": {
+        "name": "Lowest Unique Bid",
+        "shortDesc": "The lowest bid nobody else made wins",
+        "description": "Every player makes one secret bid. Amounts bid by more than one player are out; the lowest bid left wins the card and pays it. Bid low to pay little, but not where everyone else will!",
+        "howTo": "1. Guess what others will bid\n2. Pick an amount nobody else will\n3. Submit your secret bid\n4. Lowest unique bid wins!"
+      },
+      "voteAuction": {
+        "name": "Table Vote",
+        "shortDesc": "Free vote, the most voted card wins",
+        "description": "Only for the first card of a round. Nobody pays: every player votes in secret for one card of the lot. The votes are revealed on the main screen and the card with the most votes goes on the table (a tie is drawn among the tied cards).",
+        "howTo": "1. Look at the lot\n2. Tap the card you want\n3. Confirm your vote\n4. Most voted card goes on the table!"
       }
     }
   },
@@ -215,5 +227,16 @@
     "tooPoor": "You only have {{balance}} chips",
     "allIn": "All in",
     "sending": "Sending…"
+  },
+  "uniqueBid": {
+    "title": "Lowest unique bid",
+    "subtitle": "One secret bid each. The lowest amount nobody else bid wins, and pays it. Bid the same as someone and you're both out."
+  },
+  "vote": {
+    "title": "Table Vote",
+    "subtitle": "Free: no chips. Vote for the card you want on the table. The most voted card goes there.",
+    "confirm": "Vote for this card",
+    "sending": "Sending…",
+    "pick": "Tap a card to vote for it"
   }
 }

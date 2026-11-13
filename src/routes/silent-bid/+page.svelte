@@ -8,7 +8,8 @@
   // Silent auction: one secret bid per player. The game answers with the
   // loading screen when the bid is taken, or sends this screen again with the
   // reason when it isn't, so the player can fix the amount and try again.
-  // A bid of 0 is a pass.
+  // A bid of 0 is a pass. The Lowest Unique Bid uses this screen too: the lowest
+  // amount nobody else bid wins ($silentAuctionStore.unique).
   const ANSWER_TIMEOUT_MS = 5000;
   const PASS_CONFIRM_MS = 3000;
 
@@ -20,6 +21,7 @@
 
   $: balance = $playerStore.balance;
   $: minBid = $silentAuctionStore.minBid ?? 1;
+  $: rules = $silentAuctionStore.unique ? 'uniqueBid' : 'silentBid';
   $: problem =
     amount === null || amount === undefined
       ? ''
@@ -74,8 +76,8 @@
 
 <div class="h-full flex flex-col overflow-y-auto p-3 gap-2">
   <div class="text-center shrink-0">
-    <div class="text-lg font-eight-bit uppercase tracking-wider leading-tight">{$t('silentBid.title')}</div>
-    <div class="text-xs opacity-80 font-eight-bit leading-tight">{$t('silentBid.subtitle')}</div>
+    <div class="text-lg font-eight-bit uppercase tracking-wider leading-tight">{$t(`${rules}.title`)}</div>
+    <div class="text-xs opacity-80 font-eight-bit leading-tight">{$t(`${rules}.subtitle`)}</div>
   </div>
   <div class="flex-1 flex items-center justify-center">
     <HoleCards />

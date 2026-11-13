@@ -81,7 +81,7 @@
       <div class="text-2xl font-eight-bit uppercase tracking-wider">{$t('shop.title')}</div>
     </div>
     <!-- Scrollable joker list -->
-    <div class="flex flex-col space-y-4 flex-1 min-h-0 overflow-y-auto">
+    <div class="flex flex-col space-y-4 flex-1 min-h-0 overflow-y-auto scrollbar-themed pr-2">
       {#each $shopStore.jokers as joker}
         <div class="bg-black/20 rounded-xl transition-shadow duration-300" class:bought-glow={justBought[joker.key]}>
           <div class= "p-6">

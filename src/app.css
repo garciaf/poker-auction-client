@@ -37,6 +37,38 @@
   touch-action: manipulation;
 }
 
+/* Pixel-style scrollbar matching the table: square gold thumb on a dark green track */
+@utility scrollbar-themed {
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+  &::-webkit-scrollbar-track {
+    background: var(--color-poker-darker-green);
+    border-radius: 0;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: var(--color-gold);
+    border: 2px solid var(--color-poker-darker-green);
+    border-radius: 0;
+  }
+  &::-webkit-scrollbar-thumb:active {
+    background: var(--color-golden-dark);
+  }
+  /* Firefox doesn't know the ::-webkit-scrollbar pseudo-elements */
+  @supports not selector(::-webkit-scrollbar) {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-gold) var(--color-poker-darker-green);
+  }
+}
+
+/* Still scrollable (wheel, touch, keyboard), but no visible bar */
+@utility scrollbar-hidden {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 .image-pixelated {
   image-rendering: pixelated;
 }

@@ -72,8 +72,18 @@ export const tableStore = persisted('table', {
 
 // The silent auction screen: smallest bid, and why the last bid was refused
 // (empty when there is nothing to fix). "at" changes each time the game sends it.
+// "unique": the same screen for the Lowest Unique Bid (other rules, other title).
 export const silentAuctionStore = persisted('silentAuction', {
+  unique: false,
   minBid: 1,
+  error: '',
+  at: 0,
+}, { storage: 'session' });
+
+// The Table Vote screen: the lot to vote on, and why the last vote was refused
+// (empty when there is nothing to fix). "at" changes each time the game sends it.
+export const voteStore = persisted('vote', {
+  cards: [] as Card[],
   error: '',
   at: 0,
 }, { storage: 'session' });

@@ -167,6 +167,18 @@
 				"shortDesc": "Sinkender Preis, erster Käufer gewinnt",
 				"description": "Der Preis beginnt hoch und sinkt mit der Zeit (wird auf dem Hauptbildschirm angezeigt). Der erste Spieler, der 'Jetzt kaufen' drückt, gewinnt die Karte zum aktuellen Preis. Handle schnell, um ein gutes Angebot zu bekommen, aber warte nicht zu lange, sonst kauft sie vielleicht jemand anders!",
 				"howTo": "1. Beobachte den Bildschirm für den Preis\n2. Warte auf deinen Zielpreis\n3. Drücke 'Jetzt kaufen' zum Erwerben\n4. Erster Käufer gewinnt!"
+			},
+			"uniqueAuction": {
+				"name": "Niedrigstes Einzelgebot",
+				"shortDesc": "Das niedrigste Gebot, das sonst niemand abgab, gewinnt",
+				"description": "Alle geben ein geheimes Gebot ab. Beträge, die mehrere geboten haben, fallen raus; das niedrigste verbleibende Gebot gewinnt die Karte und zahlt es. Biete wenig, um wenig zu zahlen, aber nicht da, wo alle bieten!",
+				"howTo": "1. Rate, was die anderen bieten\n2. Wähle einen Betrag, den sonst keiner nimmt\n3. Gib dein Geheimgebot ab\n4. Das niedrigste Einzelgebot gewinnt!"
+			},
+			"voteAuction": {
+				"name": "Tischabstimmung",
+				"shortDesc": "Gratis abstimmen, die meisten Stimmen gewinnen",
+				"description": "Nur für die erste Karte einer Runde. Niemand zahlt: Alle stimmen geheim für eine Karte des Loses. Die Stimmen werden auf dem Hauptbildschirm aufgedeckt und die Karte mit den meisten Stimmen kommt auf den Tisch (bei Gleichstand wird unter den gleichauf liegenden Karten gelost).",
+				"howTo": "1. Schau dir das Los an\n2. Tippe auf deine Karte\n3. Bestätige deine Stimme\n4. Die meisten Stimmen kommen auf den Tisch!"
 			}
 		}
 	},
@@ -216,5 +228,16 @@
     "tooPoor": "Du hast nur {{balance}} Chips",
     "allIn": "Alles",
     "sending": "Sende…"
+  },
+  "uniqueBid": {
+    "title": "Niedrigstes Einzelgebot",
+    "subtitle": "Ein geheimes Gebot pro Person. Der niedrigste Betrag, den sonst niemand bot, gewinnt und zahlt. Gleicher Betrag wie jemand anderes: ihr seid beide raus."
+  },
+  "vote": {
+    "title": "Tischabstimmung",
+    "subtitle": "Gratis: keine Chips. Stimme für die Karte, die du auf dem Tisch willst. Die Karte mit den meisten Stimmen kommt dorthin.",
+    "confirm": "Für diese Karte stimmen",
+    "sending": "Senden…",
+    "pick": "Tippe auf eine Karte, um für sie zu stimmen"
   }
 }

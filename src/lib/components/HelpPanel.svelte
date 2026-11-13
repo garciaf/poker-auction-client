@@ -128,6 +128,16 @@
 			key: 'dutchAuction',
 			icon: '⏬',
 			color: '#FF8300' // dutch-orange
+		},
+		{
+			key: 'uniqueAuction',
+			icon: '🎯',
+			color: '#8F38BD' // unique-bid purple
+		},
+		{
+			key: 'voteAuction',
+			icon: '🗳️',
+			color: '#295CC7' // table-vote blue
 		}
 	];
 </script>

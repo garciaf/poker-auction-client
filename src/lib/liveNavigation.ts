@@ -2,7 +2,7 @@ import { goto, } from '$app/navigation';
 import { resolve } from '$app/paths';
 import { browser } from '$app/environment';
 import socket from '$lib/socket';
-import { playerStore, lotsStore, shopStore, updateJokerStatus, bonusStore, notifications, silentAuctionStore, tableStore } from '$lib/stores/player';
+import { playerStore, lotsStore, shopStore, updateJokerStatus, bonusStore, notifications, silentAuctionStore, tableStore, voteStore } from '$lib/stores/player';
 // @ts-ignore
 import { gameStore, loadingMessage } from '$lib/stores/player';
 
@@ -16,9 +16,17 @@ class LiveNavigation {
         goto(resolve('/loading'));
       } else if (data.screen === 'open-auction') {
         goto(resolve('/bid'));
-      } else if (data.screen === 'silent-auction') {
-        silentAuctionStore.set({ minBid: data.min_bid ?? 1, error: data.error || '', at: Date.now() });
+      } else if (data.screen === 'silent-auction' || data.screen === 'unique-auction') {
+        silentAuctionStore.set({
+          unique: data.screen === 'unique-auction',
+          minBid: data.min_bid ?? 1,
+          error: data.error || '',
+          at: Date.now()
+        });
         goto(resolve('/silent-bid'));
+      } else if (data.screen === 'vote-auction') {
+        voteStore.set({ cards: data.cards || [], error: data.error || '', at: Date.now() });
+        goto(resolve('/vote'));
       } else if (data.screen === 'dutch-auction') {
         goto(resolve('/offer'));
       } else if(data.screen === 'finance') {
