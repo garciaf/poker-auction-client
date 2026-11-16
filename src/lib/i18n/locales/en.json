@@ -152,8 +152,8 @@
       "openAuction": {
         "name": "Open Auction",
         "shortDesc": "Classic ascending bid auction",
-        "description": "Players openly bid against each other. You can see the current highest bid. Enter your bid amount and submit when ready. The player with the highest bid wins the card.",
-        "howTo": "1. Check the current bid\n2. Enter a higher amount\n3. Submit your bid\n4. Highest bid wins!"
+        "description": "Players openly bid against each other. Your phone shows the top bid and who holds it: tap a raise to bid that much more. The last player to bid wins the card.",
+        "howTo": "1. Watch the top bid on your phone\n2. Tap +1, +5, +10 or +20 to raise over it\n3. Raise again when someone outbids you\n4. The last bidder wins!"
       },
       "silentAuction": {
         "name": "Silent Auction",
@@ -227,6 +227,19 @@
     "tooPoor": "You only have {{balance}} chips",
     "allIn": "All in",
     "sending": "Sending…"
+  },
+  "openBid": {
+    "title": "Open auction",
+    "subtitle": "Raise over the top bid. The last bidder wins.",
+    "opening": "Opening price",
+    "openingHint": "Nobody has bid yet",
+    "topBid": "Top bid",
+    "by": "by {{name}}",
+    "youLead": "You lead",
+    "youLeadHint": "Wait for someone to raise",
+    "open": "Open",
+    "allIn": "All in",
+    "balance": "You have {{balance}} chips"
   },
   "uniqueBid": {
     "title": "Lowest unique bid",

@@ -153,8 +153,8 @@
 			"openAuction": {
 				"name": "Offene Auktion",
 				"shortDesc": "Klassische aufsteigende Gebotsauktion",
-				"description": "Spieler bieten offen gegeneinander. Du kannst das aktuell höchste Gebot sehen. Gib deinen Gebotsbetrag ein und sende ihn ab, wenn du bereit bist. Der Spieler mit dem höchsten Gebot gewinnt die Karte.",
-				"howTo": "1. Überprüfe das aktuelle Gebot\n2. Gib einen höheren Betrag ein\n3. Sende dein Gebot ab\n4. Höchstes Gebot gewinnt!"
+				"description": "Spieler bieten offen gegeneinander. Dein Handy zeigt das Höchstgebot und wer es hält: tippe auf eine Erhöhung, um so viel mehr zu bieten. Wer zuletzt bietet, gewinnt die Karte.",
+				"howTo": "1. Behalte das Höchstgebot auf deinem Handy im Blick\n2. Tippe +1, +5, +10 oder +20, um zu überbieten\n3. Erhöhe erneut, wenn dich jemand überbietet\n4. Wer zuletzt bietet, gewinnt!"
 			},
 			"silentAuction": {
 				"name": "Stille Auktion",
@@ -228,6 +228,19 @@
     "tooPoor": "Du hast nur {{balance}} Chips",
     "allIn": "Alles",
     "sending": "Sende…"
+  },
+  "openBid": {
+    "title": "Offene Auktion",
+    "subtitle": "Überbiete das Höchstgebot. Wer zuletzt bietet, gewinnt.",
+    "opening": "Startpreis",
+    "openingHint": "Noch kein Gebot",
+    "topBid": "Höchstgebot",
+    "by": "von {{name}}",
+    "youLead": "Du führst",
+    "youLeadHint": "Warte, ob jemand überbietet",
+    "open": "Eröffnen",
+    "allIn": "Alles",
+    "balance": "Du hast {{balance}} Chips"
   },
   "uniqueBid": {
     "title": "Niedrigstes Einzelgebot",

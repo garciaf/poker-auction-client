@@ -2,7 +2,7 @@ import { goto, } from '$app/navigation';
 import { resolve } from '$app/paths';
 import { browser } from '$app/environment';
 import socket from '$lib/socket';
-import { playerStore, lotsStore, shopStore, updateJokerStatus, bonusStore, notifications, silentAuctionStore, tableStore, voteStore } from '$lib/stores/player';
+import { playerStore, lotsStore, shopStore, updateJokerStatus, bonusStore, notifications, silentAuctionStore, tableStore, voteStore, setOpenAuction } from '$lib/stores/player';
 // @ts-ignore
 import { gameStore, loadingMessage } from '$lib/stores/player';
 
@@ -15,6 +15,7 @@ class LiveNavigation {
         loadingMessage.set({ message: data.message || "Loading..." });
         goto(resolve('/loading'));
       } else if (data.screen === 'open-auction') {
+        setOpenAuction(data);
         goto(resolve('/bid'));
       } else if (data.screen === 'silent-auction' || data.screen === 'unique-auction') {
         silentAuctionStore.set({
@@ -47,6 +48,11 @@ class LiveNavigation {
         shopStore.set({ jokers: jokers })
         goto(resolve('/shop'))
       }
+    });
+
+    // Open auction: a bid was taken, the phone raises over the new top bid.
+    socket?.on('current-bid', (data) => {
+      setOpenAuction(data);
     });
 
     socket?.on('update-finance', (data) => {

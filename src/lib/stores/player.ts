@@ -88,6 +88,30 @@ export const voteStore = persisted('vote', {
   at: 0,
 }, { storage: 'session' });
 
+// The open auction's top bid, sent by the game when the auction opens and
+// each time a bid is taken: the phone raises over it. Nobody holds it at the
+// start (playerId ''): it is the opening price, and bidding it is enough
+// (minBid is the lowest bid the game takes now).
+export const openAuctionStore = persisted('openAuction', {
+  currentBid: 1,
+  minBid: 1,
+  playerId: '',
+  playerName: '',
+  color: '',
+}, { storage: 'session' });
+
+// What the game sends ('open-auction' screen, 'current-bid' event) → the store.
+export function setOpenAuction(data: Record<string, any>) {
+  const currentBid = Number(data.current_bid ?? 1);
+  openAuctionStore.set({
+    currentBid,
+    minBid: Number(data.min_bid ?? currentBid + (data.player_id ? 1 : 0)),
+    playerId: data.player_id || '',
+    playerName: data.player_name || '',
+    color: data.color || '',
+  });
+}
+
 export const shopStore = persisted('shop', {
     jokers: [] as Joker[]
 }, { storage: 'session' })

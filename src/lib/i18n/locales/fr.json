@@ -153,8 +153,8 @@
       "openAuction": {
         "name": "Enchère Ouverte",
         "shortDesc": "Enchère ascendante classique",
-        "description": "Les joueurs enchérissent ouvertement les uns contre les autres. Vous pouvez voir l'enchère la plus élevée actuelle. Entrez votre montant et soumettez quand vous êtes prêt. Le joueur avec l'enchère la plus élevée remporte la carte.",
-        "howTo": "1. Vérifiez l'enchère actuelle\n2. Entrez un montant plus élevé\n3. Soumettez votre enchère\n4. L'enchère la plus haute gagne!"
+        "description": "Les joueurs enchérissent ouvertement les uns contre les autres. Votre téléphone montre la meilleure offre et qui la détient : touchez une relance pour offrir autant de plus. Le dernier à enchérir remporte la carte.",
+        "howTo": "1. Suivez la meilleure offre sur votre téléphone\n2. Touchez +1, +5, +10 ou +20 pour surenchérir\n3. Relancez quand on vous dépasse\n4. Le dernier à enchérir gagne !"
       },
       "silentAuction": {
         "name": "Enchère Silencieuse",
@@ -228,6 +228,19 @@
     "tooPoor": "Vous n'avez que {{balance}} jetons",
     "allIn": "Tapis",
     "sending": "Envoi…"
+  },
+  "openBid": {
+    "title": "Enchère ouverte",
+    "subtitle": "Surenchérissez sur la meilleure offre. Le dernier à enchérir gagne.",
+    "opening": "Prix de départ",
+    "openingHint": "Personne n'a encore enchéri",
+    "topBid": "Meilleure offre",
+    "by": "par {{name}}",
+    "youLead": "Vous menez",
+    "youLeadHint": "Attendez qu'on vous surenchérisse",
+    "open": "Ouvrir",
+    "allIn": "Tapis",
+    "balance": "Vous avez {{balance}} jetons"
   },
   "uniqueBid": {
     "title": "Plus petite offre unique",
